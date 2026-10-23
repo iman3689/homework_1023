@@ -1,9 +1,9 @@
 <!doctype html>
 <html lang="zh-Hant"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>原始碼 · 風域</title><link rel="stylesheet" href="report.css"></head><body><header><div class="brand"><div class="logo">◉</div><div><h1>風域 <small>TYPHOON LAB</small></h1><p>QUALITY & ENGINEERING NOTEBOOK</p></div></div><nav><a href="index.html">工作台 ↗</a><a href="review.html">檢測報告</a><a href="pointout.html">原始碼透視</a></nav></header><main class="report"><h2>可跳轉的原始碼</h2><pre><span class="source-line" id="L1"><a href="#L1">1</a>&lt;!doctype html&gt;</span>
-<span class="source-line" id="L2"><a href="#L2">2</a>&lt;html lang=<span class="code-string">&quot;zh-Hant&quot;</span>&gt;</span>
+<span class="source-line" id="L2"><a href="#L2">2</a>&lt;html lang=&quot;zh-Hant&quot;&gt;</span>
 <span class="source-line" id="L3"><a href="#L3">3</a>&lt;head&gt;</span>
-<span class="source-line" id="L4"><a href="#L4">4</a>&lt;meta charset=<span class="code-string">&quot;utf-8&quot;</span>&gt;&lt;meta name=<span class="code-string">&quot;viewport&quot;</span> content=<span class="code-string">&quot;width=device-width,initial-scale=1&quot;</span>&gt;</span>
-<span class="source-line" id="L5"><a href="#L5">5</a>&lt;meta name=<span class="code-string">&quot;description&quot;</span> content=<span class="code-string">&quot;純 SVG 颱風與台灣地形互動教學工作台&quot;</span>&gt;</span>
+<span class="source-line" id="L4"><a href="#L4">4</a>&lt;meta charset=&quot;utf-8&quot;&gt;&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width,initial-scale=1&quot;&gt;</span>
+<span class="source-line" id="L5"><a href="#L5">5</a>&lt;meta name=&quot;description&quot; content=&quot;純 SVG 颱風與台灣地形互動教學工作台&quot;&gt;</span>
 <span class="source-line" id="L6"><a href="#L6">6</a>&lt;title&gt;風域 · TYPHOON LAB&lt;/title&gt;</span>
 <span class="source-line" id="L7"><a href="#L7">7</a>&lt;style&gt;</span>
 <span class="source-line" id="L8"><a href="#L8">8</a>:root{color-scheme:dark;--bg:#090f19;--panel:#101d2b;--line:#263747;--text:#e1edf4;--muted:#8ca2b5;--cyan:#71e8cd;--amber:#efba79;--ease:cubic-bezier(.34,1.56,.64,1)}</span>
@@ -53,422 +53,463 @@
 <span class="source-line" id="L52"><a href="#L52">52</a>.view-tools [aria-pressed=true]{background:#254a45;color:#b6f8e5;border-color:#588f80}</span>
 <span class="source-line" id="L53"><a href="#L53">53</a>#scene{position:relative;width:100%;height:500px;display:block}</span>
 <span class="source-line" id="L54"><a href="#L54">54</a>.world{transform-origin:400px 285px;transition:transform .7s ease-out}</span>
-<span class="source-line" id="L55"><a href="#L55">55</a>.perspective .world{transform:translateY(35px) rotate(-10deg) scaleY(.8)}</span>
-<span class="source-line" id="L56"><a href="#L56">56</a>.ocean-label{fill:#527b8a;font-size:11px;letter-spacing:5px}</span>
-<span class="source-line" id="L57"><a href="#L57">57</a>.map-label{fill:#d6ebe5;font-size:11px}</span>
-<span class="source-line" id="L58"><a href="#L58">58</a>.city{fill:#8df1d5;stroke:#12352f;stroke-width:3}</span>
-<span class="source-line" id="L59"><a href="#L59">59</a>.terrain-line{fill:none;stroke:#a1c8a1;stroke-width:.65;opacity:.45}</span>
-<span class="source-line" id="L60"><a href="#L60">60</a>.wind-path{fill:none;stroke:#99e7d6;stroke-width:1.6;stroke-linecap:round;opacity:.7}</span>
-<span class="source-line" id="L61"><a href="#L61">61</a>.rainband{fill:none;stroke:#7cbee8;stroke-width:19;opacity:.13}</span>
-<span class="source-line" id="L62"><a href="#L62">62</a>.storm-track{fill:none;stroke:var(--amber);stroke-width:1.7;stroke-dasharray:4 8}</span>
-<span class="source-line" id="L63"><a href="#L63">63</a>.draw-path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1s ease-out forwards}</span>
-<span class="source-line" id="L64"><a href="#L64">64</a>@keyframes draw{to{stroke-dashoffset:0}</span>
-<span class="source-line" id="L65"><a href="#L65">65</a>}</span>
-<span class="source-line" id="L66"><a href="#L66">66</a>@keyframes bounce{50%{transform:scale(1.3)}</span>
-<span class="source-line" id="L67"><a href="#L67">67</a>100%{transform:scale(1)}</span>
+<span class="source-line" id="L55"><a href="#L55">55</a>.world{transform:none!important}</span>
+<span class="source-line" id="L56"><a href="#L56">56</a>#scene{transform-origin:50% 50%;transition:transform .7s ease-out;transform:rotateX(0deg)}</span>
+<span class="source-line" id="L57"><a href="#L57">57</a>.perspective #scene{transform:perspective(1100px) rotateX(18deg) rotateZ(-3deg)}</span>
+<span class="source-line" id="L58"><a href="#L58">58</a>.isometric #scene{transform:rotateX(54.7356deg) rotateZ(-45deg)}</span>
+<span class="source-line" id="L59"><a href="#L59">59</a>.ocean-label{fill:#527b8a;font-size:11px;letter-spacing:5px}</span>
+<span class="source-line" id="L60"><a href="#L60">60</a>.map-label{fill:#d6ebe5;font-size:11px}</span>
+<span class="source-line" id="L61"><a href="#L61">61</a>.city{fill:#8df1d5;stroke:#12352f;stroke-width:3}</span>
+<span class="source-line" id="L62"><a href="#L62">62</a>.terrain-line{fill:none;stroke:#a1c8a1;stroke-width:.65;opacity:.45}</span>
+<span class="source-line" id="L63"><a href="#L63">63</a>.wind-path{fill:none;stroke:#99e7d6;stroke-width:1.6;stroke-linecap:round;opacity:.7}</span>
+<span class="source-line" id="L64"><a href="#L64">64</a>.rainband{fill:none;stroke:#7cbee8;stroke-width:19;opacity:.13}</span>
+<span class="source-line" id="L65"><a href="#L65">65</a>.storm-track{fill:none;stroke:var(--amber);stroke-width:1.7;stroke-dasharray:4 8}</span>
+<span class="source-line" id="L66"><a href="#L66">66</a>.draw-path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1s ease-out forwards}</span>
+<span class="source-line" id="L67"><a href="#L67">67</a>@keyframes draw{to{stroke-dashoffset:0}</span>
 <span class="source-line" id="L68"><a href="#L68">68</a>}</span>
-<span class="source-line" id="L69"><a href="#L69">69</a>.saved svg{animation:bounce .5s var(--ease)}</span>
-<span class="source-line" id="L70"><a href="#L70">70</a>.canvas-bottom{position:absolute;bottom:17px;left:20px;right:20px;display:flex;justify-content:space-between;align-items:end;pointer-events:none}</span>
-<span class="source-line" id="L71"><a href="#L71">71</a>.legend{display:flex;gap:14px;color:#9eb9c8;font-size:9px}</span>
-<span class="source-line" id="L72"><a href="#L72">72</a>.legend i{width:12px;height:2px;display:inline-block;vertical-align:middle;margin-right:5px}</span>
-<span class="source-line" id="L73"><a href="#L73">73</a>.compass{color:#7e9fae;text-align:center;font:9px Consolas,monospace}</span>
-<span class="source-line" id="L74"><a href="#L74">74</a>.compass span{display:block;font-size:26px;color:#c1e9df}</span>
-<span class="source-line" id="L75"><a href="#L75">75</a>.metric{padding:12px 0 16px;border-bottom:1px solid var(--line)}</span>
-<span class="source-line" id="L76"><a href="#L76">76</a>.label{font-size:11px;color:var(--muted)}</span>
-<span class="source-line" id="L77"><a href="#L77">77</a>.value{font-size:35px;line-height:1.5;font-weight:300;letter-spacing:-.04em}</span>
-<span class="source-line" id="L78"><a href="#L78">78</a>.value small{font-size:11px;color:var(--muted);letter-spacing:0;margin-left:5px}</span>
-<span class="source-line" id="L79"><a href="#L79">79</a>.sub{font-size:10px;color:var(--cyan)}</span>
-<span class="source-line" id="L80"><a href="#L80">80</a>.amber .value{color:var(--amber)}</span>
-<span class="source-line" id="L81"><a href="#L81">81</a>.bar{height:3px;background:#293d48;margin-top:8px;overflow:hidden}</span>
-<span class="source-line" id="L82"><a href="#L82">82</a>.bar span{height:100%;background:var(--cyan);display:block;transform-origin:left}</span>
-<span class="source-line" id="L83"><a href="#L83">83</a>.insight h3{font-size:12px;font-weight:500;margin:16px 0 8px}</span>
-<span class="source-line" id="L84"><a href="#L84">84</a>.insight p{font-size:11px;color:var(--muted);margin:0}</span>
-<span class="source-line" id="L85"><a href="#L85">85</a>.transport{grid-column:1/-1;display:grid;grid-template-columns:180px 1fr 245px;gap:20px;align-items:center;padding:16px 20px}</span>
-<span class="source-line" id="L86"><a href="#L86">86</a>.play-group{display:flex;gap:12px;align-items:center}</span>
-<span class="source-line" id="L87"><a href="#L87">87</a>.primary{background:var(--cyan);color:#092b25;border-color:var(--cyan);font-weight:600}</span>
-<span class="source-line" id="L88"><a href="#L88">88</a>.primary:hover{background:#a5f3df}</span>
-<span class="source-line" id="L89"><a href="#L89">89</a>.time-value{font:12px Consolas,monospace;white-space:nowrap}</span>
-<span class="source-line" id="L90"><a href="#L90">90</a>.time-value small{display:block;font-size:8px;color:var(--muted);margin-top:5px}</span>
-<span class="source-line" id="L91"><a href="#L91">91</a>.timeline label{font-size:10px;color:var(--muted)}</span>
-<span class="source-line" id="L92"><a href="#L92">92</a>input[type=range]{width:100%;accent-color:var(--cyan);cursor:pointer}</span>
-<span class="source-line" id="L93"><a href="#L93">93</a>.ticks{display:flex;justify-content:space-between;font:9px Consolas,monospace;color:#7e99ac}</span>
-<span class="source-line" id="L94"><a href="#L94">94</a>.transport-end{display:flex;justify-content:end;gap:7px}</span>
-<span class="source-line" id="L95"><a href="#L95">95</a>.transport-end select{font-size:10px;max-width:90px}</span>
-<span class="source-line" id="L96"><a href="#L96">96</a>.bottomline{display:flex;justify-content:space-between;gap:15px;font-size:10px;color:#7c93a6;margin-top:13px}</span>
-<span class="source-line" id="L97"><a href="#L97">97</a>.text-button{border:0;background:none;padding:0;color:var(--muted);font-size:10px}</span>
-<span class="source-line" id="L98"><a href="#L98">98</a>.learning{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:24px}</span>
-<span class="source-line" id="L99"><a href="#L99">99</a>.learn-item{border-top:1px solid var(--line);padding:17px 0;display:flex;gap:14px}</span>
-<span class="source-line" id="L100"><a href="#L100">100</a>.number{color:var(--cyan);font:11px Consolas,monospace}</span>
-<span class="source-line" id="L101"><a href="#L101">101</a>h3{font-size:13px;font-weight:500;margin:0 0 6px}</span>
-<span class="source-line" id="L102"><a href="#L102">102</a>.learn-item p{font-size:11px;color:var(--muted);margin:0}</span>
-<span class="source-line" id="L103"><a href="#L103">103</a>.foot{display:flex;justify-content:space-between;gap:15px;font-size:10px;color:var(--muted);padding-top:10px}</span>
-<span class="source-line" id="L104"><a href="#L104">104</a>.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);padding:10px 20px;border:1px solid #68b69c;background:#23453a;border-radius:7px;z-index:20}</span>
-<span class="source-line" id="L105"><a href="#L105">105</a>.capture .learning,.capture .foot{display:none}</span>
-<span class="source-line" id="L106"><a href="#L106">106</a>@media(min-width:1600px){#scene{height:570px}</span>
-<span class="source-line" id="L107"><a href="#L107">107</a>.viewport{min-height:570px}</span>
-<span class="source-line" id="L108"><a href="#L108">108</a>.sidebar,.stats{padding:24px}</span>
-<span class="source-line" id="L109"><a href="#L109">109</a>.metric{padding:18px 0 23px}</span>
-<span class="source-line" id="L110"><a href="#L110">110</a>.scenario-copy{min-height:85px}</span>
-<span class="source-line" id="L111"><a href="#L111">111</a>}</span>
-<span class="source-line" id="L112"><a href="#L112">112</a>@media(max-width:1100px){.workspace{grid-template-columns:185px minmax(300px,1fr)}</span>
-<span class="source-line" id="L113"><a href="#L113">113</a>.stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}</span>
-<span class="source-line" id="L114"><a href="#L114">114</a>.stats&gt;.section-label{display:none}</span>
-<span class="source-line" id="L115"><a href="#L115">115</a>.metric{border:0;padding:0}</span>
-<span class="source-line" id="L116"><a href="#L116">116</a>.insight h3{margin-top:0}</span>
-<span class="source-line" id="L117"><a href="#L117">117</a>.transport{grid-template-columns:150px 1fr 220px}</span>
-<span class="source-line" id="L118"><a href="#L118">118</a>nav .badge{display:none}</span>
-<span class="source-line" id="L119"><a href="#L119">119</a>}</span>
-<span class="source-line" id="L120"><a href="#L120">120</a>@media(max-width:700px){header{padding:15px}</span>
-<span class="source-line" id="L121"><a href="#L121">121</a>h1{font-size:20px}</span>
-<span class="source-line" id="L122"><a href="#L122">122</a>h1 small{font-size:10px}</span>
-<span class="source-line" id="L123"><a href="#L123">123</a>nav{gap:10px;font-size:11px}</span>
-<span class="source-line" id="L124"><a href="#L124">124</a>nav a:last-child{display:none}</span>
-<span class="source-line" id="L125"><a href="#L125">125</a>.shell{padding:16px}</span>
-<span class="source-line" id="L126"><a href="#L126">126</a>.intro{display:block}</span>
-<span class="source-line" id="L127"><a href="#L127">127</a>.intro p{margin-top:7px}</span>
-<span class="source-line" id="L128"><a href="#L128">128</a>.workspace{display:flex;flex-direction:column}</span>
-<span class="source-line" id="L129"><a href="#L129">129</a>.sidebar{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:15px}</span>
-<span class="source-line" id="L130"><a href="#L130">130</a>.sidebar&gt;.section-label,.sidebar&gt;.divider,.sidebar&gt;.hint{display:none}</span>
-<span class="source-line" id="L131"><a href="#L131">131</a>.layers{grid-column:2;grid-row:1}</span>
-<span class="source-line" id="L132"><a href="#L132">132</a>.toggle{margin:6px 0}</span>
-<span class="source-line" id="L133"><a href="#L133">133</a>.sidebar&gt;.small{grid-column:1/-1;margin:0}</span>
-<span class="source-line" id="L134"><a href="#L134">134</a>.scenario-copy{min-height:0}</span>
-<span class="source-line" id="L135"><a href="#L135">135</a>.viewport{min-height:410px}</span>
-<span class="source-line" id="L136"><a href="#L136">136</a>#scene{height:410px}</span>
-<span class="source-line" id="L137"><a href="#L137">137</a>.view-tools{top:51px}</span>
-<span class="source-line" id="L138"><a href="#L138">138</a>.stats{grid-template-columns:repeat(3,1fr);padding:15px;gap:12px}</span>
-<span class="source-line" id="L139"><a href="#L139">139</a>.value{font-size:27px}</span>
-<span class="source-line" id="L140"><a href="#L140">140</a>.insight{grid-column:1/-1}</span>
-<span class="source-line" id="L141"><a href="#L141">141</a>.transport{display:flex;flex-wrap:wrap;gap:12px;padding:15px}</span>
-<span class="source-line" id="L142"><a href="#L142">142</a>.timeline{order:3;width:100%}</span>
-<span class="source-line" id="L143"><a href="#L143">143</a>.transport-end{margin-left:auto}</span>
-<span class="source-line" id="L144"><a href="#L144">144</a>.learning{display:block}</span>
-<span class="source-line" id="L145"><a href="#L145">145</a>.bottomline,.foot{flex-wrap:wrap}</span>
-<span class="source-line" id="L146"><a href="#L146">146</a>}</span>
-<span class="source-line" id="L147"><a href="#L147">147</a>@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}</span>
-<span class="source-line" id="L148"><a href="#L148">148</a>}</span>
-<span class="source-line" id="L149"><a href="#L149">149</a>@media print{header,.sidebar,.transport,.foot{display:none}</span>
-<span class="source-line" id="L150"><a href="#L150">150</a>.workspace{display:block}</span>
-<span class="source-line" id="L151"><a href="#L151">151</a>.viewport{break-inside:avoid}</span>
-<span class="source-line" id="L152"><a href="#L152">152</a>.stats{display:flex;gap:25px}</span>
-<span class="source-line" id="L153"><a href="#L153">153</a>body{print-color-adjust:exact}</span>
-<span class="source-line" id="L154"><a href="#L154">154</a>}</span>
-<span class="source-line" id="L155"><a href="#L155">155</a></span>
-<span class="source-line" id="L156"><a href="#L156">156</a></span>
-<span class="source-line" id="L157"><a href="#L157">157</a>@media(max-width:700px){header{flex-wrap:wrap;gap:10px}.brand{min-width:0}.workspace&gt;*{min-width:0;width:100%}.sidebar{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}.field,.layers{min-width:0}.field select{min-width:0;max-width:100%;padding:7px 4px;font-size:10px}.toggle{font-size:10px}.layers .section-label{font-size:9px}.transport-end{flex-wrap:wrap}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.stats .small{font-size:9px}.bottomline span{overflow-wrap:anywhere}.foot{flex-direction:column}}</span>
-<span class="source-line" id="L158"><a href="#L158">158</a>&lt;/style&gt;</span>
-<span class="source-line" id="L159"><a href="#L159">159</a>&lt;/head&gt;</span>
-<span class="source-line" id="L160"><a href="#L160">160</a>&lt;body&gt;</span>
-<span class="source-line" id="L161"><a href="#L161">161</a>&lt;header&gt;</span>
-<span class="source-line" id="L162"><a href="#L162">162</a>&lt;div class=<span class="code-string">&quot;brand&quot;</span>&gt;</span>
-<span class="source-line" id="L163"><a href="#L163">163</a>&lt;div class=<span class="code-string">&quot;logo&quot;</span> aria-hidden=<span class="code-string">&quot;true&quot;</span>&gt;◉&lt;/div&gt;</span>
-<span class="source-line" id="L164"><a href="#L164">164</a>&lt;div&gt;</span>
-<span class="source-line" id="L165"><a href="#L165">165</a>&lt;h1&gt;風域 &lt;small&gt;TYPHOON LAB&lt;/small&gt;</span>
-<span class="source-line" id="L166"><a href="#L166">166</a>&lt;/h1&gt;</span>
-<span class="source-line" id="L167"><a href="#L167">167</a>&lt;p&gt;TAIWAN · INTERACTIVE EARTH SCIENCE&lt;/p&gt;</span>
-<span class="source-line" id="L168"><a href="#L168">168</a>&lt;/div&gt;</span>
-<span class="source-line" id="L169"><a href="#L169">169</a>&lt;/div&gt;</span>
-<span class="source-line" id="L170"><a href="#L170">170</a>&lt;nav aria-label=<span class="code-string">&quot;主要導覽&quot;</span>&gt;</span>
-<span class="source-line" id="L171"><a href="#L171">171</a>&lt;span class=<span class="code-string">&quot;badge&quot;</span>&gt;SVG / ZERO DEPENDENCIES&lt;/span&gt;</span>
-<span class="source-line" id="L172"><a href="#L172">172</a>&lt;a href=<span class="code-string">&quot;review.html&quot;</span>&gt;檢測報告 ↗&lt;/a&gt;</span>
-<span class="source-line" id="L173"><a href="#L173">173</a>&lt;a href=<span class="code-string">&quot;pointout.html&quot;</span>&gt;原始碼透視 ↗&lt;/a&gt;</span>
-<span class="source-line" id="L174"><a href="#L174">174</a>&lt;/nav&gt;</span>
-<span class="source-line" id="L175"><a href="#L175">175</a>&lt;/header&gt;</span>
-<span class="source-line" id="L176"><a href="#L176">176</a>&lt;main class=<span class="code-string">&quot;shell&quot;</span>&gt;</span>
-<span class="source-line" id="L177"><a href="#L177">177</a>&lt;div class=<span class="code-string">&quot;intro&quot;</span>&gt;</span>
-<span class="source-line" id="L178"><a href="#L178">178</a>&lt;div&gt;</span>
-<span class="source-line" id="L179"><a href="#L179">179</a>&lt;div class=<span class="code-string">&quot;eyebrow&quot;</span>&gt;EXPERIMENT 01 / ATMOSPHERIC DYNAMICS&lt;/div&gt;</span>
-<span class="source-line" id="L180"><a href="#L180">180</a>&lt;h2&gt;當颱風，遇上台灣。&lt;/h2&gt;</span>
-<span class="source-line" id="L181"><a href="#L181">181</a>&lt;/div&gt;</span>
-<span class="source-line" id="L182"><a href="#L182">182</a>&lt;p&gt;移動時間軸，觀察環流與山脈如何改變風雨。&lt;/p&gt;</span>
-<span class="source-line" id="L183"><a href="#L183">183</a>&lt;/div&gt;</span>
-<span class="source-line" id="L184"><a href="#L184">184</a>&lt;div class=<span class="code-string">&quot;workspace&quot;</span>&gt;</span>
-<span class="source-line" id="L185"><a href="#L185">185</a>&lt;aside class=<span class="code-string">&quot;panel sidebar&quot;</span>&gt;</span>
-<span class="source-line" id="L186"><a href="#L186">186</a>&lt;div class=<span class="code-string">&quot;section-label&quot;</span>&gt;情境控制 &lt;b&gt;01 / SETUP&lt;/b&gt;</span>
-<span class="source-line" id="L187"><a href="#L187">187</a>&lt;/div&gt;</span>
-<span class="source-line" id="L188"><a href="#L188">188</a>&lt;div class=<span class="code-string">&quot;field&quot;</span>&gt;</span>
-<span class="source-line" id="L189"><a href="#L189">189</a>&lt;label for=<span class="code-string">&quot;scenario&quot;</span>&gt;颱風路徑情境&lt;/label&gt;</span>
-<span class="source-line" id="L190"><a href="#L190">190</a>&lt;select id=<span class="code-string">&quot;scenario&quot;</span>&gt;</span>
-<span class="source-line" id="L191"><a href="#L191">191</a>&lt;option value=<span class="code-string">&quot;cross&quot;</span>&gt;東部登陸 · 穿越台灣&lt;/option&gt;</span>
-<span class="source-line" id="L192"><a href="#L192">192</a>&lt;option value=<span class="code-string">&quot;north&quot;</span>&gt;東側北上 · 沿海掠過&lt;/option&gt;</span>
-<span class="source-line" id="L193"><a href="#L193">193</a>&lt;option value=<span class="code-string">&quot;south&quot;</span>&gt;南側通過 · 西南氣流&lt;/option&gt;</span>
-<span class="source-line" id="L194"><a href="#L194">194</a>&lt;/select&gt;</span>
-<span class="source-line" id="L195"><a href="#L195">195</a>&lt;p class=<span class="code-string">&quot;scenario-copy&quot;</span> id=<span class="code-string">&quot;scenarioCopy&quot;</span>&gt;</span>
-<span class="source-line" id="L196"><a href="#L196">196</a>&lt;/p&gt;</span>
-<span class="source-line" id="L197"><a href="#L197">197</a>&lt;/div&gt;</span>
-<span class="source-line" id="L198"><a href="#L198">198</a>&lt;div class=<span class="code-string">&quot;divider&quot;</span>&gt;</span>
-<span class="source-line" id="L199"><a href="#L199">199</a>&lt;/div&gt;</span>
-<span class="source-line" id="L200"><a href="#L200">200</a>&lt;div class=<span class="code-string">&quot;layers&quot;</span>&gt;</span>
-<span class="source-line" id="L201"><a href="#L201">201</a>&lt;div class=<span class="code-string">&quot;section-label&quot;</span>&gt;觀測圖層 &lt;b&gt;LAYERS&lt;/b&gt;</span>
+<span class="source-line" id="L69"><a href="#L69">69</a>@keyframes bounce{50%{transform:scale(1.3)}</span>
+<span class="source-line" id="L70"><a href="#L70">70</a>100%{transform:scale(1)}</span>
+<span class="source-line" id="L71"><a href="#L71">71</a>}</span>
+<span class="source-line" id="L72"><a href="#L72">72</a>.saved svg{animation:bounce .5s var(--ease)}</span>
+<span class="source-line" id="L73"><a href="#L73">73</a>.canvas-bottom{position:absolute;bottom:17px;left:20px;right:20px;display:flex;justify-content:space-between;align-items:end;pointer-events:none}</span>
+<span class="source-line" id="L74"><a href="#L74">74</a>.legend{display:flex;gap:14px;color:#9eb9c8;font-size:9px}</span>
+<span class="source-line" id="L75"><a href="#L75">75</a>.legend i{width:12px;height:2px;display:inline-block;vertical-align:middle;margin-right:5px}</span>
+<span class="source-line" id="L76"><a href="#L76">76</a>.compass{color:#7e9fae;text-align:center;font:9px Consolas,monospace}</span>
+<span class="source-line" id="L77"><a href="#L77">77</a>.compass span{display:block;font-size:26px;color:#c1e9df}</span>
+<span class="source-line" id="L78"><a href="#L78">78</a>.metric{padding:12px 0 16px;border-bottom:1px solid var(--line)}</span>
+<span class="source-line" id="L79"><a href="#L79">79</a>.label{font-size:11px;color:var(--muted)}</span>
+<span class="source-line" id="L80"><a href="#L80">80</a>.value{font-size:35px;line-height:1.5;font-weight:300;letter-spacing:-.04em}</span>
+<span class="source-line" id="L81"><a href="#L81">81</a>.value small{font-size:11px;color:var(--muted);letter-spacing:0;margin-left:5px}</span>
+<span class="source-line" id="L82"><a href="#L82">82</a>.sub{font-size:10px;color:var(--cyan)}</span>
+<span class="source-line" id="L83"><a href="#L83">83</a>.amber .value{color:var(--amber)}</span>
+<span class="source-line" id="L84"><a href="#L84">84</a>.bar{height:3px;background:#293d48;margin-top:8px;overflow:hidden}</span>
+<span class="source-line" id="L85"><a href="#L85">85</a>.bar span{height:100%;background:var(--cyan);display:block;transform-origin:left}</span>
+<span class="source-line" id="L86"><a href="#L86">86</a>.insight h3{font-size:12px;font-weight:500;margin:16px 0 8px}</span>
+<span class="source-line" id="L87"><a href="#L87">87</a>.insight p{font-size:11px;color:var(--muted);margin:0}</span>
+<span class="source-line" id="L88"><a href="#L88">88</a>.transport{grid-column:1/-1;display:grid;grid-template-columns:180px 1fr 245px;gap:20px;align-items:center;padding:16px 20px}</span>
+<span class="source-line" id="L89"><a href="#L89">89</a>.play-group{display:flex;gap:12px;align-items:center}</span>
+<span class="source-line" id="L90"><a href="#L90">90</a>.primary{background:var(--cyan);color:#092b25;border-color:var(--cyan);font-weight:600}</span>
+<span class="source-line" id="L91"><a href="#L91">91</a>.primary:hover{background:#a5f3df}</span>
+<span class="source-line" id="L92"><a href="#L92">92</a>.time-value{font:12px Consolas,monospace;white-space:nowrap}</span>
+<span class="source-line" id="L93"><a href="#L93">93</a>.time-value small{display:block;font-size:8px;color:var(--muted);margin-top:5px}</span>
+<span class="source-line" id="L94"><a href="#L94">94</a>.timeline label{font-size:10px;color:var(--muted)}</span>
+<span class="source-line" id="L95"><a href="#L95">95</a>input[type=range]{width:100%;accent-color:var(--cyan);cursor:pointer}</span>
+<span class="source-line" id="L96"><a href="#L96">96</a>.ticks{display:flex;justify-content:space-between;font:9px Consolas,monospace;color:#7e99ac}</span>
+<span class="source-line" id="L97"><a href="#L97">97</a>.transport-end{display:flex;justify-content:end;gap:7px}</span>
+<span class="source-line" id="L98"><a href="#L98">98</a>.transport-end select{font-size:10px;max-width:90px}</span>
+<span class="source-line" id="L99"><a href="#L99">99</a>.bottomline{display:flex;justify-content:space-between;gap:15px;font-size:10px;color:#7c93a6;margin-top:13px}</span>
+<span class="source-line" id="L100"><a href="#L100">100</a>.text-button{border:0;background:none;padding:0;color:var(--muted);font-size:10px}</span>
+<span class="source-line" id="L101"><a href="#L101">101</a>.learning{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:24px}</span>
+<span class="source-line" id="L102"><a href="#L102">102</a>.learn-item{border-top:1px solid var(--line);padding:17px 0;display:flex;gap:14px}</span>
+<span class="source-line" id="L103"><a href="#L103">103</a>.number{color:var(--cyan);font:11px Consolas,monospace}</span>
+<span class="source-line" id="L104"><a href="#L104">104</a>h3{font-size:13px;font-weight:500;margin:0 0 6px}</span>
+<span class="source-line" id="L105"><a href="#L105">105</a>.learn-item p{font-size:11px;color:var(--muted);margin:0}</span>
+<span class="source-line" id="L106"><a href="#L106">106</a>.foot{display:flex;justify-content:space-between;gap:15px;font-size:10px;color:var(--muted);padding-top:10px}</span>
+<span class="source-line" id="L107"><a href="#L107">107</a>.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);padding:10px 20px;border:1px solid #68b69c;background:#23453a;border-radius:7px;z-index:20}</span>
+<span class="source-line" id="L108"><a href="#L108">108</a>.capture .learning,.capture .foot{display:none}</span>
+<span class="source-line" id="L109"><a href="#L109">109</a>@media(min-width:1600px){#scene{height:570px}</span>
+<span class="source-line" id="L110"><a href="#L110">110</a>.viewport{min-height:570px}</span>
+<span class="source-line" id="L111"><a href="#L111">111</a>.sidebar,.stats{padding:24px}</span>
+<span class="source-line" id="L112"><a href="#L112">112</a>.metric{padding:18px 0 23px}</span>
+<span class="source-line" id="L113"><a href="#L113">113</a>.scenario-copy{min-height:85px}</span>
+<span class="source-line" id="L114"><a href="#L114">114</a>}</span>
+<span class="source-line" id="L115"><a href="#L115">115</a>@media(max-width:1100px){.workspace{grid-template-columns:185px minmax(300px,1fr)}</span>
+<span class="source-line" id="L116"><a href="#L116">116</a>.stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}</span>
+<span class="source-line" id="L117"><a href="#L117">117</a>.stats&gt;.section-label{display:none}</span>
+<span class="source-line" id="L118"><a href="#L118">118</a>.metric{border:0;padding:0}</span>
+<span class="source-line" id="L119"><a href="#L119">119</a>.insight h3{margin-top:0}</span>
+<span class="source-line" id="L120"><a href="#L120">120</a>.transport{grid-template-columns:150px 1fr 220px}</span>
+<span class="source-line" id="L121"><a href="#L121">121</a>nav .badge{display:none}</span>
+<span class="source-line" id="L122"><a href="#L122">122</a>}</span>
+<span class="source-line" id="L123"><a href="#L123">123</a>@media(max-width:700px){header{padding:15px}</span>
+<span class="source-line" id="L124"><a href="#L124">124</a>h1{font-size:20px}</span>
+<span class="source-line" id="L125"><a href="#L125">125</a>h1 small{font-size:10px}</span>
+<span class="source-line" id="L126"><a href="#L126">126</a>nav{gap:10px;font-size:11px}</span>
+<span class="source-line" id="L127"><a href="#L127">127</a>nav a:last-child{display:none}</span>
+<span class="source-line" id="L128"><a href="#L128">128</a>.shell{padding:16px}</span>
+<span class="source-line" id="L129"><a href="#L129">129</a>.intro{display:block}</span>
+<span class="source-line" id="L130"><a href="#L130">130</a>.intro p{margin-top:7px}</span>
+<span class="source-line" id="L131"><a href="#L131">131</a>.workspace{display:flex;flex-direction:column}</span>
+<span class="source-line" id="L132"><a href="#L132">132</a>.sidebar{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:15px}</span>
+<span class="source-line" id="L133"><a href="#L133">133</a>.sidebar&gt;.section-label,.sidebar&gt;.divider,.sidebar&gt;.hint{display:none}</span>
+<span class="source-line" id="L134"><a href="#L134">134</a>.layers{grid-column:2;grid-row:1}</span>
+<span class="source-line" id="L135"><a href="#L135">135</a>.toggle{margin:6px 0}</span>
+<span class="source-line" id="L136"><a href="#L136">136</a>.sidebar&gt;.small{grid-column:1/-1;margin:0}</span>
+<span class="source-line" id="L137"><a href="#L137">137</a>.scenario-copy{min-height:0}</span>
+<span class="source-line" id="L138"><a href="#L138">138</a>.viewport{min-height:410px}</span>
+<span class="source-line" id="L139"><a href="#L139">139</a>#scene{height:410px}</span>
+<span class="source-line" id="L140"><a href="#L140">140</a>.view-tools{top:51px}</span>
+<span class="source-line" id="L141"><a href="#L141">141</a>.stats{grid-template-columns:repeat(3,1fr);padding:15px;gap:12px}</span>
+<span class="source-line" id="L142"><a href="#L142">142</a>.value{font-size:27px}</span>
+<span class="source-line" id="L143"><a href="#L143">143</a>.insight{grid-column:1/-1}</span>
+<span class="source-line" id="L144"><a href="#L144">144</a>.transport{display:flex;flex-wrap:wrap;gap:12px;padding:15px}</span>
+<span class="source-line" id="L145"><a href="#L145">145</a>.timeline{order:3;width:100%}</span>
+<span class="source-line" id="L146"><a href="#L146">146</a>.transport-end{margin-left:auto}</span>
+<span class="source-line" id="L147"><a href="#L147">147</a>.learning{display:block}</span>
+<span class="source-line" id="L148"><a href="#L148">148</a>.bottomline,.foot{flex-wrap:wrap}</span>
+<span class="source-line" id="L149"><a href="#L149">149</a>}</span>
+<span class="source-line" id="L150"><a href="#L150">150</a>@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}</span>
+<span class="source-line" id="L151"><a href="#L151">151</a>}</span>
+<span class="source-line" id="L152"><a href="#L152">152</a>@media print{header,.sidebar,.transport,.foot{display:none}</span>
+<span class="source-line" id="L153"><a href="#L153">153</a>.workspace{display:block}</span>
+<span class="source-line" id="L154"><a href="#L154">154</a>.viewport{break-inside:avoid}</span>
+<span class="source-line" id="L155"><a href="#L155">155</a>.stats{display:flex;gap:25px}</span>
+<span class="source-line" id="L156"><a href="#L156">156</a>body{print-color-adjust:exact}</span>
+<span class="source-line" id="L157"><a href="#L157">157</a>}</span>
+<span class="source-line" id="L158"><a href="#L158">158</a></span>
+<span class="source-line" id="L159"><a href="#L159">159</a></span>
+<span class="source-line" id="L160"><a href="#L160">160</a>@media(max-width:700px){header{flex-wrap:wrap;gap:10px}.brand{min-width:0}.workspace&gt;*{min-width:0;width:100%}.sidebar{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}.field,.layers{min-width:0}.field select{min-width:0;max-width:100%;padding:7px 4px;font-size:10px}.toggle{font-size:10px}.layers .section-label{font-size:9px}.transport-end{flex-wrap:wrap}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.stats .small{font-size:9px}.bottomline span{overflow-wrap:anywhere}.foot{flex-direction:column}}</span>
+<span class="source-line" id="L161"><a href="#L161">161</a>&lt;/style&gt;</span>
+<span class="source-line" id="L162"><a href="#L162">162</a>&lt;/head&gt;</span>
+<span class="source-line" id="L163"><a href="#L163">163</a>&lt;body&gt;</span>
+<span class="source-line" id="L164"><a href="#L164">164</a>&lt;header&gt;</span>
+<span class="source-line" id="L165"><a href="#L165">165</a>&lt;div class=&quot;brand&quot;&gt;</span>
+<span class="source-line" id="L166"><a href="#L166">166</a>&lt;div class=&quot;logo&quot; aria-hidden=&quot;true&quot;&gt;◉&lt;/div&gt;</span>
+<span class="source-line" id="L167"><a href="#L167">167</a>&lt;div&gt;</span>
+<span class="source-line" id="L168"><a href="#L168">168</a>&lt;h1&gt;風域 &lt;small&gt;TYPHOON LAB&lt;/small&gt;</span>
+<span class="source-line" id="L169"><a href="#L169">169</a>&lt;/h1&gt;</span>
+<span class="source-line" id="L170"><a href="#L170">170</a>&lt;p&gt;TAIWAN · INTERACTIVE EARTH SCIENCE&lt;/p&gt;</span>
+<span class="source-line" id="L171"><a href="#L171">171</a>&lt;/div&gt;</span>
+<span class="source-line" id="L172"><a href="#L172">172</a>&lt;/div&gt;</span>
+<span class="source-line" id="L173"><a href="#L173">173</a>&lt;nav aria-label=&quot;主要導覽&quot;&gt;</span>
+<span class="source-line" id="L174"><a href="#L174">174</a>&lt;span class=&quot;badge&quot;&gt;SVG / ZERO DEPENDENCIES&lt;/span&gt;</span>
+<span class="source-line" id="L175"><a href="#L175">175</a>&lt;a href=&quot;review.html&quot;&gt;檢測報告 ↗&lt;/a&gt;</span>
+<span class="source-line" id="L176"><a href="#L176">176</a>&lt;a href=&quot;pointout.html&quot;&gt;原始碼透視 ↗&lt;/a&gt;</span>
+<span class="source-line" id="L177"><a href="#L177">177</a>&lt;/nav&gt;</span>
+<span class="source-line" id="L178"><a href="#L178">178</a>&lt;/header&gt;</span>
+<span class="source-line" id="L179"><a href="#L179">179</a>&lt;main class=&quot;shell&quot;&gt;</span>
+<span class="source-line" id="L180"><a href="#L180">180</a>&lt;div class=&quot;intro&quot;&gt;</span>
+<span class="source-line" id="L181"><a href="#L181">181</a>&lt;div&gt;</span>
+<span class="source-line" id="L182"><a href="#L182">182</a>&lt;div class=&quot;eyebrow&quot;&gt;EXPERIMENT 01 / ATMOSPHERIC DYNAMICS&lt;/div&gt;</span>
+<span class="source-line" id="L183"><a href="#L183">183</a>&lt;h2&gt;當颱風，遇上台灣。&lt;/h2&gt;</span>
+<span class="source-line" id="L184"><a href="#L184">184</a>&lt;/div&gt;</span>
+<span class="source-line" id="L185"><a href="#L185">185</a>&lt;p&gt;移動時間軸，觀察環流與山脈如何改變風雨。&lt;/p&gt;</span>
+<span class="source-line" id="L186"><a href="#L186">186</a>&lt;/div&gt;</span>
+<span class="source-line" id="L187"><a href="#L187">187</a>&lt;div class=&quot;workspace&quot;&gt;</span>
+<span class="source-line" id="L188"><a href="#L188">188</a>&lt;aside class=&quot;panel sidebar&quot;&gt;</span>
+<span class="source-line" id="L189"><a href="#L189">189</a>&lt;div class=&quot;section-label&quot;&gt;情境控制 &lt;b&gt;01 / SETUP&lt;/b&gt;</span>
+<span class="source-line" id="L190"><a href="#L190">190</a>&lt;/div&gt;</span>
+<span class="source-line" id="L191"><a href="#L191">191</a>&lt;div class=&quot;field&quot;&gt;</span>
+<span class="source-line" id="L192"><a href="#L192">192</a>&lt;label for=&quot;scenario&quot;&gt;颱風路徑情境&lt;/label&gt;</span>
+<span class="source-line" id="L193"><a href="#L193">193</a>&lt;select id=&quot;scenario&quot;&gt;</span>
+<span class="source-line" id="L194"><a href="#L194">194</a>&lt;option value=&quot;cross&quot;&gt;東部登陸 · 穿越台灣&lt;/option&gt;</span>
+<span class="source-line" id="L195"><a href="#L195">195</a>&lt;option value=&quot;north&quot;&gt;東側北上 · 沿海掠過&lt;/option&gt;</span>
+<span class="source-line" id="L196"><a href="#L196">196</a>&lt;option value=&quot;south&quot;&gt;南側通過 · 西南氣流&lt;/option&gt;</span>
+<span class="source-line" id="L197"><a href="#L197">197</a>&lt;/select&gt;</span>
+<span class="source-line" id="L198"><a href="#L198">198</a>&lt;p class=&quot;scenario-copy&quot; id=&quot;scenarioCopy&quot;&gt;</span>
+<span class="source-line" id="L199"><a href="#L199">199</a>&lt;/p&gt;</span>
+<span class="source-line" id="L200"><a href="#L200">200</a>&lt;/div&gt;</span>
+<span class="source-line" id="L201"><a href="#L201">201</a>&lt;div class=&quot;divider&quot;&gt;</span>
 <span class="source-line" id="L202"><a href="#L202">202</a>&lt;/div&gt;</span>
-<span class="source-line" id="L203"><a href="#L203">203</a>&lt;label class=<span class="code-string">&quot;toggle&quot;</span>&gt;</span>
-<span class="source-line" id="L204"><a href="#L204">204</a>&lt;span&gt;</span>
-<span class="source-line" id="L205"><a href="#L205">205</a>&lt;i class=<span class="code-string">&quot;dot&quot;</span>&gt;</span>
-<span class="source-line" id="L206"><a href="#L206">206</a>&lt;/i&gt;風場流線&lt;/span&gt;</span>
-<span class="source-line" id="L207"><a href="#L207">207</a>&lt;input id=<span class="code-string">&quot;windToggle&quot;</span> type=<span class="code-string">&quot;checkbox&quot;</span> checked&gt;</span>
-<span class="source-line" id="L208"><a href="#L208">208</a>&lt;/label&gt;</span>
-<span class="source-line" id="L209"><a href="#L209">209</a>&lt;label class=<span class="code-string">&quot;toggle&quot;</span>&gt;</span>
-<span class="source-line" id="L210"><a href="#L210">210</a>&lt;span&gt;</span>
-<span class="source-line" id="L211"><a href="#L211">211</a>&lt;i class=<span class="code-string">&quot;dot&quot;</span> style=<span class="code-string">&quot;background:#7cbee8&quot;</span>&gt;</span>
-<span class="source-line" id="L212"><a href="#L212">212</a>&lt;/i&gt;環流雨帶&lt;/span&gt;</span>
-<span class="source-line" id="L213"><a href="#L213">213</a>&lt;input id=<span class="code-string">&quot;rainToggle&quot;</span> type=<span class="code-string">&quot;checkbox&quot;</span> checked&gt;</span>
-<span class="source-line" id="L214"><a href="#L214">214</a>&lt;/label&gt;</span>
-<span class="source-line" id="L215"><a href="#L215">215</a>&lt;label class=<span class="code-string">&quot;toggle&quot;</span>&gt;</span>
-<span class="source-line" id="L216"><a href="#L216">216</a>&lt;span&gt;</span>
-<span class="source-line" id="L217"><a href="#L217">217</a>&lt;i class=<span class="code-string">&quot;dot&quot;</span> style=<span class="code-string">&quot;background:#d3c791&quot;</span>&gt;</span>
-<span class="source-line" id="L218"><a href="#L218">218</a>&lt;/i&gt;立體地形&lt;/span&gt;</span>
-<span class="source-line" id="L219"><a href="#L219">219</a>&lt;input id=<span class="code-string">&quot;terrainToggle&quot;</span> type=<span class="code-string">&quot;checkbox&quot;</span> checked&gt;</span>
-<span class="source-line" id="L220"><a href="#L220">220</a>&lt;/label&gt;</span>
-<span class="source-line" id="L221"><a href="#L221">221</a>&lt;label class=<span class="code-string">&quot;toggle&quot;</span>&gt;</span>
-<span class="source-line" id="L222"><a href="#L222">222</a>&lt;span&gt;</span>
-<span class="source-line" id="L223"><a href="#L223">223</a>&lt;i class=<span class="code-string">&quot;dot&quot;</span> style=<span class="code-string">&quot;background:#efba79&quot;</span>&gt;</span>
-<span class="source-line" id="L224"><a href="#L224">224</a>&lt;/i&gt;情境路徑&lt;/span&gt;</span>
-<span class="source-line" id="L225"><a href="#L225">225</a>&lt;input id=<span class="code-string">&quot;trackToggle&quot;</span> type=<span class="code-string">&quot;checkbox&quot;</span> checked&gt;</span>
-<span class="source-line" id="L226"><a href="#L226">226</a>&lt;/label&gt;</span>
-<span class="source-line" id="L227"><a href="#L227">227</a>&lt;/div&gt;</span>
-<span class="source-line" id="L228"><a href="#L228">228</a>&lt;div class=<span class="code-string">&quot;divider&quot;</span>&gt;</span>
-<span class="source-line" id="L229"><a href="#L229">229</a>&lt;/div&gt;</span>
-<span class="source-line" id="L230"><a href="#L230">230</a>&lt;div class=<span class="code-string">&quot;hint&quot;</span>&gt;探索提示&lt;br&gt;颱風最接近時，暫停並切換視角，找出山脈的迎風側。&lt;/div&gt;</span>
-<span class="source-line" id="L231"><a href="#L231">231</a>&lt;p class=<span class="code-string">&quot;small&quot;</span>&gt;教學示意模型，非即時氣象資料；地圖、路徑與影響指數皆為簡化表達。&lt;/p&gt;</span>
-<span class="source-line" id="L232"><a href="#L232">232</a>&lt;/aside&gt;</span>
-<span class="source-line" id="L233"><a href="#L233">233</a>&lt;section class=<span class="code-string">&quot;panel viewport perspective&quot;</span> id=<span class="code-string">&quot;viewport&quot;</span> aria-label=<span class="code-string">&quot;台灣與颱風三維向量視覺化&quot;</span>&gt;</span>
-<span class="source-line" id="L234"><a href="#L234">234</a>&lt;div class=<span class="code-string">&quot;canvas-head&quot;</span>&gt;台灣周邊海域&lt;p&gt;SCHEMATIC TERRAIN / NOT TO SCALE&lt;/p&gt;</span>
-<span class="source-line" id="L235"><a href="#L235">235</a>&lt;/div&gt;</span>
-<span class="source-line" id="L236"><a href="#L236">236</a>&lt;div class=<span class="code-string">&quot;view-tools&quot;</span>&gt;</span>
-<span class="source-line" id="L237"><a href="#L237">237</a>&lt;button id=<span class="code-string">&quot;view3d&quot;</span> aria-pressed=<span class="code-string">&quot;true&quot;</span>&gt;3D 透視&lt;/button&gt;</span>
-<span class="source-line" id="L238"><a href="#L238">238</a>&lt;button id=<span class="code-string">&quot;view2d&quot;</span> aria-pressed=<span class="code-string">&quot;false&quot;</span>&gt;俯視&lt;/button&gt;</span>
-<span class="source-line" id="L239"><a href="#L239">239</a>&lt;button id=<span class="code-string">&quot;fullscreen&quot;</span> aria-label=<span class="code-string">&quot;全螢幕展示&quot;</span>&gt;⛶&lt;/button&gt;</span>
-<span class="source-line" id="L240"><a href="#L240">240</a>&lt;/div&gt;</span>
-<span class="source-line" id="L241"><a href="#L241">241</a>&lt;svg id=<span class="code-string">&quot;scene&quot;</span> viewBox=<span class="code-string">&quot;0 0 800 570&quot;</span> role=<span class="code-string">&quot;img&quot;</span> aria-labelledby=<span class="code-string">&quot;mapTitle mapDesc&quot;</span>&gt;</span>
-<span class="source-line" id="L242"><a href="#L242">242</a>&lt;title id=<span class="code-string">&quot;mapTitle&quot;</span>&gt;台灣地形與颱風環流示意&lt;/title&gt;</span>
-<span class="source-line" id="L243"><a href="#L243">243</a>&lt;desc id=<span class="code-string">&quot;mapDesc&quot;</span>&gt;逆時針颱風沿虛線移動，台灣中央山脈以向量山脊呈現。&lt;/desc&gt;</span>
-<span class="source-line" id="L244"><a href="#L244">244</a>&lt;defs&gt;</span>
-<span class="source-line" id="L245"><a href="#L245">245</a>&lt;linearGradient id=<span class="code-string">&quot;land&quot;</span> x1=<span class="code-string">&quot;0&quot;</span> y1=<span class="code-string">&quot;1&quot;</span> x2=<span class="code-string">&quot;1&quot;</span> y2=<span class="code-string">&quot;0&quot;</span>&gt;</span>
-<span class="source-line" id="L246"><a href="#L246">246</a>&lt;stop stop-color=<span class="code-string">&quot;#255348&quot;</span>/&gt;</span>
-<span class="source-line" id="L247"><a href="#L247">247</a>&lt;stop offset=<span class="code-string">&quot;.5&quot;</span> stop-color=<span class="code-string">&quot;#4b8168&quot;</span>/&gt;</span>
-<span class="source-line" id="L248"><a href="#L248">248</a>&lt;stop offset=<span class="code-string">&quot;1&quot;</span> stop-color=<span class="code-string">&quot;#95aa88&quot;</span>/&gt;</span>
-<span class="source-line" id="L249"><a href="#L249">249</a>&lt;/linearGradient&gt;</span>
-<span class="source-line" id="L250"><a href="#L250">250</a>&lt;radialGradient id=<span class="code-string">&quot;stormGlow&quot;</span>&gt;</span>
-<span class="source-line" id="L251"><a href="#L251">251</a>&lt;stop stop-color=<span class="code-string">&quot;#87d8df&quot;</span> stop-opacity=<span class="code-string">&quot;.3&quot;</span>/&gt;</span>
-<span class="source-line" id="L252"><a href="#L252">252</a>&lt;stop offset=<span class="code-string">&quot;1&quot;</span> stop-color=<span class="code-string">&quot;#70b3d0&quot;</span> stop-opacity=<span class="code-string">&quot;0&quot;</span>/&gt;</span>
-<span class="source-line" id="L253"><a href="#L253">253</a>&lt;/radialGradient&gt;</span>
-<span class="source-line" id="L254"><a href="#L254">254</a>&lt;pattern id=<span class="code-string">&quot;seaGrid&quot;</span> width=<span class="code-string">&quot;60&quot;</span> height=<span class="code-string">&quot;60&quot;</span> patternUnits=<span class="code-string">&quot;userSpaceOnUse&quot;</span>&gt;</span>
-<span class="source-line" id="L255"><a href="#L255">255</a>&lt;path d=<span class="code-string">&quot;M60 0H0V60&quot;</span> fill=<span class="code-string">&quot;none&quot;</span> stroke=<span class="code-string">&quot;#548b9b&quot;</span> stroke-opacity=<span class="code-string">&quot;.15&quot;</span> stroke-width=<span class="code-string">&quot;.6&quot;</span>/&gt;</span>
-<span class="source-line" id="L256"><a href="#L256">256</a>&lt;/pattern&gt;</span>
-<span class="source-line" id="L257"><a href="#L257">257</a>&lt;path id=<span class="code-string">&quot;island&quot;</span> d=<span class="code-string">&quot;M451 107 463 115 468 129 460 143 455 160 447 179 441 203 435 224 425 250 419 276 405 303 397 330 380 359 366 386 351 410 338 428 331 451 322 453 315 437 302 419 300 399 291 379 292 360 285 340 290 316 296 296 301 279 309 263 317 244 327 227 338 209 350 190 362 171 379 154 395 141 411 132 425 120 438 120Z&quot;</span>/&gt;</span>
-<span class="source-line" id="L258"><a href="#L258">258</a>&lt;clipPath id=<span class="code-string">&quot;islandClip&quot;</span>&gt;</span>
-<span class="source-line" id="L259"><a href="#L259">259</a>&lt;use href=<span class="code-string">&quot;#island&quot;</span>/&gt;</span>
-<span class="source-line" id="L260"><a href="#L260">260</a>&lt;/clipPath&gt;</span>
-<span class="source-line" id="L261"><a href="#L261">261</a>&lt;/defs&gt;</span>
-<span class="source-line" id="L262"><a href="#L262">262</a>&lt;g class=<span class="code-string">&quot;world&quot;</span>&gt;</span>
-<span class="source-line" id="L263"><a href="#L263">263</a>&lt;ellipse cx=<span class="code-string">&quot;385&quot;</span> cy=<span class="code-string">&quot;360&quot;</span> rx=<span class="code-string">&quot;100&quot;</span> ry=<span class="code-string">&quot;150&quot;</span> fill=<span class="code-string">&quot;#000&quot;</span> opacity=<span class="code-string">&quot;.16&quot;</span> transform=<span class="code-string">&quot;rotate(24 385 360)&quot;</span>/&gt;</span>
-<span class="source-line" id="L264"><a href="#L264">264</a>&lt;rect x=<span class="code-string">&quot;60&quot;</span> y=<span class="code-string">&quot;60&quot;</span> width=<span class="code-string">&quot;680&quot;</span> height=<span class="code-string">&quot;470&quot;</span> fill=<span class="code-string">&quot;url(#seaGrid)&quot;</span>/&gt;</span>
-<span class="source-line" id="L265"><a href="#L265">265</a>&lt;text x=<span class="code-string">&quot;119&quot;</span> y=<span class="code-string">&quot;278&quot;</span> class=<span class="code-string">&quot;ocean-label&quot;</span> transform=<span class="code-string">&quot;rotate(-65 119 278)&quot;</span>&gt;TAIWAN STRAIT&lt;/text&gt;</span>
-<span class="source-line" id="L266"><a href="#L266">266</a>&lt;text x=<span class="code-string">&quot;520&quot;</span> y=<span class="code-string">&quot;470&quot;</span> class=<span class="code-string">&quot;ocean-label&quot;</span>&gt;PACIFIC OCEAN&lt;/text&gt;</span>
-<span class="source-line" id="L267"><a href="#L267">267</a>&lt;g opacity=<span class="code-string">&quot;.3&quot;</span> stroke=<span class="code-string">&quot;#5e9d9d&quot;</span> fill=<span class="code-string">&quot;none&quot;</span>&gt;</span>
-<span class="source-line" id="L268"><a href="#L268">268</a>&lt;ellipse cx=<span class="code-string">&quot;380&quot;</span> cy=<span class="code-string">&quot;280&quot;</span> rx=<span class="code-string">&quot;134&quot;</span> ry=<span class="code-string">&quot;226&quot;</span> transform=<span class="code-string">&quot;rotate(24 380 280)&quot;</span>/&gt;</span>
-<span class="source-line" id="L269"><a href="#L269">269</a>&lt;ellipse cx=<span class="code-string">&quot;380&quot;</span> cy=<span class="code-string">&quot;280&quot;</span> rx=<span class="code-string">&quot;151&quot;</span> ry=<span class="code-string">&quot;245&quot;</span> transform=<span class="code-string">&quot;rotate(24 380 280)&quot;</span> stroke-dasharray=<span class="code-string">&quot;2 6&quot;</span>/&gt;</span>
-<span class="source-line" id="L270"><a href="#L270">270</a>&lt;/g&gt;</span>
-<span class="source-line" id="L271"><a href="#L271">271</a>&lt;use href=<span class="code-string">&quot;#island&quot;</span> fill=<span class="code-string">&quot;#153a33&quot;</span> transform=<span class="code-string">&quot;translate(0 15)&quot;</span> stroke=<span class="code-string">&quot;#759f82&quot;</span> stroke-opacity=<span class="code-string">&quot;.4&quot;</span>/&gt;</span>
-<span class="source-line" id="L272"><a href="#L272">272</a>&lt;use href=<span class="code-string">&quot;#island&quot;</span> fill=<span class="code-string">&quot;url(#land)&quot;</span> stroke=<span class="code-string">&quot;#9aceaa&quot;</span> stroke-width=<span class="code-string">&quot;1.3&quot;</span>/&gt;</span>
-<span class="source-line" id="L273"><a href="#L273">273</a>&lt;g id=<span class="code-string">&quot;terrain&quot;</span> clip-path=<span class="code-string">&quot;url(#islandClip)&quot;</span>&gt;</span>
-<span class="source-line" id="L274"><a href="#L274">274</a>&lt;g id=<span class="code-string">&quot;terrainMesh&quot;</span>&gt;</span>
-<span class="source-line" id="L275"><a href="#L275">275</a>&lt;/g&gt;</span>
-<span class="source-line" id="L276"><a href="#L276">276</a>&lt;path d=<span class="code-string">&quot;M437 143 418 179 409 199 395 222 393 250 378 279 365 302 354 331 344 365 328 407&quot;</span> stroke=<span class="code-string">&quot;#e0cf97&quot;</span> stroke-width=<span class="code-string">&quot;2&quot;</span> fill=<span class="code-string">&quot;none&quot;</span>/&gt;</span>
-<span class="source-line" id="L277"><a href="#L277">277</a>&lt;g id=<span class="code-string">&quot;contours&quot;</span>&gt;</span>
-<span class="source-line" id="L278"><a href="#L278">278</a>&lt;/g&gt;</span>
+<span class="source-line" id="L203"><a href="#L203">203</a>&lt;div class=&quot;layers&quot;&gt;</span>
+<span class="source-line" id="L204"><a href="#L204">204</a>&lt;div class=&quot;section-label&quot;&gt;觀測圖層 &lt;b&gt;LAYERS&lt;/b&gt;</span>
+<span class="source-line" id="L205"><a href="#L205">205</a>&lt;/div&gt;</span>
+<span class="source-line" id="L206"><a href="#L206">206</a>&lt;label class=&quot;toggle&quot;&gt;</span>
+<span class="source-line" id="L207"><a href="#L207">207</a>&lt;span&gt;</span>
+<span class="source-line" id="L208"><a href="#L208">208</a>&lt;i class=&quot;dot&quot;&gt;</span>
+<span class="source-line" id="L209"><a href="#L209">209</a>&lt;/i&gt;風場流線&lt;/span&gt;</span>
+<span class="source-line" id="L210"><a href="#L210">210</a>&lt;input id=&quot;windToggle&quot; type=&quot;checkbox&quot; checked&gt;</span>
+<span class="source-line" id="L211"><a href="#L211">211</a>&lt;/label&gt;</span>
+<span class="source-line" id="L212"><a href="#L212">212</a>&lt;label class=&quot;toggle&quot;&gt;</span>
+<span class="source-line" id="L213"><a href="#L213">213</a>&lt;span&gt;</span>
+<span class="source-line" id="L214"><a href="#L214">214</a>&lt;i class=&quot;dot&quot; style=&quot;background:#7cbee8&quot;&gt;</span>
+<span class="source-line" id="L215"><a href="#L215">215</a>&lt;/i&gt;環流雨帶&lt;/span&gt;</span>
+<span class="source-line" id="L216"><a href="#L216">216</a>&lt;input id=&quot;rainToggle&quot; type=&quot;checkbox&quot; checked&gt;</span>
+<span class="source-line" id="L217"><a href="#L217">217</a>&lt;/label&gt;</span>
+<span class="source-line" id="L218"><a href="#L218">218</a>&lt;label class=&quot;toggle&quot;&gt;</span>
+<span class="source-line" id="L219"><a href="#L219">219</a>&lt;span&gt;</span>
+<span class="source-line" id="L220"><a href="#L220">220</a>&lt;i class=&quot;dot&quot; style=&quot;background:#d3c791&quot;&gt;</span>
+<span class="source-line" id="L221"><a href="#L221">221</a>&lt;/i&gt;立體地形&lt;/span&gt;</span>
+<span class="source-line" id="L222"><a href="#L222">222</a>&lt;input id=&quot;terrainToggle&quot; type=&quot;checkbox&quot; checked&gt;</span>
+<span class="source-line" id="L223"><a href="#L223">223</a>&lt;/label&gt;</span>
+<span class="source-line" id="L224"><a href="#L224">224</a>&lt;label class=&quot;toggle&quot;&gt;</span>
+<span class="source-line" id="L225"><a href="#L225">225</a>&lt;span&gt;</span>
+<span class="source-line" id="L226"><a href="#L226">226</a>&lt;i class=&quot;dot&quot; style=&quot;background:#efba79&quot;&gt;</span>
+<span class="source-line" id="L227"><a href="#L227">227</a>&lt;/i&gt;情境路徑&lt;/span&gt;</span>
+<span class="source-line" id="L228"><a href="#L228">228</a>&lt;input id=&quot;trackToggle&quot; type=&quot;checkbox&quot; checked&gt;</span>
+<span class="source-line" id="L229"><a href="#L229">229</a>&lt;/label&gt;</span>
+<span class="source-line" id="L230"><a href="#L230">230</a>&lt;/div&gt;</span>
+<span class="source-line" id="L231"><a href="#L231">231</a>&lt;div class=&quot;divider&quot;&gt;</span>
+<span class="source-line" id="L232"><a href="#L232">232</a>&lt;/div&gt;</span>
+<span class="source-line" id="L233"><a href="#L233">233</a>&lt;div class=&quot;hint&quot;&gt;探索提示&lt;br&gt;颱風最接近時，暫停並切換視角，找出山脈的迎風側。&lt;/div&gt;</span>
+<span class="source-line" id="L234"><a href="#L234">234</a>&lt;p class=&quot;small&quot;&gt;教學示意模型，非即時氣象資料；海岸線取自地理資料；地形、路徑與指數為教學示意。&lt;/p&gt;</span>
+<span class="source-line" id="L235"><a href="#L235">235</a>&lt;/aside&gt;</span>
+<span class="source-line" id="L236"><a href="#L236">236</a>&lt;section class=&quot;panel viewport perspective&quot; id=&quot;viewport&quot; aria-label=&quot;台灣與颱風三維向量視覺化&quot;&gt;</span>
+<span class="source-line" id="L237"><a href="#L237">237</a>&lt;div class=&quot;canvas-head&quot;&gt;台灣周邊海域&lt;p&gt;GEOGRAPHIC OUTLINE / SCHEMATIC RELIEF&lt;/p&gt;</span>
+<span class="source-line" id="L238"><a href="#L238">238</a>&lt;/div&gt;</span>
+<span class="source-line" id="L239"><a href="#L239">239</a>&lt;div class=&quot;view-tools&quot;&gt;</span>
+<span class="source-line" id="L240"><a href="#L240">240</a>&lt;button id=&quot;view3d&quot; aria-pressed=&quot;true&quot;&gt;透視&lt;/button&gt;</span>
+<span class="source-line" id="L241"><a href="#L241">241</a>&lt;button id=&quot;viewIso&quot; aria-pressed=&quot;false&quot;&gt;等角&lt;/button&gt;</span>
+<span class="source-line" id="L242"><a href="#L242">242</a>&lt;button id=&quot;view2d&quot; aria-pressed=&quot;false&quot;&gt;俯視&lt;/button&gt;</span>
+<span class="source-line" id="L243"><a href="#L243">243</a>&lt;button id=&quot;fullscreen&quot; aria-label=&quot;全螢幕展示&quot;&gt;⛶&lt;/button&gt;</span>
+<span class="source-line" id="L244"><a href="#L244">244</a>&lt;/div&gt;</span>
+<span class="source-line" id="L245"><a href="#L245">245</a>&lt;svg id=&quot;scene&quot; viewBox=&quot;0 0 800 570&quot; role=&quot;img&quot; aria-labelledby=&quot;mapTitle mapDesc&quot;&gt;</span>
+<span class="source-line" id="L246"><a href="#L246">246</a>&lt;title id=&quot;mapTitle&quot;&gt;台灣地形與颱風環流示意&lt;/title&gt;</span>
+<span class="source-line" id="L247"><a href="#L247">247</a>&lt;desc id=&quot;mapDesc&quot;&gt;逆時針颱風沿虛線移動，台灣中央山脈以向量山脊呈現。&lt;/desc&gt;</span>
+<span class="source-line" id="L248"><a href="#L248">248</a>&lt;defs&gt;</span>
+<span class="source-line" id="L249"><a href="#L249">249</a>&lt;linearGradient id=&quot;land&quot; x1=&quot;0&quot; y1=&quot;1&quot; x2=&quot;1&quot; y2=&quot;0&quot;&gt;</span>
+<span class="source-line" id="L250"><a href="#L250">250</a>&lt;stop stop-color=&quot;#255348&quot;/&gt;</span>
+<span class="source-line" id="L251"><a href="#L251">251</a>&lt;stop offset=&quot;.5&quot; stop-color=&quot;#4b8168&quot;/&gt;</span>
+<span class="source-line" id="L252"><a href="#L252">252</a>&lt;stop offset=&quot;1&quot; stop-color=&quot;#95aa88&quot;/&gt;</span>
+<span class="source-line" id="L253"><a href="#L253">253</a>&lt;/linearGradient&gt;</span>
+<span class="source-line" id="L254"><a href="#L254">254</a>&lt;radialGradient id=&quot;stormGlow&quot;&gt;</span>
+<span class="source-line" id="L255"><a href="#L255">255</a>&lt;stop stop-color=&quot;#87d8df&quot; stop-opacity=&quot;.3&quot;/&gt;</span>
+<span class="source-line" id="L256"><a href="#L256">256</a>&lt;stop offset=&quot;1&quot; stop-color=&quot;#70b3d0&quot; stop-opacity=&quot;0&quot;/&gt;</span>
+<span class="source-line" id="L257"><a href="#L257">257</a>&lt;/radialGradient&gt;</span>
+<span class="source-line" id="L258"><a href="#L258">258</a>&lt;pattern id=&quot;seaGrid&quot; width=&quot;60&quot; height=&quot;60&quot; patternUnits=&quot;userSpaceOnUse&quot;&gt;</span>
+<span class="source-line" id="L259"><a href="#L259">259</a>&lt;path d=&quot;M60 0H0V60&quot; fill=&quot;none&quot; stroke=&quot;#548b9b&quot; stroke-opacity=&quot;.15&quot; stroke-width=&quot;.6&quot;/&gt;</span>
+<span class="source-line" id="L260"><a href="#L260">260</a>&lt;/pattern&gt;</span>
+<span class="source-line" id="L261"><a href="#L261">261</a>&lt;path id=&quot;island&quot; d=&quot;M488.9 112.9 L479.4 124.9 L477.5 134.5 L479.0 144.4 L478.4 151.4 L479.9 154.1 L482.8 155.9 L486.1 156.5 L486.1 157.3 L483.3 157.3 L481.4 158.2 L483.1 163.2 L482.8 165.7 L480.2 167.2 L481.3 171.9 L477.5 174.6 L474.4 178.1 L474.5 182.5 L471.9 190.7 L473.5 193.6 L465.6 202.6 L464.9 205.0 L460.8 208.3 L458.4 216.2 L454.4 222.9 L454.5 225.0 L456.9 229.3 L457.0 230.7 L454.9 234.8 L453.0 246.3 L450.2 253.8 L446.6 271.3 L444.5 275.6 L437.7 315.4 L433.6 321.7 L431.5 326.5 L430.5 340.3 L428.4 344.7 L424.4 348.1 L421.1 355.4 L418.9 363.7 L413.8 371.5 L406.3 378.4 L406.3 383.5 L404.8 386.5 L400.6 391.1 L393.6 395.9 L387.7 401.8 L383.3 411.1 L378.3 418.2 L375.4 431.1 L371.2 438.5 L370.6 441.0 L369.9 448.2 L370.4 477.6 L368.6 483.5 L365.3 486.2 L365.9 496.6 L363.9 493.6 L357.5 489.7 L354.0 488.9 L353.8 491.8 L352.8 492.9 L351.3 492.5 L349.7 491.1 L350.2 486.9 L347.6 481.8 L347.7 474.6 L349.3 470.3 L340.6 447.4 L337.4 443.1 L334.6 437.5 L328.7 433.3 L328.0 431.1 L321.6 427.7 L316.6 423.8 L315.3 423.3 L312.8 423.6 L307.1 419.1 L301.8 411.5 L307.4 418.3 L306.7 415.1 L305.0 411.9 L298.7 405.5 L296.5 401.6 L298.0 397.7 L297.3 395.2 L291.9 384.7 L291.5 381.5 L292.3 378.8 L289.1 373.2 L287.8 364.4 L285.3 361.1 L287.3 359.6 L288.5 356.9 L288.0 354.6 L285.3 354.2 L283.5 357.7 L282.0 357.6 L281.3 352.5 L279.5 351.7 L277.7 353.9 L276.5 354.2 L275.2 353.1 L274.9 351.6 L275.7 349.0 L280.0 347.7 L280.4 346.4 L275.7 344.7 L275.7 343.8 L279.1 343.8 L278.8 342.6 L275.7 339.6 L276.0 337.8 L278.3 336.8 L278.9 335.7 L277.9 332.5 L279.9 328.4 L279.9 326.4 L281.4 322.5 L283.2 321.4 L281.6 320.3 L282.3 318.5 L286.0 318.0 L285.7 316.6 L284.7 317.3 L282.8 317.1 L282.8 315.6 L283.9 313.1 L287.8 313.0 L284.4 304.9 L285.3 302.4 L283.9 301.8 L287.0 296.7 L283.3 296.9 L283.2 293.1 L285.2 290.8 L285.4 278.2 L286.7 273.9 L288.6 270.5 L290.1 262.3 L294.2 255.5 L296.6 253.7 L298.6 247.9 L302.6 243.7 L309.3 227.8 L313.4 224.7 L314.1 222.2 L316.4 220.4 L317.6 213.4 L325.8 203.5 L328.0 195.4 L332.0 188.3 L333.3 184.0 L343.8 171.6 L345.0 167.0 L349.9 156.1 L352.9 155.2 L354.8 152.1 L358.7 148.7 L361.1 148.1 L364.3 148.7 L363.9 146.3 L366.7 143.0 L367.9 139.7 L369.5 139.0 L373.8 129.7 L373.0 127.2 L375.1 124.1 L375.8 121.1 L379.0 118.6 L380.1 114.1 L384.9 106.5 L391.2 100.3 L399.3 97.6 L404.7 94.0 L408.7 92.6 L422.4 90.1 L428.0 86.7 L431.9 87.0 L434.0 90.0 L435.5 89.4 L433.9 86.9 L430.0 83.6 L430.4 82.4 L432.4 80.9 L434.7 76.2 L437.6 73.6 L441.8 71.5 L446.6 70.4 L451.4 70.9 L453.3 72.4 L459.3 81.8 L463.3 81.3 L462.4 84.0 L465.6 86.8 L487.4 92.3 L488.8 93.2 L487.9 96.0 L488.2 98.3 L490.4 103.8 L496.0 103.9 L499.5 105.3 L500.4 106.4 L491.3 110.8 L488.9 112.9Z&quot;/&gt;</span>
+<span class="source-line" id="L262"><a href="#L262">262</a>&lt;clipPath id=&quot;islandClip&quot;&gt;</span>
+<span class="source-line" id="L263"><a href="#L263">263</a>&lt;use href=&quot;#island&quot;/&gt;</span>
+<span class="source-line" id="L264"><a href="#L264">264</a>&lt;/clipPath&gt;</span>
+<span class="source-line" id="L265"><a href="#L265">265</a>&lt;/defs&gt;</span>
+<span class="source-line" id="L266"><a href="#L266">266</a>&lt;g class=&quot;world&quot;&gt;</span>
+<span class="source-line" id="L267"><a href="#L267">267</a>&lt;ellipse cx=&quot;385&quot; cy=&quot;360&quot; rx=&quot;100&quot; ry=&quot;150&quot; fill=&quot;#000&quot; opacity=&quot;.16&quot; transform=&quot;rotate(24 385 360)&quot;/&gt;</span>
+<span class="source-line" id="L268"><a href="#L268">268</a>&lt;rect x=&quot;60&quot; y=&quot;60&quot; width=&quot;680&quot; height=&quot;470&quot; fill=&quot;url(#seaGrid)&quot;/&gt;</span>
+<span class="source-line" id="L269"><a href="#L269">269</a>&lt;text x=&quot;119&quot; y=&quot;278&quot; class=&quot;ocean-label&quot; transform=&quot;rotate(-65 119 278)&quot;&gt;TAIWAN STRAIT&lt;/text&gt;</span>
+<span class="source-line" id="L270"><a href="#L270">270</a>&lt;text x=&quot;520&quot; y=&quot;470&quot; class=&quot;ocean-label&quot;&gt;PACIFIC OCEAN&lt;/text&gt;</span>
+<span class="source-line" id="L271"><a href="#L271">271</a>&lt;g opacity=&quot;.3&quot; stroke=&quot;#5e9d9d&quot; fill=&quot;none&quot;&gt;</span>
+<span class="source-line" id="L272"><a href="#L272">272</a>&lt;ellipse cx=&quot;380&quot; cy=&quot;280&quot; rx=&quot;134&quot; ry=&quot;226&quot; transform=&quot;rotate(24 380 280)&quot;/&gt;</span>
+<span class="source-line" id="L273"><a href="#L273">273</a>&lt;ellipse cx=&quot;380&quot; cy=&quot;280&quot; rx=&quot;151&quot; ry=&quot;245&quot; transform=&quot;rotate(24 380 280)&quot; stroke-dasharray=&quot;2 6&quot;/&gt;</span>
+<span class="source-line" id="L274"><a href="#L274">274</a>&lt;/g&gt;</span>
+<span class="source-line" id="L275"><a href="#L275">275</a>&lt;use href=&quot;#island&quot; fill=&quot;#153a33&quot; transform=&quot;translate(0 15)&quot; stroke=&quot;#759f82&quot; stroke-opacity=&quot;.4&quot;/&gt;</span>
+<span class="source-line" id="L276"><a href="#L276">276</a>&lt;use href=&quot;#island&quot; fill=&quot;url(#land)&quot; stroke=&quot;#9aceaa&quot; stroke-width=&quot;1.3&quot;/&gt;</span>
+<span class="source-line" id="L277"><a href="#L277">277</a>&lt;g id=&quot;terrain&quot; clip-path=&quot;url(#islandClip)&quot;&gt;</span>
+<span class="source-line" id="L278"><a href="#L278">278</a>&lt;g id=&quot;terrainMesh&quot;&gt;</span>
 <span class="source-line" id="L279"><a href="#L279">279</a>&lt;/g&gt;</span>
-<span class="source-line" id="L280"><a href="#L280">280</a>&lt;g id=<span class="code-string">&quot;track&quot;</span>&gt;</span>
-<span class="source-line" id="L281"><a href="#L281">281</a>&lt;path id=<span class="code-string">&quot;route&quot;</span> class=<span class="code-string">&quot;storm-track&quot;</span> d=<span class="code-string">&quot;M672 404 Q489 350 414 262 T207 176&quot;</span>/&gt;</span>
-<span class="source-line" id="L282"><a href="#L282">282</a>&lt;g id=<span class="code-string">&quot;trackPoints&quot;</span> fill=<span class="code-string">&quot;#efba79&quot;</span>&gt;</span>
+<span class="source-line" id="L280"><a href="#L280">280</a>&lt;path d=&quot;M449 104 433 143 420 182 402 219 393 250 378 279 365 302 354 341 344 385 338 437&quot; stroke=&quot;#e0cf97&quot; stroke-width=&quot;2&quot; fill=&quot;none&quot;/&gt;</span>
+<span class="source-line" id="L281"><a href="#L281">281</a>&lt;g id=&quot;contours&quot;&gt;</span>
+<span class="source-line" id="L282"><a href="#L282">282</a>&lt;/g&gt;</span>
 <span class="source-line" id="L283"><a href="#L283">283</a>&lt;/g&gt;</span>
-<span class="source-line" id="L284"><a href="#L284">284</a>&lt;/g&gt;</span>
-<span class="source-line" id="L285"><a href="#L285">285</a>&lt;g id=<span class="code-string">&quot;stormPosition&quot;</span>&gt;</span>
-<span class="source-line" id="L286"><a href="#L286">286</a>&lt;circle r=<span class="code-string">&quot;155&quot;</span> fill=<span class="code-string">&quot;url(#stormGlow)&quot;</span>/&gt;</span>
-<span class="source-line" id="L287"><a href="#L287">287</a>&lt;circle r=<span class="code-string">&quot;104&quot;</span> fill=<span class="code-string">&quot;none&quot;</span> stroke=<span class="code-string">&quot;#7cbee8&quot;</span> stroke-opacity=<span class="code-string">&quot;.2&quot;</span>/&gt;</span>
-<span class="source-line" id="L288"><a href="#L288">288</a>&lt;g id=<span class="code-string">&quot;rain&quot;</span>&gt;</span>
-<span class="source-line" id="L289"><a href="#L289">289</a>&lt;/g&gt;</span>
-<span class="source-line" id="L290"><a href="#L290">290</a>&lt;g id=<span class="code-string">&quot;cyclone&quot;</span>&gt;</span>
-<span class="source-line" id="L291"><a href="#L291">291</a>&lt;/g&gt;</span>
-<span class="source-line" id="L292"><a href="#L292">292</a>&lt;circle r=<span class="code-string">&quot;14&quot;</span> fill=<span class="code-string">&quot;#102635&quot;</span> stroke=<span class="code-string">&quot;#b8eee2&quot;</span> stroke-width=<span class="code-string">&quot;1.3&quot;</span>/&gt;</span>
-<span class="source-line" id="L293"><a href="#L293">293</a>&lt;circle r=<span class="code-string">&quot;3&quot;</span> fill=<span class="code-string">&quot;#d8f9ed&quot;</span>/&gt;</span>
-<span class="source-line" id="L294"><a href="#L294">294</a>&lt;g transform=<span class="code-string">&quot;translate(24 -28)&quot;</span>&gt;</span>
-<span class="source-line" id="L295"><a href="#L295">295</a>&lt;rect width=<span class="code-string">&quot;104&quot;</span> height=<span class="code-string">&quot;38&quot;</span> rx=<span class="code-string">&quot;5&quot;</span> fill=<span class="code-string">&quot;#111e2b&quot;</span> stroke=<span class="code-string">&quot;#3c626d&quot;</span>/&gt;</span>
-<span class="source-line" id="L296"><a href="#L296">296</a>&lt;text x=<span class="code-string">&quot;10&quot;</span> y=<span class="code-string">&quot;15&quot;</span> fill=<span class="code-string">&quot;#e5f3ef&quot;</span> font-size=<span class="code-string">&quot;10&quot;</span>&gt;情境颱風 / SIM&lt;/text&gt;</span>
-<span class="source-line" id="L297"><a href="#L297">297</a>&lt;text x=<span class="code-string">&quot;10&quot;</span> y=<span class="code-string">&quot;29&quot;</span> fill=<span class="code-string">&quot;#85aeba&quot;</span> font-size=<span class="code-string">&quot;9&quot;</span>&gt;逆時針環流 ↺&lt;/text&gt;</span>
-<span class="source-line" id="L298"><a href="#L298">298</a>&lt;/g&gt;</span>
-<span class="source-line" id="L299"><a href="#L299">299</a>&lt;/g&gt;</span>
-<span class="source-line" id="L300"><a href="#L300">300</a>&lt;g class=<span class="code-string">&quot;map-label&quot;</span>&gt;</span>
-<span class="source-line" id="L301"><a href="#L301">301</a>&lt;circle cx=<span class="code-string">&quot;438&quot;</span> cy=<span class="code-string">&quot;141&quot;</span> r=<span class="code-string">&quot;4&quot;</span> class=<span class="code-string">&quot;city&quot;</span>/&gt;</span>
-<span class="source-line" id="L302"><a href="#L302">302</a>&lt;text x=<span class="code-string">&quot;454&quot;</span> y=<span class="code-string">&quot;139&quot;</span>&gt;台北&lt;/text&gt;</span>
-<span class="source-line" id="L303"><a href="#L303">303</a>&lt;circle cx=<span class="code-string">&quot;320&quot;</span> cy=<span class="code-string">&quot;282&quot;</span> r=<span class="code-string">&quot;4&quot;</span> class=<span class="code-string">&quot;city&quot;</span>/&gt;</span>
-<span class="source-line" id="L304"><a href="#L304">304</a>&lt;text x=<span class="code-string">&quot;268&quot;</span> y=<span class="code-string">&quot;282&quot;</span>&gt;台中&lt;/text&gt;</span>
-<span class="source-line" id="L305"><a href="#L305">305</a>&lt;circle cx=<span class="code-string">&quot;313&quot;</span> cy=<span class="code-string">&quot;387&quot;</span> r=<span class="code-string">&quot;4&quot;</span> class=<span class="code-string">&quot;city&quot;</span>/&gt;</span>
-<span class="source-line" id="L306"><a href="#L306">306</a>&lt;text x=<span class="code-string">&quot;263&quot;</span> y=<span class="code-string">&quot;393&quot;</span>&gt;高雄&lt;/text&gt;</span>
-<span class="source-line" id="L307"><a href="#L307">307</a>&lt;circle cx=<span class="code-string">&quot;424&quot;</span> cy=<span class="code-string">&quot;254&quot;</span> r=<span class="code-string">&quot;4&quot;</span> class=<span class="code-string">&quot;city&quot;</span>/&gt;</span>
-<span class="source-line" id="L308"><a href="#L308">308</a>&lt;text x=<span class="code-string">&quot;439&quot;</span> y=<span class="code-string">&quot;256&quot;</span>&gt;花蓮&lt;/text&gt;</span>
-<span class="source-line" id="L309"><a href="#L309">309</a>&lt;text x=<span class="code-string">&quot;371&quot;</span> y=<span class="code-string">&quot;322&quot;</span> fill=<span class="code-string">&quot;#e1d9a8&quot;</span> font-size=<span class="code-string">&quot;9&quot;</span> transform=<span class="code-string">&quot;rotate(-65 371 322)&quot;</span>&gt;中央山脈&lt;/text&gt;</span>
-<span class="source-line" id="L310"><a href="#L310">310</a>&lt;/g&gt;</span>
-<span class="source-line" id="L311"><a href="#L311">311</a>&lt;path d=<span class="code-string">&quot;M418 208 493 172H548&quot;</span> fill=<span class="code-string">&quot;none&quot;</span> stroke=<span class="code-string">&quot;#8aacab&quot;</span> stroke-width=<span class="code-string">&quot;.7&quot;</span>/&gt;</span>
-<span class="source-line" id="L312"><a href="#L312">312</a>&lt;text x=<span class="code-string">&quot;499&quot;</span> y=<span class="code-string">&quot;164&quot;</span> fill=<span class="code-string">&quot;#b1ccbf&quot;</span> font-size=<span class="code-string">&quot;9&quot;</span>&gt;山脈抬升 · 迎風增雨&lt;/text&gt;</span>
-<span class="source-line" id="L313"><a href="#L313">313</a>&lt;g fill=<span class="code-string">&quot;#6bbaa8&quot;</span> opacity=<span class="code-string">&quot;.7&quot;</span>&gt;</span>
-<span class="source-line" id="L314"><a href="#L314">314</a>&lt;ellipse cx=<span class="code-string">&quot;224&quot;</span> cy=<span class="code-string">&quot;346&quot;</span> rx=<span class="code-string">&quot;5&quot;</span> ry=<span class="code-string">&quot;9&quot;</span>/&gt;</span>
-<span class="source-line" id="L315"><a href="#L315">315</a>&lt;ellipse cx=<span class="code-string">&quot;211&quot;</span> cy=<span class="code-string">&quot;361&quot;</span> rx=<span class="code-string">&quot;4&quot;</span> ry=<span class="code-string">&quot;5&quot;</span>/&gt;</span>
-<span class="source-line" id="L316"><a href="#L316">316</a>&lt;/g&gt;</span>
-<span class="source-line" id="L317"><a href="#L317">317</a>&lt;/g&gt;</span>
-<span class="source-line" id="L318"><a href="#L318">318</a>&lt;/svg&gt;</span>
-<span class="source-line" id="L319"><a href="#L319">319</a>&lt;div class=<span class="code-string">&quot;canvas-bottom&quot;</span>&gt;</span>
-<span class="source-line" id="L320"><a href="#L320">320</a>&lt;div class=<span class="code-string">&quot;legend&quot;</span>&gt;</span>
-<span class="source-line" id="L321"><a href="#L321">321</a>&lt;span&gt;</span>
-<span class="source-line" id="L322"><a href="#L322">322</a>&lt;i style=<span class="code-string">&quot;background:#71e8cd&quot;</span>&gt;</span>
-<span class="source-line" id="L323"><a href="#L323">323</a>&lt;/i&gt;風場&lt;/span&gt;</span>
-<span class="source-line" id="L324"><a href="#L324">324</a>&lt;span&gt;</span>
-<span class="source-line" id="L325"><a href="#L325">325</a>&lt;i style=<span class="code-string">&quot;background:#7cbee8&quot;</span>&gt;</span>
-<span class="source-line" id="L326"><a href="#L326">326</a>&lt;/i&gt;雨帶&lt;/span&gt;</span>
-<span class="source-line" id="L327"><a href="#L327">327</a>&lt;span&gt;</span>
-<span class="source-line" id="L328"><a href="#L328">328</a>&lt;i style=<span class="code-string">&quot;background:#efba79&quot;</span>&gt;</span>
-<span class="source-line" id="L329"><a href="#L329">329</a>&lt;/i&gt;路徑&lt;/span&gt;</span>
-<span class="source-line" id="L330"><a href="#L330">330</a>&lt;/div&gt;</span>
-<span class="source-line" id="L331"><a href="#L331">331</a>&lt;div class=<span class="code-string">&quot;compass&quot;</span>&gt;N&lt;span&gt;↑&lt;/span&gt;VECTOR 3D&lt;/div&gt;</span>
-<span class="source-line" id="L332"><a href="#L332">332</a>&lt;/div&gt;</span>
-<span class="source-line" id="L333"><a href="#L333">333</a>&lt;/section&gt;</span>
-<span class="source-line" id="L334"><a href="#L334">334</a>&lt;aside class=<span class="code-string">&quot;panel stats&quot;</span>&gt;</span>
-<span class="source-line" id="L335"><a href="#L335">335</a>&lt;div class=<span class="code-string">&quot;section-label&quot;</span>&gt;情境觀測 &lt;b&gt;02 / OBSERVE&lt;/b&gt;</span>
+<span class="source-line" id="L284"><a href="#L284">284</a>&lt;g id=&quot;track&quot;&gt;</span>
+<span class="source-line" id="L285"><a href="#L285">285</a>&lt;path id=&quot;route&quot; class=&quot;storm-track&quot; d=&quot;M672 404 Q489 350 414 262 T207 176&quot;/&gt;</span>
+<span class="source-line" id="L286"><a href="#L286">286</a>&lt;g id=&quot;trackPoints&quot; fill=&quot;#efba79&quot;&gt;</span>
+<span class="source-line" id="L287"><a href="#L287">287</a>&lt;/g&gt;</span>
+<span class="source-line" id="L288"><a href="#L288">288</a>&lt;/g&gt;</span>
+<span class="source-line" id="L289"><a href="#L289">289</a>&lt;g id=&quot;stormPosition&quot;&gt;</span>
+<span class="source-line" id="L290"><a href="#L290">290</a>&lt;circle r=&quot;155&quot; fill=&quot;url(#stormGlow)&quot;/&gt;</span>
+<span class="source-line" id="L291"><a href="#L291">291</a>&lt;circle r=&quot;104&quot; fill=&quot;none&quot; stroke=&quot;#7cbee8&quot; stroke-opacity=&quot;.2&quot;/&gt;</span>
+<span class="source-line" id="L292"><a href="#L292">292</a>&lt;g id=&quot;rain&quot;&gt;</span>
+<span class="source-line" id="L293"><a href="#L293">293</a>&lt;/g&gt;</span>
+<span class="source-line" id="L294"><a href="#L294">294</a>&lt;g id=&quot;cyclone&quot;&gt;</span>
+<span class="source-line" id="L295"><a href="#L295">295</a>&lt;/g&gt;</span>
+<span class="source-line" id="L296"><a href="#L296">296</a>&lt;circle r=&quot;14&quot; fill=&quot;#102635&quot; stroke=&quot;#b8eee2&quot; stroke-width=&quot;1.3&quot;/&gt;</span>
+<span class="source-line" id="L297"><a href="#L297">297</a>&lt;circle r=&quot;3&quot; fill=&quot;#d8f9ed&quot;/&gt;</span>
+<span class="source-line" id="L298"><a href="#L298">298</a>&lt;g transform=&quot;translate(24 -28)&quot;&gt;</span>
+<span class="source-line" id="L299"><a href="#L299">299</a>&lt;rect width=&quot;104&quot; height=&quot;38&quot; rx=&quot;5&quot; fill=&quot;#111e2b&quot; stroke=&quot;#3c626d&quot;/&gt;</span>
+<span class="source-line" id="L300"><a href="#L300">300</a>&lt;text x=&quot;10&quot; y=&quot;15&quot; fill=&quot;#e5f3ef&quot; font-size=&quot;10&quot;&gt;情境颱風 / SIM&lt;/text&gt;</span>
+<span class="source-line" id="L301"><a href="#L301">301</a>&lt;text x=&quot;10&quot; y=&quot;29&quot; fill=&quot;#85aeba&quot; font-size=&quot;9&quot;&gt;逆時針環流 ↺&lt;/text&gt;</span>
+<span class="source-line" id="L302"><a href="#L302">302</a>&lt;/g&gt;</span>
+<span class="source-line" id="L303"><a href="#L303">303</a>&lt;/g&gt;</span>
+<span class="source-line" id="L304"><a href="#L304">304</a>&lt;g class=&quot;map-label&quot;&gt;</span>
+<span class="source-line" id="L305"><a href="#L305">305</a>&lt;circle cx=&quot;449&quot; cy=&quot;102&quot; r=&quot;4&quot; class=&quot;city&quot;/&gt;</span>
+<span class="source-line" id="L306"><a href="#L306">306</a>&lt;text x=&quot;464&quot; y=&quot;99&quot;&gt;台北&lt;/text&gt;</span>
+<span class="source-line" id="L307"><a href="#L307">307</a>&lt;circle cx=&quot;347&quot; cy=&quot;214&quot; r=&quot;4&quot; class=&quot;city&quot;/&gt;</span>
+<span class="source-line" id="L308"><a href="#L308">308</a>&lt;text x=&quot;297&quot; y=&quot;215&quot;&gt;台中&lt;/text&gt;</span>
+<span class="source-line" id="L309"><a href="#L309">309</a>&lt;circle cx=&quot;304&quot; cy=&quot;406&quot; r=&quot;4&quot; class=&quot;city&quot;/&gt;</span>
+<span class="source-line" id="L310"><a href="#L310">310</a>&lt;text x=&quot;254&quot; y=&quot;410&quot;&gt;高雄&lt;/text&gt;</span>
+<span class="source-line" id="L311"><a href="#L311">311</a>&lt;circle cx=&quot;454&quot; cy=&quot;234&quot; r=&quot;4&quot; class=&quot;city&quot;/&gt;</span>
+<span class="source-line" id="L312"><a href="#L312">312</a>&lt;text x=&quot;468&quot; y=&quot;237&quot;&gt;花蓮&lt;/text&gt;</span>
+<span class="source-line" id="L313"><a href="#L313">313</a>&lt;text x=&quot;371&quot; y=&quot;322&quot; fill=&quot;#e1d9a8&quot; font-size=&quot;9&quot; transform=&quot;rotate(-65 371 322)&quot;&gt;中央山脈&lt;/text&gt;</span>
+<span class="source-line" id="L314"><a href="#L314">314</a>&lt;/g&gt;</span>
+<span class="source-line" id="L315"><a href="#L315">315</a>&lt;path d=&quot;M418 208 493 172H548&quot; fill=&quot;none&quot; stroke=&quot;#8aacab&quot; stroke-width=&quot;.7&quot;/&gt;</span>
+<span class="source-line" id="L316"><a href="#L316">316</a>&lt;text x=&quot;499&quot; y=&quot;164&quot; fill=&quot;#b1ccbf&quot; font-size=&quot;9&quot;&gt;山脈抬升 · 迎風增雨&lt;/text&gt;</span>
+<span class="source-line" id="L317"><a href="#L317">317</a>&lt;g fill=&quot;#6bbaa8&quot; opacity=&quot;.7&quot;&gt;</span>
+<span class="source-line" id="L318"><a href="#L318">318</a>&lt;ellipse cx=&quot;224&quot; cy=&quot;346&quot; rx=&quot;5&quot; ry=&quot;9&quot;/&gt;</span>
+<span class="source-line" id="L319"><a href="#L319">319</a>&lt;ellipse cx=&quot;211&quot; cy=&quot;361&quot; rx=&quot;4&quot; ry=&quot;5&quot;/&gt;</span>
+<span class="source-line" id="L320"><a href="#L320">320</a>&lt;/g&gt;</span>
+<span class="source-line" id="L321"><a href="#L321">321</a>&lt;/g&gt;</span>
+<span class="source-line" id="L322"><a href="#L322">322</a>&lt;/svg&gt;</span>
+<span class="source-line" id="L323"><a href="#L323">323</a>&lt;div class=&quot;canvas-bottom&quot;&gt;</span>
+<span class="source-line" id="L324"><a href="#L324">324</a>&lt;div class=&quot;legend&quot;&gt;</span>
+<span class="source-line" id="L325"><a href="#L325">325</a>&lt;span&gt;</span>
+<span class="source-line" id="L326"><a href="#L326">326</a>&lt;i style=&quot;background:#71e8cd&quot;&gt;</span>
+<span class="source-line" id="L327"><a href="#L327">327</a>&lt;/i&gt;風場&lt;/span&gt;</span>
+<span class="source-line" id="L328"><a href="#L328">328</a>&lt;span&gt;</span>
+<span class="source-line" id="L329"><a href="#L329">329</a>&lt;i style=&quot;background:#7cbee8&quot;&gt;</span>
+<span class="source-line" id="L330"><a href="#L330">330</a>&lt;/i&gt;雨帶&lt;/span&gt;</span>
+<span class="source-line" id="L331"><a href="#L331">331</a>&lt;span&gt;</span>
+<span class="source-line" id="L332"><a href="#L332">332</a>&lt;i style=&quot;background:#efba79&quot;&gt;</span>
+<span class="source-line" id="L333"><a href="#L333">333</a>&lt;/i&gt;路徑&lt;/span&gt;</span>
+<span class="source-line" id="L334"><a href="#L334">334</a>&lt;/div&gt;</span>
+<span class="source-line" id="L335"><a href="#L335">335</a>&lt;div class=&quot;compass&quot;&gt;N&lt;span&gt;↑&lt;/span&gt;VECTOR 3D&lt;/div&gt;</span>
 <span class="source-line" id="L336"><a href="#L336">336</a>&lt;/div&gt;</span>
-<span class="source-line" id="L337"><a href="#L337">337</a>&lt;div class=<span class="code-string">&quot;metric&quot;</span>&gt;</span>
-<span class="source-line" id="L338"><a href="#L338">338</a>&lt;div class=<span class="code-string">&quot;label&quot;</span>&gt;環流接近指數&lt;/div&gt;</span>
-<span class="source-line" id="L339"><a href="#L339">339</a>&lt;div class=<span class="code-string">&quot;value&quot;</span>&gt;</span>
-<span class="source-line" id="L340"><a href="#L340">340</a>&lt;span id=<span class="code-string">&quot;proximity&quot;</span>&gt;—&lt;/span&gt;</span>
-<span class="source-line" id="L341"><a href="#L341">341</a>&lt;small&gt;/ 100&lt;/small&gt;</span>
-<span class="source-line" id="L342"><a href="#L342">342</a>&lt;/div&gt;</span>
-<span class="source-line" id="L343"><a href="#L343">343</a>&lt;div class=<span class="code-string">&quot;sub&quot;</span> id=<span class="code-string">&quot;phase&quot;</span>&gt;外圍環流接近中&lt;/div&gt;</span>
-<span class="source-line" id="L344"><a href="#L344">344</a>&lt;div class=<span class="code-string">&quot;bar&quot;</span>&gt;</span>
-<span class="source-line" id="L345"><a href="#L345">345</a>&lt;span id=<span class="code-string">&quot;proximityBar&quot;</span>&gt;</span>
-<span class="source-line" id="L346"><a href="#L346">346</a>&lt;/span&gt;</span>
-<span class="source-line" id="L347"><a href="#L347">347</a>&lt;/div&gt;</span>
-<span class="source-line" id="L348"><a href="#L348">348</a>&lt;/div&gt;</span>
-<span class="source-line" id="L349"><a href="#L349">349</a>&lt;div class=<span class="code-string">&quot;metric amber&quot;</span>&gt;</span>
-<span class="source-line" id="L350"><a href="#L350">350</a>&lt;div class=<span class="code-string">&quot;label&quot;</span>&gt;地形增雨示意&lt;/div&gt;</span>
-<span class="source-line" id="L351"><a href="#L351">351</a>&lt;div class=<span class="code-string">&quot;value&quot;</span> id=<span class="code-string">&quot;rainLevel&quot;</span>&gt;中等&lt;/div&gt;</span>
-<span class="source-line" id="L352"><a href="#L352">352</a>&lt;div class=<span class="code-string">&quot;sub&quot;</span> id=<span class="code-string">&quot;windward&quot;</span>&gt;東側山坡 · 迎風面&lt;/div&gt;</span>
-<span class="source-line" id="L353"><a href="#L353">353</a>&lt;/div&gt;</span>
-<span class="source-line" id="L354"><a href="#L354">354</a>&lt;div class=<span class="code-string">&quot;metric&quot;</span>&gt;</span>
-<span class="source-line" id="L355"><a href="#L355">355</a>&lt;div class=<span class="code-string">&quot;label&quot;</span>&gt;即時影格取樣&lt;/div&gt;</span>
-<span class="source-line" id="L356"><a href="#L356">356</a>&lt;div class=<span class="code-string">&quot;value&quot;</span>&gt;</span>
-<span class="source-line" id="L357"><a href="#L357">357</a>&lt;span id=<span class="code-string">&quot;fps&quot;</span>&gt;—&lt;/span&gt;</span>
-<span class="source-line" id="L358"><a href="#L358">358</a>&lt;small&gt;FPS&lt;/small&gt;</span>
-<span class="source-line" id="L359"><a href="#L359">359</a>&lt;/div&gt;</span>
-<span class="source-line" id="L360"><a href="#L360">360</a>&lt;div class=<span class="code-string">&quot;small&quot;</span>&gt;</span>
-<span class="source-line" id="L361"><a href="#L361">361</a>&lt;span id=<span class="code-string">&quot;frameMs&quot;</span>&gt;—&lt;/span&gt; ms / RAF 間隔中位數&lt;/div&gt;</span>
-<span class="source-line" id="L362"><a href="#L362">362</a>&lt;/div&gt;</span>
-<span class="source-line" id="L363"><a href="#L363">363</a>&lt;div class=<span class="code-string">&quot;insight&quot;</span>&gt;</span>
-<span class="source-line" id="L364"><a href="#L364">364</a>&lt;h3&gt;山脈，是風雨的分界。&lt;/h3&gt;</span>
-<span class="source-line" id="L365"><a href="#L365">365</a>&lt;p&gt;潮濕氣流遇山坡上升，水氣凝結；迎風側常出現較強降雨。實際分布仍受路徑與環流結構影響。&lt;/p&gt;</span>
+<span class="source-line" id="L337"><a href="#L337">337</a>&lt;/section&gt;</span>
+<span class="source-line" id="L338"><a href="#L338">338</a>&lt;aside class=&quot;panel stats&quot;&gt;</span>
+<span class="source-line" id="L339"><a href="#L339">339</a>&lt;div class=&quot;section-label&quot;&gt;情境觀測 &lt;b&gt;02 / OBSERVE&lt;/b&gt;</span>
+<span class="source-line" id="L340"><a href="#L340">340</a>&lt;/div&gt;</span>
+<span class="source-line" id="L341"><a href="#L341">341</a>&lt;div class=&quot;metric&quot;&gt;</span>
+<span class="source-line" id="L342"><a href="#L342">342</a>&lt;div class=&quot;label&quot;&gt;環流接近指數&lt;/div&gt;</span>
+<span class="source-line" id="L343"><a href="#L343">343</a>&lt;div class=&quot;value&quot;&gt;</span>
+<span class="source-line" id="L344"><a href="#L344">344</a>&lt;span id=&quot;proximity&quot;&gt;—&lt;/span&gt;</span>
+<span class="source-line" id="L345"><a href="#L345">345</a>&lt;small&gt;/ 100&lt;/small&gt;</span>
+<span class="source-line" id="L346"><a href="#L346">346</a>&lt;/div&gt;</span>
+<span class="source-line" id="L347"><a href="#L347">347</a>&lt;div class=&quot;sub&quot; id=&quot;phase&quot;&gt;外圍環流接近中&lt;/div&gt;</span>
+<span class="source-line" id="L348"><a href="#L348">348</a>&lt;div class=&quot;bar&quot;&gt;</span>
+<span class="source-line" id="L349"><a href="#L349">349</a>&lt;span id=&quot;proximityBar&quot;&gt;</span>
+<span class="source-line" id="L350"><a href="#L350">350</a>&lt;/span&gt;</span>
+<span class="source-line" id="L351"><a href="#L351">351</a>&lt;/div&gt;</span>
+<span class="source-line" id="L352"><a href="#L352">352</a>&lt;/div&gt;</span>
+<span class="source-line" id="L353"><a href="#L353">353</a>&lt;div class=&quot;metric amber&quot;&gt;</span>
+<span class="source-line" id="L354"><a href="#L354">354</a>&lt;div class=&quot;label&quot;&gt;地形增雨示意&lt;/div&gt;</span>
+<span class="source-line" id="L355"><a href="#L355">355</a>&lt;div class=&quot;value&quot; id=&quot;rainLevel&quot;&gt;中等&lt;/div&gt;</span>
+<span class="source-line" id="L356"><a href="#L356">356</a>&lt;div class=&quot;sub&quot; id=&quot;windward&quot;&gt;東側山坡 · 迎風面&lt;/div&gt;</span>
+<span class="source-line" id="L357"><a href="#L357">357</a>&lt;/div&gt;</span>
+<span class="source-line" id="L358"><a href="#L358">358</a>&lt;div class=&quot;metric&quot;&gt;</span>
+<span class="source-line" id="L359"><a href="#L359">359</a>&lt;div class=&quot;label&quot;&gt;即時影格取樣&lt;/div&gt;</span>
+<span class="source-line" id="L360"><a href="#L360">360</a>&lt;div class=&quot;value&quot;&gt;</span>
+<span class="source-line" id="L361"><a href="#L361">361</a>&lt;span id=&quot;fps&quot;&gt;—&lt;/span&gt;</span>
+<span class="source-line" id="L362"><a href="#L362">362</a>&lt;small&gt;FPS&lt;/small&gt;</span>
+<span class="source-line" id="L363"><a href="#L363">363</a>&lt;/div&gt;</span>
+<span class="source-line" id="L364"><a href="#L364">364</a>&lt;div class=&quot;small&quot;&gt;</span>
+<span class="source-line" id="L365"><a href="#L365">365</a>&lt;span id=&quot;frameMs&quot;&gt;—&lt;/span&gt; ms / RAF 間隔中位數&lt;/div&gt;&lt;button id=&quot;startAudit&quot; class=&quot;text-button&quot; style=&quot;margin-top:8px;color:var(--cyan)&quot;&gt;執行 10 秒檢測 ↗&lt;/button&gt;&lt;div id=&quot;auditStatus&quot; class=&quot;small&quot; role=&quot;status&quot;&gt;&lt;/div&gt;</span>
 <span class="source-line" id="L366"><a href="#L366">366</a>&lt;/div&gt;</span>
-<span class="source-line" id="L367"><a href="#L367">367</a>&lt;/aside&gt;</span>
-<span class="source-line" id="L368"><a href="#L368">368</a>&lt;section class=<span class="code-string">&quot;panel transport&quot;</span> aria-label=<span class="code-string">&quot;播放控制&quot;</span>&gt;</span>
-<span class="source-line" id="L369"><a href="#L369">369</a>&lt;div class=<span class="code-string">&quot;play-group&quot;</span>&gt;</span>
-<span class="source-line" id="L370"><a href="#L370">370</a>&lt;button id=<span class="code-string">&quot;play&quot;</span> class=<span class="code-string">&quot;primary&quot;</span>&gt;Ⅱ 暫停&lt;/button&gt;</span>
-<span class="source-line" id="L371"><a href="#L371">371</a>&lt;div id=<span class="code-string">&quot;timeLabel&quot;</span> class=<span class="code-string">&quot;time-value&quot;</span>&gt;T + 16.8 h&lt;small&gt;SCENARIO TIME&lt;/small&gt;</span>
-<span class="source-line" id="L372"><a href="#L372">372</a>&lt;/div&gt;</span>
-<span class="source-line" id="L373"><a href="#L373">373</a>&lt;/div&gt;</span>
-<span class="source-line" id="L374"><a href="#L374">374</a>&lt;div class=<span class="code-string">&quot;timeline&quot;</span>&gt;</span>
-<span class="source-line" id="L375"><a href="#L375">375</a>&lt;label for=<span class="code-string">&quot;scrubber&quot;</span>&gt;情境進程（0–48 小時）&lt;/label&gt;</span>
-<span class="source-line" id="L376"><a href="#L376">376</a>&lt;input id=<span class="code-string">&quot;scrubber&quot;</span> type=<span class="code-string">&quot;range&quot;</span> min=<span class="code-string">&quot;0&quot;</span> max=<span class="code-string">&quot;1000&quot;</span> value=<span class="code-string">&quot;350&quot;</span> aria-label=<span class="code-string">&quot;情境時間軸&quot;</span>&gt;</span>
-<span class="source-line" id="L377"><a href="#L377">377</a>&lt;div class=<span class="code-string">&quot;ticks&quot;</span>&gt;</span>
-<span class="source-line" id="L378"><a href="#L378">378</a>&lt;span&gt;00h 接近&lt;/span&gt;</span>
-<span class="source-line" id="L379"><a href="#L379">379</a>&lt;span&gt;12h&lt;/span&gt;</span>
-<span class="source-line" id="L380"><a href="#L380">380</a>&lt;span&gt;24h 最接近&lt;/span&gt;</span>
-<span class="source-line" id="L381"><a href="#L381">381</a>&lt;span&gt;36h&lt;/span&gt;</span>
-<span class="source-line" id="L382"><a href="#L382">382</a>&lt;span&gt;48h 遠離&lt;/span&gt;</span>
-<span class="source-line" id="L383"><a href="#L383">383</a>&lt;/div&gt;</span>
-<span class="source-line" id="L384"><a href="#L384">384</a>&lt;/div&gt;</span>
-<span class="source-line" id="L385"><a href="#L385">385</a>&lt;div class=<span class="code-string">&quot;transport-end&quot;</span>&gt;</span>
-<span class="source-line" id="L386"><a href="#L386">386</a>&lt;select id=<span class="code-string">&quot;speed&quot;</span> aria-label=<span class="code-string">&quot;播放速度&quot;</span>&gt;</span>
-<span class="source-line" id="L387"><a href="#L387">387</a>&lt;option value=<span class="code-string">&quot;1&quot;</span>&gt;1× 速度&lt;/option&gt;</span>
-<span class="source-line" id="L388"><a href="#L388">388</a>&lt;option value=<span class="code-string">&quot;2&quot;</span>&gt;2× 速度&lt;/option&gt;</span>
-<span class="source-line" id="L389"><a href="#L389">389</a>&lt;option value=<span class="code-string">&quot;.5&quot;</span>&gt;0.5× 速度&lt;/option&gt;</span>
-<span class="source-line" id="L390"><a href="#L390">390</a>&lt;/select&gt;</span>
-<span class="source-line" id="L391"><a href="#L391">391</a>&lt;button id=<span class="code-string">&quot;sound&quot;</span> aria-pressed=<span class="code-string">&quot;false&quot;</span>&gt;音效 關&lt;/button&gt;</span>
-<span class="source-line" id="L392"><a href="#L392">392</a>&lt;button id=<span class="code-string">&quot;bookmark&quot;</span> aria-label=<span class="code-string">&quot;收藏目前情境&quot;</span> aria-pressed=<span class="code-string">&quot;false&quot;</span>&gt;</span>
-<span class="source-line" id="L393"><a href="#L393">393</a>&lt;svg width=<span class="code-string">&quot;15&quot;</span> height=<span class="code-string">&quot;15&quot;</span> viewBox=<span class="code-string">&quot;0 0 24 24&quot;</span> fill=<span class="code-string">&quot;none&quot;</span> stroke=<span class="code-string">&quot;currentColor&quot;</span> stroke-width=<span class="code-string">&quot;1.5&quot;</span>&gt;</span>
-<span class="source-line" id="L394"><a href="#L394">394</a>&lt;path id=<span class="code-string">&quot;starPath&quot;</span> pathLength=<span class="code-string">&quot;1&quot;</span> d=<span class="code-string">&quot;m12 2 3 6 7 1-5 5 1 8-6-4-6 4 1-8-5-5 7-1Z&quot;</span>/&gt;</span>
-<span class="source-line" id="L395"><a href="#L395">395</a>&lt;/svg&gt;</span>
-<span class="source-line" id="L396"><a href="#L396">396</a>&lt;/button&gt;</span>
-<span class="source-line" id="L397"><a href="#L397">397</a>&lt;/div&gt;</span>
-<span class="source-line" id="L398"><a href="#L398">398</a>&lt;/section&gt;</span>
-<span class="source-line" id="L399"><a href="#L399">399</a>&lt;/div&gt;</span>
-<span class="source-line" id="L400"><a href="#L400">400</a>&lt;div class=<span class="code-string">&quot;bottomline&quot;</span>&gt;</span>
-<span class="source-line" id="L401"><a href="#L401">401</a>&lt;span&gt;</span>
-<span class="source-line" id="L402"><a href="#L402">402</a>&lt;i class=<span class="code-string">&quot;dot&quot;</span>&gt;</span>
-<span class="source-line" id="L403"><a href="#L403">403</a>&lt;/i&gt;教學情境模擬 · 無外部圖片與音檔&lt;/span&gt;</span>
-<span class="source-line" id="L404"><a href="#L404">404</a>&lt;span&gt;SVG TERRAIN / WEB AUDIO / RAF&lt;/span&gt;</span>
-<span class="source-line" id="L405"><a href="#L405">405</a>&lt;button id=<span class="code-string">&quot;captureMode&quot;</span> class=<span class="code-string">&quot;text-button&quot;</span>&gt;切換截圖模式&lt;/button&gt;</span>
-<span class="source-line" id="L406"><a href="#L406">406</a>&lt;/div&gt;</span>
-<span class="source-line" id="L407"><a href="#L407">407</a>&lt;section class=<span class="code-string">&quot;learning&quot;</span> aria-label=<span class="code-string">&quot;原理導讀&quot;</span>&gt;</span>
-<span class="source-line" id="L408"><a href="#L408">408</a>&lt;article class=<span class="code-string">&quot;learn-item&quot;</span>&gt;</span>
-<span class="source-line" id="L409"><a href="#L409">409</a>&lt;span class=<span class="code-string">&quot;number&quot;</span>&gt;01&lt;/span&gt;</span>
-<span class="source-line" id="L410"><a href="#L410">410</a>&lt;div&gt;</span>
-<span class="source-line" id="L411"><a href="#L411">411</a>&lt;h3&gt;旋轉的空氣&lt;/h3&gt;</span>
-<span class="source-line" id="L412"><a href="#L412">412</a>&lt;p&gt;北半球颱風環流呈逆時針旋轉。路徑決定各地接收到的風向與水氣。&lt;/p&gt;</span>
-<span class="source-line" id="L413"><a href="#L413">413</a>&lt;/div&gt;</span>
-<span class="source-line" id="L414"><a href="#L414">414</a>&lt;/article&gt;</span>
-<span class="source-line" id="L415"><a href="#L415">415</a>&lt;article class=<span class="code-string">&quot;learn-item&quot;</span>&gt;</span>
-<span class="source-line" id="L416"><a href="#L416">416</a>&lt;span class=<span class="code-string">&quot;number&quot;</span>&gt;02&lt;/span&gt;</span>
-<span class="source-line" id="L417"><a href="#L417">417</a>&lt;div&gt;</span>
-<span class="source-line" id="L418"><a href="#L418">418</a>&lt;h3&gt;被抬升的水氣&lt;/h3&gt;</span>
-<span class="source-line" id="L419"><a href="#L419">419</a>&lt;p&gt;中央山脈改變風雨分布；迎風側的地形抬升，往往使降雨增強。&lt;/p&gt;</span>
-<span class="source-line" id="L420"><a href="#L420">420</a>&lt;/div&gt;</span>
-<span class="source-line" id="L421"><a href="#L421">421</a>&lt;/article&gt;</span>
-<span class="source-line" id="L422"><a href="#L422">422</a>&lt;article class=<span class="code-string">&quot;learn-item&quot;</span>&gt;</span>
-<span class="source-line" id="L423"><a href="#L423">423</a>&lt;span class=<span class="code-string">&quot;number&quot;</span>&gt;03&lt;/span&gt;</span>
-<span class="source-line" id="L424"><a href="#L424">424</a>&lt;div&gt;</span>
-<span class="source-line" id="L425"><a href="#L425">425</a>&lt;h3&gt;改變中的影響&lt;/h3&gt;</span>
-<span class="source-line" id="L426"><a href="#L426">426</a>&lt;p&gt;切換三條路徑，比較迎風側的轉移。圖中指數是情境參數，並非預報。&lt;/p&gt;</span>
-<span class="source-line" id="L427"><a href="#L427">427</a>&lt;/div&gt;</span>
-<span class="source-line" id="L428"><a href="#L428">428</a>&lt;/article&gt;</span>
-<span class="source-line" id="L429"><a href="#L429">429</a>&lt;/section&gt;</span>
-<span class="source-line" id="L430"><a href="#L430">430</a>&lt;footer class=<span class="code-string">&quot;foot&quot;</span>&gt;</span>
-<span class="source-line" id="L431"><a href="#L431">431</a>&lt;span&gt;科普參考：&lt;a href=<span class="code-string">&quot;https://pweb.cwa.gov.tw/PopularScience/wt/wt_30.html&quot;</span> target=<span class="code-string">&quot;_blank&quot;</span> rel=<span class="code-string">&quot;noopener&quot;</span>&gt;中央氣象署 · 臺灣大風吹 ↗&lt;/a&gt;</span>
-<span class="source-line" id="L432"><a href="#L432">432</a>&lt;/span&gt;</span>
-<span class="source-line" id="L433"><a href="#L433">433</a>&lt;span&gt;風域 / A SMALL LAB FOR BIG WEATHER&lt;/span&gt;</span>
-<span class="source-line" id="L434"><a href="#L434">434</a>&lt;/footer&gt;</span>
-<span class="source-line" id="L435"><a href="#L435">435</a>&lt;/main&gt;</span>
-<span class="source-line" id="L436"><a href="#L436">436</a>&lt;div id=<span class="code-string">&quot;toast&quot;</span> class=<span class="code-string">&quot;toast&quot;</span> role=<span class="code-string">&quot;status&quot;</span> hidden&gt;</span>
-<span class="source-line" id="L437"><a href="#L437">437</a>&lt;/div&gt;</span>
-<span class="source-line" id="L438"><a href="#L438">438</a>&lt;script&gt;</span>
-<span class="source-line" id="L439"><a href="#L439">439</a></span>
-<span class="source-line" id="L440"><a href="#L440">440</a>'use strict';</span>
-<span class="source-line" id="L441"><a href="#L441">441</a>const $=id=&gt;document.getElementById(id),NS='http://www.w3.org/2000/svg';</span>
-<span class="source-line" id="L442"><a href="#L442">442</a>// Local SVG geometry: no external media requests.</span>
-<span class="source-line" id="L443"><a href="#L443">443</a>function svgNode(tag,attrs,parent){const n=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);parent.append(n);return n;}</span>
-<span class="source-line" id="L444"><a href="#L444">444</a>for(let i=0;i&lt;29;i++){const y=130+i*11,x=445-i*4.2;svgNode('path',{d:'M'+(x-100)+' '+(y+34)+' Q'+(x-8)+' '+(y-35)+' '+(x+61)+' '+(y+27),class:'terrain-line'},$('contours'));}</span>
-<span class="source-line" id="L445"><a href="#L445">445</a>for(let i=0;i&lt;28;i++){const y=145+i*10,x=439-i*3.9,peak=13+Math.sin(i*2.3)*8;svgNode('path',{d:'M'+(x-35)+' '+(y+24)+' L'+x+' '+(y-peak)+' L'+(x+15)+' '+(y+35)+'Z',fill:i%2?'#bdd3aa':'#1d4f45',opacity:i%2?'.2':'.4',stroke:'#a3c9a1','stroke-width':'.5'},$('terrainMesh'));}</span>
-<span class="source-line" id="L446"><a href="#L446">446</a>for(let arm=0;arm&lt;7;arm++){let d='';for(let j=0;j&lt;=60;j++){const r=22+j*1.9,a=arm*Math.PI*2/7-j*.046;d+=(j?'L':'M')+(Math.cos(a)*r).toFixed(2)+' '+(Math.sin(a)*r).toFixed(2)+' ';}svgNode('path',{d,class:'wind-path'},$('cyclone'));if(arm%2===0)svgNode('path',{d,class:'rainband'},$('rain'));}</span>
-<span class="source-line" id="L447"><a href="#L447">447</a>const scenarios={cross:{d:'M672 404 Q489 350 414 262 T207 176',points:[[672,404],[510,352],[414,262],[320,196],[207,176]],copy:'由東南方接近，穿越中央山脈；觀察迎風面隨環流改變。',wind:['東側山坡 · 迎風面','西側山坡 · 迎風面']},north:{d:'M650 455 Q560 300 506 204 T518 70',points:[[650,455],[568,320],[506,204],[500,132],[518,70]],copy:'沿台灣東側海面北上，觀察東部與北部山區的迎風效應。',wind:['東側山坡 · 迎風面','北側山坡 · 迎風面']},south:{d:'M680 448 Q488 478 364 444 T120 380',points:[[680,448],[516,462],[364,444],[240,408],[120,380]],copy:'從台灣南側向西移動；後期以西南側水氣增強作教學示意。',wind:['東南山坡 · 迎風面','西南山坡 · 迎風面']}};</span>
-<span class="source-line" id="L448"><a href="#L448">448</a>const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;</span>
-<span class="source-line" id="L449"><a href="#L449">449</a>let playing=!reduced,progress=.35,last=0,rotation=0,soundEnabled=false,audioContext,frames=[],lastMetrics=0,lastUI=0,toastTimer,scrubSoundAt=0,routeLength=0;</span>
-<span class="source-line" id="L450"><a href="#L450">450</a>function notify(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=&gt;$('toast').hidden=true,2600);}</span>
-<span class="source-line" id="L451"><a href="#L451">451</a>// Independent oscillator/envelope per note allows overlapping rapid clicks.</span>
-<span class="source-line" id="L452"><a href="#L452">452</a>async function tone(kind='click'){if(!soundEnabled)return;try{audioContext??=new (window.AudioContext||window.webkitAudioContext)();await audioContext.resume();const t=audioContext.currentTime;for(const [i,f] of (kind==='chord'?[523.25,659.25,783.99]:kind==='snap'?[880]:[1200]).entries()){const o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(f*.65,t+.08);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.055/(i+1),t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+.1);o.connect(g).connect(audioContext.destination);o.start(t);o.stop(t+.12);o.onended=()=&gt;{o.disconnect();g.disconnect();};}}catch{soundEnabled=false;$('sound').textContent='音效 不可用';$('sound').setAttribute('aria-pressed','false');notify('音效未能啟用，請確認瀏覽器音訊權限。');}}</span>
-<span class="source-line" id="L453"><a href="#L453">453</a>function updateScene(){const p=$('route').getPointAtLength(routeLength*progress);$('stormPosition').setAttribute('transform','translate('+p.x+' '+p.y+')');const proximity=Math.round(100*Math.exp(-Math.pow((progress-.55)/.31,2)));$('proximity').textContent=proximity;$('proximityBar').style.transform='scaleX('+(proximity/100)+')';$('rainLevel').textContent=proximity&gt;78?'強烈':proximity&gt;35?'中等':'微弱';$('phase').textContent=progress&lt;.48?'外圍環流接近中':progress&lt;.65?'環流最接近台灣':'環流逐漸遠離';$('windward').textContent=scenarios[$('scenario').value].wind[progress&lt;.62?0:1];$('timeLabel').replaceChildren(document.createTextNode('T + '+(progress*48).toFixed(1)+' h'),Object.assign(document.createElement('small'),{textContent:'SCENARIO TIME'}));$('scrubber').value=Math.round(progress*1000);}</span>
-<span class="source-line" id="L454"><a href="#L454">454</a>function setScenario(){const s=scenarios[$('scenario').value];$('route').setAttribute('d',s.d);routeLength=$('route').getTotalLength();$('trackPoints').replaceChildren();for(const [x,y] of s.points)svgNode('circle',{cx:x,cy:y,r:3},$('trackPoints'));$('scenarioCopy').textContent=s.copy;frames=[];updateScene();tone('snap');}</span>
-<span class="source-line" id="L455"><a href="#L455">455</a>function syncPlay(){$('play').textContent=playing?'Ⅱ 暫停':'▶ 播放';$('play').setAttribute('aria-label',playing?'暫停動畫':'播放動畫');}</span>
-<span class="source-line" id="L456"><a href="#L456">456</a>$('play').onclick=()=&gt;{playing=!playing;syncPlay();tone();};$('scenario').onchange=setScenario;</span>
-<span class="source-line" id="L457"><a href="#L457">457</a>$('scrubber').oninput=()=&gt;{progress=Number($('scrubber').value)/1000;updateScene();if(performance.now()-scrubSoundAt&gt;140){tone('snap');scrubSoundAt=performance.now();}};</span>
-<span class="source-line" id="L458"><a href="#L458">458</a>for(const [id,target] of [['windToggle','cyclone'],['rainToggle','rain'],['terrainToggle','terrain'],['trackToggle','track']])$(id).onchange=()=&gt;{$(target).style.opacity=$(id).checked?'1':'0';tone();};</span>
-<span class="source-line" id="L459"><a href="#L459">459</a>for(const [id,is3d] of [['view3d',true],['view2d',false]])$(id).onclick=()=&gt;{$('viewport').classList.toggle('perspective',is3d);$('view3d').setAttribute('aria-pressed',String(is3d));$('view2d').setAttribute('aria-pressed',String(!is3d));tone('snap');};</span>
-<span class="source-line" id="L460"><a href="#L460">460</a>$('sound').onclick=()=&gt;{soundEnabled=!soundEnabled;$('sound').textContent=soundEnabled?'音效 開':'音效 關';$('sound').setAttribute('aria-pressed',String(soundEnabled));tone('chord');};</span>
-<span class="source-line" id="L461"><a href="#L461">461</a>$('bookmark').onclick=()=&gt;{const saved=$('bookmark').getAttribute('aria-pressed')!=='true';$('bookmark').setAttribute('aria-pressed',String(saved));$('bookmark').classList.toggle('saved',saved);$('starPath').classList.toggle('draw-path',saved);$('starPath').setAttribute('fill',saved?'#efba79':'none');try{saved?localStorage.setItem('typhoon-bookmark',JSON.stringify({scenario:$('scenario').value,progress})):localStorage.removeItem('typhoon-bookmark');}catch{}notify(saved?'已收藏目前路徑與時間；下次開啟將恢復。':'已移除收藏');tone('chord');};</span>
-<span class="source-line" id="L462"><a href="#L462">462</a>$('fullscreen').onclick=async()=&gt;{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{notify('此瀏覽器未允許全螢幕，可使用 F11。');}};</span>
-<span class="source-line" id="L463"><a href="#L463">463</a>$('captureMode').onclick=()=&gt;document.body.classList.toggle('capture');</span>
-<span class="source-line" id="L464"><a href="#L464">464</a>// RAF cadence measures scheduling intervals, not JS task execution time.</span>
-<span class="source-line" id="L465"><a href="#L465">465</a>function animate(now){const dt=last?now-last:0;last=now;if(!document.hidden&amp;&amp;dt&gt;0&amp;&amp;dt&lt;250){frames.push(dt);if(frames.length&gt;180)frames.shift();if(playing){progress=(progress+dt*.000018*Number($('speed').value))%1;if(!reduced){rotation-=dt*.018;$('cyclone').setAttribute('transform','rotate('+rotation+')');$('rain').setAttribute('transform','rotate('+(rotation*.7)+')');}if(now-lastUI&gt;60){updateScene();lastUI=now;}}if(now-lastMetrics&gt;1000&amp;&amp;frames.length&gt;15){const sorted=[...frames].sort((a,b)=&gt;a-b),median=sorted[Math.floor(sorted.length/2)],p95=sorted[Math.floor(sorted.length*.95)];$('fps').textContent=Math.round(1000/median);$('frameMs').textContent=median.toFixed(1);const measurement={sampledAt:new Date().toISOString(),sampleCount:frames.length,rafMedianMs:median,rafP95Ms:p95,estimatedFps:1000/median,viewport:innerWidth+'×'+innerHeight,userAgent:navigator.userAgent,visible:!document.hidden};try{localStorage.setItem('typhoon-metrics',JSON.stringify(measurement));}catch{}window.typhoonMetrics=measurement;lastMetrics=now;}}requestAnimationFrame(animate);}</span>
-<span class="source-line" id="L466"><a href="#L466">466</a>document.addEventListener('visibilitychange',()=&gt;{last=0;frames=[];});</span>
-<span class="source-line" id="L467"><a href="#L467">467</a>try{const saved=JSON.parse(localStorage.getItem('typhoon-bookmark'));if(saved&amp;&amp;scenarios[saved.scenario]&amp;&amp;Number.isFinite(saved.progress)){$('scenario').value=saved.scenario;progress=Math.max(0,Math.min(1,saved.progress));$('bookmark').setAttribute('aria-pressed','true');$('starPath').setAttribute('fill','#efba79');}}catch{}</span>
-<span class="source-line" id="L468"><a href="#L468">468</a>setScenario();syncPlay();requestAnimationFrame(animate);</span>
-<span class="source-line" id="L469"><a href="#L469">469</a></span>
-<span class="source-line" id="L470"><a href="#L470">470</a>&lt;/script&gt;</span>
-<span class="source-line" id="L471"><a href="#L471">471</a>&lt;/body&gt;</span>
-<span class="source-line" id="L472"><a href="#L472">472</a>&lt;/html&gt;</span>
-<span class="source-line" id="L473"><a href="#L473">473</a></span></pre></main><script></script></body></html>
+<span class="source-line" id="L367"><a href="#L367">367</a>&lt;div class=&quot;insight&quot;&gt;</span>
+<span class="source-line" id="L368"><a href="#L368">368</a>&lt;h3&gt;山脈，是風雨的分界。&lt;/h3&gt;</span>
+<span class="source-line" id="L369"><a href="#L369">369</a>&lt;p&gt;潮濕氣流遇山坡上升，水氣凝結；迎風側常出現較強降雨。實際分布仍受路徑與環流結構影響。&lt;/p&gt;</span>
+<span class="source-line" id="L370"><a href="#L370">370</a>&lt;/div&gt;</span>
+<span class="source-line" id="L371"><a href="#L371">371</a>&lt;/aside&gt;</span>
+<span class="source-line" id="L372"><a href="#L372">372</a>&lt;section class=&quot;panel transport&quot; aria-label=&quot;播放控制&quot;&gt;</span>
+<span class="source-line" id="L373"><a href="#L373">373</a>&lt;div class=&quot;play-group&quot;&gt;</span>
+<span class="source-line" id="L374"><a href="#L374">374</a>&lt;button id=&quot;play&quot; class=&quot;primary&quot;&gt;Ⅱ 暫停&lt;/button&gt;</span>
+<span class="source-line" id="L375"><a href="#L375">375</a>&lt;div id=&quot;timeLabel&quot; class=&quot;time-value&quot;&gt;T + 16.8 h&lt;small&gt;SCENARIO TIME&lt;/small&gt;</span>
+<span class="source-line" id="L376"><a href="#L376">376</a>&lt;/div&gt;</span>
+<span class="source-line" id="L377"><a href="#L377">377</a>&lt;/div&gt;</span>
+<span class="source-line" id="L378"><a href="#L378">378</a>&lt;div class=&quot;timeline&quot;&gt;</span>
+<span class="source-line" id="L379"><a href="#L379">379</a>&lt;label for=&quot;scrubber&quot;&gt;情境進程（0–48 小時）&lt;/label&gt;</span>
+<span class="source-line" id="L380"><a href="#L380">380</a>&lt;input id=&quot;scrubber&quot; type=&quot;range&quot; min=&quot;0&quot; max=&quot;1000&quot; value=&quot;350&quot; aria-label=&quot;情境時間軸&quot;&gt;</span>
+<span class="source-line" id="L381"><a href="#L381">381</a>&lt;div class=&quot;ticks&quot;&gt;</span>
+<span class="source-line" id="L382"><a href="#L382">382</a>&lt;span&gt;00h 接近&lt;/span&gt;</span>
+<span class="source-line" id="L383"><a href="#L383">383</a>&lt;span&gt;12h&lt;/span&gt;</span>
+<span class="source-line" id="L384"><a href="#L384">384</a>&lt;span&gt;24h 最接近&lt;/span&gt;</span>
+<span class="source-line" id="L385"><a href="#L385">385</a>&lt;span&gt;36h&lt;/span&gt;</span>
+<span class="source-line" id="L386"><a href="#L386">386</a>&lt;span&gt;48h 遠離&lt;/span&gt;</span>
+<span class="source-line" id="L387"><a href="#L387">387</a>&lt;/div&gt;</span>
+<span class="source-line" id="L388"><a href="#L388">388</a>&lt;/div&gt;</span>
+<span class="source-line" id="L389"><a href="#L389">389</a>&lt;div class=&quot;transport-end&quot;&gt;</span>
+<span class="source-line" id="L390"><a href="#L390">390</a>&lt;select id=&quot;speed&quot; aria-label=&quot;播放速度&quot;&gt;</span>
+<span class="source-line" id="L391"><a href="#L391">391</a>&lt;option value=&quot;1&quot;&gt;1× 速度&lt;/option&gt;</span>
+<span class="source-line" id="L392"><a href="#L392">392</a>&lt;option value=&quot;2&quot;&gt;2× 速度&lt;/option&gt;</span>
+<span class="source-line" id="L393"><a href="#L393">393</a>&lt;option value=&quot;.5&quot;&gt;0.5× 速度&lt;/option&gt;</span>
+<span class="source-line" id="L394"><a href="#L394">394</a>&lt;/select&gt;</span>
+<span class="source-line" id="L395"><a href="#L395">395</a>&lt;button id=&quot;sound&quot; aria-pressed=&quot;false&quot;&gt;音效 關&lt;/button&gt;</span>
+<span class="source-line" id="L396"><a href="#L396">396</a>&lt;button id=&quot;bookmark&quot; aria-label=&quot;收藏目前情境&quot; aria-pressed=&quot;false&quot;&gt;</span>
+<span class="source-line" id="L397"><a href="#L397">397</a>&lt;svg width=&quot;15&quot; height=&quot;15&quot; viewBox=&quot;0 0 24 24&quot; fill=&quot;none&quot; stroke=&quot;currentColor&quot; stroke-width=&quot;1.5&quot;&gt;</span>
+<span class="source-line" id="L398"><a href="#L398">398</a>&lt;path id=&quot;starPath&quot; pathLength=&quot;1&quot; d=&quot;m12 2 3 6 7 1-5 5 1 8-6-4-6 4 1-8-5-5 7-1Z&quot;/&gt;</span>
+<span class="source-line" id="L399"><a href="#L399">399</a>&lt;/svg&gt;</span>
+<span class="source-line" id="L400"><a href="#L400">400</a>&lt;/button&gt;</span>
+<span class="source-line" id="L401"><a href="#L401">401</a>&lt;/div&gt;</span>
+<span class="source-line" id="L402"><a href="#L402">402</a>&lt;/section&gt;</span>
+<span class="source-line" id="L403"><a href="#L403">403</a>&lt;/div&gt;</span>
+<span class="source-line" id="L404"><a href="#L404">404</a>&lt;div class=&quot;bottomline&quot;&gt;</span>
+<span class="source-line" id="L405"><a href="#L405">405</a>&lt;span&gt;</span>
+<span class="source-line" id="L406"><a href="#L406">406</a>&lt;i class=&quot;dot&quot;&gt;</span>
+<span class="source-line" id="L407"><a href="#L407">407</a>&lt;/i&gt;教學情境模擬 · 無外部圖片與音檔&lt;/span&gt;</span>
+<span class="source-line" id="L408"><a href="#L408">408</a>&lt;span&gt;SVG TERRAIN / WEB AUDIO / RAF&lt;/span&gt;</span>
+<span class="source-line" id="L409"><a href="#L409">409</a>&lt;button id=&quot;captureMode&quot; class=&quot;text-button&quot;&gt;切換截圖模式&lt;/button&gt;</span>
+<span class="source-line" id="L410"><a href="#L410">410</a>&lt;/div&gt;</span>
+<span class="source-line" id="L411"><a href="#L411">411</a>&lt;section class=&quot;learning&quot; aria-label=&quot;原理導讀&quot;&gt;</span>
+<span class="source-line" id="L412"><a href="#L412">412</a>&lt;article class=&quot;learn-item&quot;&gt;</span>
+<span class="source-line" id="L413"><a href="#L413">413</a>&lt;span class=&quot;number&quot;&gt;01&lt;/span&gt;</span>
+<span class="source-line" id="L414"><a href="#L414">414</a>&lt;div&gt;</span>
+<span class="source-line" id="L415"><a href="#L415">415</a>&lt;h3&gt;旋轉的空氣&lt;/h3&gt;</span>
+<span class="source-line" id="L416"><a href="#L416">416</a>&lt;p&gt;北半球颱風環流呈逆時針旋轉。路徑決定各地接收到的風向與水氣。&lt;/p&gt;</span>
+<span class="source-line" id="L417"><a href="#L417">417</a>&lt;/div&gt;</span>
+<span class="source-line" id="L418"><a href="#L418">418</a>&lt;/article&gt;</span>
+<span class="source-line" id="L419"><a href="#L419">419</a>&lt;article class=&quot;learn-item&quot;&gt;</span>
+<span class="source-line" id="L420"><a href="#L420">420</a>&lt;span class=&quot;number&quot;&gt;02&lt;/span&gt;</span>
+<span class="source-line" id="L421"><a href="#L421">421</a>&lt;div&gt;</span>
+<span class="source-line" id="L422"><a href="#L422">422</a>&lt;h3&gt;被抬升的水氣&lt;/h3&gt;</span>
+<span class="source-line" id="L423"><a href="#L423">423</a>&lt;p&gt;中央山脈改變風雨分布；迎風側的地形抬升，往往使降雨增強。&lt;/p&gt;</span>
+<span class="source-line" id="L424"><a href="#L424">424</a>&lt;/div&gt;</span>
+<span class="source-line" id="L425"><a href="#L425">425</a>&lt;/article&gt;</span>
+<span class="source-line" id="L426"><a href="#L426">426</a>&lt;article class=&quot;learn-item&quot;&gt;</span>
+<span class="source-line" id="L427"><a href="#L427">427</a>&lt;span class=&quot;number&quot;&gt;03&lt;/span&gt;</span>
+<span class="source-line" id="L428"><a href="#L428">428</a>&lt;div&gt;</span>
+<span class="source-line" id="L429"><a href="#L429">429</a>&lt;h3&gt;改變中的影響&lt;/h3&gt;</span>
+<span class="source-line" id="L430"><a href="#L430">430</a>&lt;p&gt;切換三條路徑，比較迎風側的轉移。圖中指數是情境參數，並非預報。&lt;/p&gt;</span>
+<span class="source-line" id="L431"><a href="#L431">431</a>&lt;/div&gt;</span>
+<span class="source-line" id="L432"><a href="#L432">432</a>&lt;/article&gt;</span>
+<span class="source-line" id="L433"><a href="#L433">433</a>&lt;/section&gt;</span>
+<span class="source-line" id="L434"><a href="#L434">434</a>&lt;footer class=&quot;foot&quot;&gt;</span>
+<span class="source-line" id="L435"><a href="#L435">435</a>&lt;span&gt;科普參考：&lt;a href=&quot;https://pweb.cwa.gov.tw/PopularScience/wt/wt_30.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;中央氣象署 · 臺灣大風吹 ↗&lt;/a&gt;</span>
+<span class="source-line" id="L436"><a href="#L436">436</a>&lt;/span&gt;</span>
+<span class="source-line" id="L437"><a href="#L437">437</a>&lt;span&gt;輪廓：&lt;a href=&quot;https://github.com/datasets/geo-countries&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Natural Earth / geo-countries ↗&lt;/a&gt;&lt;/span&gt;</span>
+<span class="source-line" id="L438"><a href="#L438">438</a>&lt;/footer&gt;</span>
+<span class="source-line" id="L439"><a href="#L439">439</a>&lt;/main&gt;</span>
+<span class="source-line" id="L440"><a href="#L440">440</a>&lt;div id=&quot;toast&quot; class=&quot;toast&quot; role=&quot;status&quot; hidden&gt;</span>
+<span class="source-line" id="L441"><a href="#L441">441</a>&lt;/div&gt;</span>
+<span class="source-line" id="L442"><a href="#L442">442</a>&lt;script&gt;</span>
+<span class="source-line" id="L443"><a href="#L443">443</a></span>
+<span class="source-line" id="L444"><a href="#L444">444</a>'use strict';</span>
+<span class="source-line" id="L445"><a href="#L445">445</a>const runtimeErrors=[],runtimeWarnings=[];</span>
+<span class="source-line" id="L446"><a href="#L446">446</a>window.addEventListener('error',e=&gt;runtimeErrors.push(String(e.message||'Resource error')));</span>
+<span class="source-line" id="L447"><a href="#L447">447</a>window.addEventListener('unhandledrejection',e=&gt;runtimeErrors.push(String(e.reason)));</span>
+<span class="source-line" id="L448"><a href="#L448">448</a>for(const [level,list] of [['error',runtimeErrors],['warn',runtimeWarnings]]){const original=console[level].bind(console);console[level]=(...args)=&gt;{list.push(args.map(String).join(' '));original(...args);};}</span>
+<span class="source-line" id="L449"><a href="#L449">449</a>const longTasks=[];try{new PerformanceObserver(list=&gt;{for(const e of list.getEntries())longTasks.push({startTime:e.startTime,duration:e.duration});}).observe({type:'longtask',buffered:true});}catch{}</span>
+<span class="source-line" id="L450"><a href="#L450">450</a></span>
+<span class="source-line" id="L451"><a href="#L451">451</a>const $=id=&gt;document.getElementById(id),NS='http://www.w3.org/2000/svg';</span>
+<span class="source-line" id="L452"><a href="#L452">452</a>// Local SVG geometry: no external media requests.</span>
+<span class="source-line" id="L453"><a href="#L453">453</a>function svgNode(tag,attrs,parent){const n=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);parent.append(n);return n;}</span>
+<span class="source-line" id="L454"><a href="#L454">454</a>for(let i=0;i&lt;36;i++){const y=83+i*11,x=450-i*3.4;svgNode('path',{d:'M'+(x-100)+' '+(y+34)+' Q'+(x-8)+' '+(y-35)+' '+(x+61)+' '+(y+27),class:'terrain-line'},$('contours'));}</span>
+<span class="source-line" id="L455"><a href="#L455">455</a>for(let i=0;i&lt;36;i++){const y=100+i*10,x=444-i*3.4,peak=13+Math.sin(i*2.3)*8;svgNode('path',{d:'M'+(x-35)+' '+(y+24)+' L'+x+' '+(y-peak)+' L'+(x+15)+' '+(y+35)+'Z',fill:i%2?'#bdd3aa':'#1d4f45',opacity:i%2?'.2':'.4',stroke:'#a3c9a1','stroke-width':'.5'},$('terrainMesh'));}</span>
+<span class="source-line" id="L456"><a href="#L456">456</a>for(let arm=0;arm&lt;7;arm++){let d='';for(let j=0;j&lt;=60;j++){const r=22+j*1.9,a=arm*Math.PI*2/7-j*.046;d+=(j?'L':'M')+(Math.cos(a)*r).toFixed(2)+' '+(Math.sin(a)*r).toFixed(2)+' ';}svgNode('path',{d,class:'wind-path'},$('cyclone'));if(arm%2===0)svgNode('path',{d,class:'rainband'},$('rain'));}</span>
+<span class="source-line" id="L457"><a href="#L457">457</a>const scenarios={cross:{d:'M672 404 Q489 350 414 262 T207 176',points:[[672,404],[510,352],[414,262],[320,196],[207,176]],copy:'由東南方接近，穿越中央山脈；觀察迎風面隨環流改變。',wind:['東側山坡 · 迎風面','西側山坡 · 迎風面']},north:{d:'M650 455 Q560 300 506 204 T518 70',points:[[650,455],[568,320],[506,204],[500,132],[518,70]],copy:'沿台灣東側海面北上，觀察東部與北部山區的迎風效應。',wind:['東側山坡 · 迎風面','北側山坡 · 迎風面']},south:{d:'M680 448 Q488 478 364 444 T120 380',points:[[680,448],[516,462],[364,444],[240,408],[120,380]],copy:'從台灣南側向西移動；後期以西南側水氣增強作教學示意。',wind:['東南山坡 · 迎風面','西南山坡 · 迎風面']}};</span>
+<span class="source-line" id="L458"><a href="#L458">458</a>const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;</span>
+<span class="source-line" id="L459"><a href="#L459">459</a>let playing=!reduced,progress=.35,last=0,rotation=0,soundEnabled=false,audioContext,frames=[],lastMetrics=0,lastUI=0,toastTimer,scrubSoundAt=0,routeLength=0;</span>
+<span class="source-line" id="L460"><a href="#L460">460</a>function notify(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=&gt;$('toast').hidden=true,2600);}</span>
+<span class="source-line" id="L461"><a href="#L461">461</a>// Independent oscillator/envelope per note allows overlapping rapid clicks.</span>
+<span class="source-line" id="L462"><a href="#L462">462</a>async function tone(kind='click'){if(!soundEnabled)return;try{audioContext??=new (window.AudioContext||window.webkitAudioContext)();await audioContext.resume();const t=audioContext.currentTime;for(const [i,f] of (kind==='chord'?[523.25,659.25,783.99]:kind==='snap'?[880]:[1200]).entries()){const o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(f*.65,t+.08);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.055/(i+1),t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+.1);o.connect(g).connect(audioContext.destination);o.start(t);o.stop(t+.12);o.onended=()=&gt;{o.disconnect();g.disconnect();};}}catch{soundEnabled=false;$('sound').textContent='音效 不可用';$('sound').setAttribute('aria-pressed','false');notify('音效未能啟用，請確認瀏覽器音訊權限。');}}</span>
+<span class="source-line" id="L463"><a href="#L463">463</a>function updateScene(){const p=$('route').getPointAtLength(routeLength*progress);$('stormPosition').setAttribute('transform','translate('+p.x+' '+p.y+')');const proximity=Math.round(100*Math.exp(-Math.pow((progress-.55)/.31,2)));$('proximity').textContent=proximity;$('proximityBar').style.transform='scaleX('+(proximity/100)+')';$('rainLevel').textContent=proximity&gt;78?'強烈':proximity&gt;35?'中等':'微弱';$('phase').textContent=progress&lt;.48?'外圍環流接近中':progress&lt;.65?'環流最接近台灣':'環流逐漸遠離';$('windward').textContent=scenarios[$('scenario').value].wind[progress&lt;.62?0:1];$('timeLabel').replaceChildren(document.createTextNode('T + '+(progress*48).toFixed(1)+' h'),Object.assign(document.createElement('small'),{textContent:'SCENARIO TIME'}));$('scrubber').value=Math.round(progress*1000);}</span>
+<span class="source-line" id="L464"><a href="#L464">464</a>function setScenario(){const s=scenarios[$('scenario').value];$('route').setAttribute('d',s.d);routeLength=$('route').getTotalLength();$('trackPoints').replaceChildren();for(const [x,y] of s.points)svgNode('circle',{cx:x,cy:y,r:3},$('trackPoints'));$('scenarioCopy').textContent=s.copy;frames=[];updateScene();tone('snap');}</span>
+<span class="source-line" id="L465"><a href="#L465">465</a>function syncPlay(){$('play').textContent=playing?'Ⅱ 暫停':'▶ 播放';$('play').setAttribute('aria-label',playing?'暫停動畫':'播放動畫');}</span>
+<span class="source-line" id="L466"><a href="#L466">466</a>$('play').onclick=()=&gt;{playing=!playing;syncPlay();tone();};$('scenario').onchange=setScenario;</span>
+<span class="source-line" id="L467"><a href="#L467">467</a>$('scrubber').oninput=()=&gt;{progress=Number($('scrubber').value)/1000;updateScene();if(performance.now()-scrubSoundAt&gt;140){tone('snap');scrubSoundAt=performance.now();}};</span>
+<span class="source-line" id="L468"><a href="#L468">468</a>for(const [id,target] of [['windToggle','cyclone'],['rainToggle','rain'],['terrainToggle','terrain'],['trackToggle','track']])$(id).onchange=()=&gt;{$(target).style.opacity=$(id).checked?'1':'0';tone();};</span>
+<span class="source-line" id="L469"><a href="#L469">469</a>for(const [id,mode] of [['view3d','perspective'],['viewIso','isometric'],['view2d','flat']])$(id).onclick=()=&gt;{for(const m of ['perspective','isometric'])$('viewport').classList.toggle(m,m===mode);for(const v of ['view3d','viewIso','view2d'])$(v).setAttribute('aria-pressed',String(v===id));tone('snap');};</span>
+<span class="source-line" id="L470"><a href="#L470">470</a>$('sound').onclick=()=&gt;{soundEnabled=!soundEnabled;$('sound').textContent=soundEnabled?'音效 開':'音效 關';$('sound').setAttribute('aria-pressed',String(soundEnabled));tone('chord');};</span>
+<span class="source-line" id="L471"><a href="#L471">471</a>$('bookmark').onclick=()=&gt;{const saved=$('bookmark').getAttribute('aria-pressed')!=='true';$('bookmark').setAttribute('aria-pressed',String(saved));$('bookmark').classList.toggle('saved',saved);$('starPath').classList.toggle('draw-path',saved);$('starPath').setAttribute('fill',saved?'#efba79':'none');try{saved?localStorage.setItem('typhoon-bookmark',JSON.stringify({scenario:$('scenario').value,progress})):localStorage.removeItem('typhoon-bookmark');}catch{}notify(saved?'已收藏目前路徑與時間；下次開啟將恢復。':'已移除收藏');tone('chord');};</span>
+<span class="source-line" id="L472"><a href="#L472">472</a>$('fullscreen').onclick=async()=&gt;{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{notify('此瀏覽器未允許全螢幕，可使用 F11。');}};</span>
+<span class="source-line" id="L473"><a href="#L473">473</a>$('captureMode').onclick=()=&gt;document.body.classList.toggle('capture');</span>
+<span class="source-line" id="L474"><a href="#L474">474</a>// RAF cadence measures scheduling intervals, not JS task execution time.</span>
+<span class="source-line" id="L475"><a href="#L475">475</a>function animate(now){const workStart=performance.now();const dt=last?now-last:0;last=now;if(!document.hidden&amp;&amp;dt&gt;0&amp;&amp;dt&lt;250){frames.push(dt);if(frames.length&gt;180)frames.shift();if(playing){progress=(progress+dt*.000018*Number($('speed').value))%1;if(!reduced){rotation-=dt*.018;$('cyclone').setAttribute('transform','rotate('+rotation+')');$('rain').setAttribute('transform','rotate('+(rotation*.7)+')');}if(now-lastUI&gt;60){updateScene();lastUI=now;}}if(now-lastMetrics&gt;1000&amp;&amp;frames.length&gt;15){const sorted=[...frames].sort((a,b)=&gt;a-b),median=sorted[Math.floor(sorted.length/2)],p95=sorted[Math.floor(sorted.length*.95)];$('fps').textContent=Math.round(1000/median);$('frameMs').textContent=median.toFixed(1);const measurement={sampledAt:new Date().toISOString(),sampleCount:frames.length,rafMedianMs:median,rafP95Ms:p95,estimatedFps:1000/median,viewport:innerWidth+'×'+innerHeight,userAgent:navigator.userAgent,visible:!document.hidden};try{localStorage.setItem('typhoon-metrics',JSON.stringify(measurement));}catch{}window.typhoonMetrics=measurement;lastMetrics=now;}}workDurations.push(performance.now()-workStart);if(workDurations.length&gt;900)workDurations.shift();requestAnimationFrame(animate);}</span>
+<span class="source-line" id="L476"><a href="#L476">476</a>document.addEventListener('visibilitychange',()=&gt;{last=0;frames=[];});</span>
+<span class="source-line" id="L477"><a href="#L477">477</a>try{const saved=JSON.parse(localStorage.getItem('typhoon-bookmark'));if(saved&amp;&amp;scenarios[saved.scenario]&amp;&amp;Number.isFinite(saved.progress)){$('scenario').value=saved.scenario;progress=Math.max(0,Math.min(1,saved.progress));$('bookmark').setAttribute('aria-pressed','true');$('starPath').setAttribute('fill','#efba79');}}catch{}</span>
+<span class="source-line" id="L478"><a href="#L478">478</a></span>
+<span class="source-line" id="L479"><a href="#L479">479</a>// A user-run, foreground browser audit. No synthetic FPS or hard-coded scores.</span>
+<span class="source-line" id="L480"><a href="#L480">480</a>const workDurations=[];</span>
+<span class="source-line" id="L481"><a href="#L481">481</a>window.runAudit=async function(){</span>
+<span class="source-line" id="L482"><a href="#L482">482</a> if(window.auditRunning)return;window.auditRunning=true;$('startAudit').disabled=true;</span>
+<span class="source-line" id="L483"><a href="#L483">483</a> const original={scenario:$('scenario').value,progress,playing,soundEnabled,view:$('viewport').classList.contains('isometric')?'viewIso':$('viewport').classList.contains('perspective')?'view3d':'view2d'};</span>
+<span class="source-line" id="L484"><a href="#L484">484</a> const tests=[],times=[],startedAt=new Date().toISOString(),start=performance.now(),longStart=longTasks.length;let prior=0,hidden=false,audioResult='not tested';</span>
+<span class="source-line" id="L485"><a href="#L485">485</a> const assert=(name,pass)=&gt;tests.push({name,pass:Boolean(pass)});</span>
+<span class="source-line" id="L486"><a href="#L486">486</a> function collect(t){if(prior)times.push(t-prior);prior=t;hidden||=document.hidden;if(window.auditRunning)requestAnimationFrame(collect);}</span>
+<span class="source-line" id="L487"><a href="#L487">487</a> $('auditStatus').textContent='檢測中：請保持此分頁在前景約 10 秒。';</span>
+<span class="source-line" id="L488"><a href="#L488">488</a> try{</span>
+<span class="source-line" id="L489"><a href="#L489">489</a>  for(const name of ['cross','north','south']){$('scenario').value=name;setScenario();assert('路徑 '+name,$('route').getAttribute('d')===scenarios[name].d);await new Promise(r=&gt;setTimeout(r,30));}</span>
+<span class="source-line" id="L490"><a href="#L490">490</a>  for(const v of [0,500,1000]){$('scrubber').value=v;$('scrubber').dispatchEvent(new Event('input'));assert('時間軸 '+v,Math.abs(progress-v/1000)&lt;.001&amp;&amp;!!$('stormPosition').getAttribute('transform'));await new Promise(r=&gt;setTimeout(r,30));}</span>
+<span class="source-line" id="L491"><a href="#L491">491</a>  for(const id of ['view3d','viewIso','view2d']){$(id).click();assert('視角 '+id,$(id).getAttribute('aria-pressed')==='true');await new Promise(r=&gt;setTimeout(r,30));}</span>
+<span class="source-line" id="L492"><a href="#L492">492</a>  for(const [id,target] of [['windToggle','cyclone'],['rainToggle','rain'],['terrainToggle','terrain'],['trackToggle','track']]){const checked=$(id).checked;$(id).checked=!checked;$(id).dispatchEvent(new Event('change'));assert('圖層 '+id,$(target).style.opacity===(!checked?'1':'0'));$(id).checked=checked;$(id).dispatchEvent(new Event('change'));await new Promise(r=&gt;setTimeout(r,30));}</span>
+<span class="source-line" id="L493"><a href="#L493">493</a>  audioContext??=new(window.AudioContext||window.webkitAudioContext)();await audioContext.resume();soundEnabled=true;for(const kind of ['click','snap','chord'])await tone(kind);audioResult=audioContext.state;</span>
+<span class="source-line" id="L494"><a href="#L494">494</a>  $('scenario').value=original.scenario;setScenario();progress=.48;playing=true;syncPlay();$(original.view).click();</span>
+<span class="source-line" id="L495"><a href="#L495">495</a> }catch(e){runtimeErrors.push('Audit: '+e.message);}</span>
+<span class="source-line" id="L496"><a href="#L496">496</a> await new Promise(resolve=&gt;setTimeout(resolve,200));</span>
+<span class="source-line" id="L497"><a href="#L497">497</a> const sampleStart=performance.now();performance.mark('audit-measurement-start');workDurations.length=0;requestAnimationFrame(collect);</span>
+<span class="source-line" id="L498"><a href="#L498">498</a> await new Promise(resolve=&gt;setTimeout(resolve,10000));window.auditRunning=false;performance.mark('audit-measurement-end');</span>
+<span class="source-line" id="L499"><a href="#L499">499</a> const percentile=(arr,p)=&gt;{if(!arr.length)return null;const sorted=[...arr].sort((a,b)=&gt;a-b);return sorted[Math.min(sorted.length-1,Math.floor((sorted.length-1)*p))];};</span>
+<span class="source-line" id="L500"><a href="#L500">500</a> const nav=performance.getEntriesByType('navigation')[0],resources=performance.getEntriesByType('resource').filter(r=&gt;!r.name.includes('/qa-'));</span>
+<span class="source-line" id="L501"><a href="#L501">501</a> const result={schemaVersion:2,startedAt,endedAt:new Date().toISOString(),durationMs:performance.now()-start,sampleDurationMs:performance.now()-sampleStart,setupDurationMs:sampleStart-start,sampleStartMs:sampleStart,environment:{userAgent:navigator.userAgent,viewport:innerWidth+'×'+innerHeight,devicePixelRatio,foreground:!hidden,mode:navigator.webdriver?'automated browser':'browser session'},functionalTests:tests,runtimeErrors:[...runtimeErrors],consoleWarnings:[...runtimeWarnings],audio:{state:audioResult,noteDurationMs:120,externalAudioBytes:0,baseLatencySeconds:audioContext?.baseLatency??null,outputLatencySeconds:audioContext?.outputLatency??null,physicalLatencyMeasured:false},frames:{count:times.length,medianMs:percentile(times,.5),p95Ms:percentile(times,.95),maxMs:times.length?Math.max(...times):null,over20ms:times.filter(t=&gt;t&gt;20).length,estimatedFps:1000/percentile(times,.5)},animationWork:{count:workDurations.length,medianMs:percentile(workDurations,.5),p95Ms:percentile(workDurations,.95),scope:'Synchronous animation callback only; excludes deferred layout and paint'},longTasks:longTasks.slice(longStart).filter(t=&gt;t.startTime&gt;=sampleStart),setupLongTasks:longTasks.slice(longStart).filter(t=&gt;t.startTime&lt;sampleStart),network:{navigationTransferBytes:nav?.transferSize??null,encodedBodyBytes:nav?.encodedBodySize??null,decodedBodyBytes:nav?.decodedBodySize??null,resourceCount:resources.length,resourceTransferBytes:resources.reduce((s,r)=&gt;s+r.transferSize,0),resources:resources.map(r=&gt;({url:r.name,type:r.initiatorType,transferBytes:r.transferSize})),savingsBaselineAvailable:false}};</span>
+<span class="source-line" id="L502"><a href="#L502">502</a> try{localStorage.setItem('typhoon-audit',JSON.stringify(result));}catch{}window.typhoonAudit=result;</span>
+<span class="source-line" id="L503"><a href="#L503">503</a> $('scenario').value=original.scenario;setScenario();progress=original.progress;playing=original.playing;soundEnabled=original.soundEnabled;$('sound').textContent=soundEnabled?'音效 開':'音效 關';$('sound').setAttribute('aria-pressed',String(soundEnabled));syncPlay();updateScene();$('startAudit').disabled=false;</span>
+<span class="source-line" id="L504"><a href="#L504">504</a> $('auditStatus').textContent='已完成 '+tests.filter(t=&gt;t.pass).length+'/'+tests.length+' 項 · 錯誤 '+runtimeErrors.length+' · '+(hidden?'曾離開前景，請重測':'結果已存至檢測報告');</span>
+<span class="source-line" id="L505"><a href="#L505">505</a> window.dispatchEvent(new CustomEvent('auditcomplete',{detail:result}));return result;</span>
+<span class="source-line" id="L506"><a href="#L506">506</a>};</span>
+<span class="source-line" id="L507"><a href="#L507">507</a>$('startAudit').onclick=()=&gt;window.runAudit();</span>
+<span class="source-line" id="L508"><a href="#L508">508</a></span>
+<span class="source-line" id="L509"><a href="#L509">509</a>setScenario();syncPlay();requestAnimationFrame(animate);</span>
+<span class="source-line" id="L510"><a href="#L510">510</a></span>
+<span class="source-line" id="L511"><a href="#L511">511</a>&lt;/script&gt;</span>
+<span class="source-line" id="L512"><a href="#L512">512</a>&lt;/body&gt;</span>
+<span class="source-line" id="L513"><a href="#L513">513</a>&lt;/html&gt;</span>
+<span class="source-line" id="L514"><a href="#L514">514</a></span></pre></main><script></script></body></html>

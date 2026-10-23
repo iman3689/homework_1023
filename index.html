@@ -52,7 +52,10 @@ h2{font-weight:500;font-size:26px;margin:5px 0 0}
 .view-tools [aria-pressed=true]{background:#254a45;color:#b6f8e5;border-color:#588f80}
 #scene{position:relative;width:100%;height:500px;display:block}
 .world{transform-origin:400px 285px;transition:transform .7s ease-out}
-.perspective .world{transform:translateY(35px) rotate(-10deg) scaleY(.8)}
+.world{transform:none!important}
+#scene{transform-origin:50% 50%;transition:transform .7s ease-out;transform:rotateX(0deg)}
+.perspective #scene{transform:perspective(1100px) rotateX(18deg) rotateZ(-3deg)}
+.isometric #scene{transform:rotateX(54.7356deg) rotateZ(-45deg)}
 .ocean-label{fill:#527b8a;font-size:11px;letter-spacing:5px}
 .map-label{fill:#d6ebe5;font-size:11px}
 .city{fill:#8df1d5;stroke:#12352f;stroke-width:3}
@@ -228,13 +231,14 @@ body{print-color-adjust:exact}
 <div class="divider">
 </div>
 <div class="hint">探索提示<br>颱風最接近時，暫停並切換視角，找出山脈的迎風側。</div>
-<p class="small">教學示意模型，非即時氣象資料；地圖、路徑與影響指數皆為簡化表達。</p>
+<p class="small">教學示意模型，非即時氣象資料；海岸線取自地理資料；地形、路徑與指數為教學示意。</p>
 </aside>
 <section class="panel viewport perspective" id="viewport" aria-label="台灣與颱風三維向量視覺化">
-<div class="canvas-head">台灣周邊海域<p>SCHEMATIC TERRAIN / NOT TO SCALE</p>
+<div class="canvas-head">台灣周邊海域<p>GEOGRAPHIC OUTLINE / SCHEMATIC RELIEF</p>
 </div>
 <div class="view-tools">
-<button id="view3d" aria-pressed="true">3D 透視</button>
+<button id="view3d" aria-pressed="true">透視</button>
+<button id="viewIso" aria-pressed="false">等角</button>
 <button id="view2d" aria-pressed="false">俯視</button>
 <button id="fullscreen" aria-label="全螢幕展示">⛶</button>
 </div>
@@ -254,7 +258,7 @@ body{print-color-adjust:exact}
 <pattern id="seaGrid" width="60" height="60" patternUnits="userSpaceOnUse">
 <path d="M60 0H0V60" fill="none" stroke="#548b9b" stroke-opacity=".15" stroke-width=".6"/>
 </pattern>
-<path id="island" d="M451 107 463 115 468 129 460 143 455 160 447 179 441 203 435 224 425 250 419 276 405 303 397 330 380 359 366 386 351 410 338 428 331 451 322 453 315 437 302 419 300 399 291 379 292 360 285 340 290 316 296 296 301 279 309 263 317 244 327 227 338 209 350 190 362 171 379 154 395 141 411 132 425 120 438 120Z"/>
+<path id="island" d="M488.9 112.9 L479.4 124.9 L477.5 134.5 L479.0 144.4 L478.4 151.4 L479.9 154.1 L482.8 155.9 L486.1 156.5 L486.1 157.3 L483.3 157.3 L481.4 158.2 L483.1 163.2 L482.8 165.7 L480.2 167.2 L481.3 171.9 L477.5 174.6 L474.4 178.1 L474.5 182.5 L471.9 190.7 L473.5 193.6 L465.6 202.6 L464.9 205.0 L460.8 208.3 L458.4 216.2 L454.4 222.9 L454.5 225.0 L456.9 229.3 L457.0 230.7 L454.9 234.8 L453.0 246.3 L450.2 253.8 L446.6 271.3 L444.5 275.6 L437.7 315.4 L433.6 321.7 L431.5 326.5 L430.5 340.3 L428.4 344.7 L424.4 348.1 L421.1 355.4 L418.9 363.7 L413.8 371.5 L406.3 378.4 L406.3 383.5 L404.8 386.5 L400.6 391.1 L393.6 395.9 L387.7 401.8 L383.3 411.1 L378.3 418.2 L375.4 431.1 L371.2 438.5 L370.6 441.0 L369.9 448.2 L370.4 477.6 L368.6 483.5 L365.3 486.2 L365.9 496.6 L363.9 493.6 L357.5 489.7 L354.0 488.9 L353.8 491.8 L352.8 492.9 L351.3 492.5 L349.7 491.1 L350.2 486.9 L347.6 481.8 L347.7 474.6 L349.3 470.3 L340.6 447.4 L337.4 443.1 L334.6 437.5 L328.7 433.3 L328.0 431.1 L321.6 427.7 L316.6 423.8 L315.3 423.3 L312.8 423.6 L307.1 419.1 L301.8 411.5 L307.4 418.3 L306.7 415.1 L305.0 411.9 L298.7 405.5 L296.5 401.6 L298.0 397.7 L297.3 395.2 L291.9 384.7 L291.5 381.5 L292.3 378.8 L289.1 373.2 L287.8 364.4 L285.3 361.1 L287.3 359.6 L288.5 356.9 L288.0 354.6 L285.3 354.2 L283.5 357.7 L282.0 357.6 L281.3 352.5 L279.5 351.7 L277.7 353.9 L276.5 354.2 L275.2 353.1 L274.9 351.6 L275.7 349.0 L280.0 347.7 L280.4 346.4 L275.7 344.7 L275.7 343.8 L279.1 343.8 L278.8 342.6 L275.7 339.6 L276.0 337.8 L278.3 336.8 L278.9 335.7 L277.9 332.5 L279.9 328.4 L279.9 326.4 L281.4 322.5 L283.2 321.4 L281.6 320.3 L282.3 318.5 L286.0 318.0 L285.7 316.6 L284.7 317.3 L282.8 317.1 L282.8 315.6 L283.9 313.1 L287.8 313.0 L284.4 304.9 L285.3 302.4 L283.9 301.8 L287.0 296.7 L283.3 296.9 L283.2 293.1 L285.2 290.8 L285.4 278.2 L286.7 273.9 L288.6 270.5 L290.1 262.3 L294.2 255.5 L296.6 253.7 L298.6 247.9 L302.6 243.7 L309.3 227.8 L313.4 224.7 L314.1 222.2 L316.4 220.4 L317.6 213.4 L325.8 203.5 L328.0 195.4 L332.0 188.3 L333.3 184.0 L343.8 171.6 L345.0 167.0 L349.9 156.1 L352.9 155.2 L354.8 152.1 L358.7 148.7 L361.1 148.1 L364.3 148.7 L363.9 146.3 L366.7 143.0 L367.9 139.7 L369.5 139.0 L373.8 129.7 L373.0 127.2 L375.1 124.1 L375.8 121.1 L379.0 118.6 L380.1 114.1 L384.9 106.5 L391.2 100.3 L399.3 97.6 L404.7 94.0 L408.7 92.6 L422.4 90.1 L428.0 86.7 L431.9 87.0 L434.0 90.0 L435.5 89.4 L433.9 86.9 L430.0 83.6 L430.4 82.4 L432.4 80.9 L434.7 76.2 L437.6 73.6 L441.8 71.5 L446.6 70.4 L451.4 70.9 L453.3 72.4 L459.3 81.8 L463.3 81.3 L462.4 84.0 L465.6 86.8 L487.4 92.3 L488.8 93.2 L487.9 96.0 L488.2 98.3 L490.4 103.8 L496.0 103.9 L499.5 105.3 L500.4 106.4 L491.3 110.8 L488.9 112.9Z"/>
 <clipPath id="islandClip">
 <use href="#island"/>
 </clipPath>
@@ -273,7 +277,7 @@ body{print-color-adjust:exact}
 <g id="terrain" clip-path="url(#islandClip)">
 <g id="terrainMesh">
 </g>
-<path d="M437 143 418 179 409 199 395 222 393 250 378 279 365 302 354 331 344 365 328 407" stroke="#e0cf97" stroke-width="2" fill="none"/>
+<path d="M449 104 433 143 420 182 402 219 393 250 378 279 365 302 354 341 344 385 338 437" stroke="#e0cf97" stroke-width="2" fill="none"/>
 <g id="contours">
 </g>
 </g>
@@ -298,14 +302,14 @@ body{print-color-adjust:exact}
 </g>
 </g>
 <g class="map-label">
-<circle cx="438" cy="141" r="4" class="city"/>
-<text x="454" y="139">台北</text>
-<circle cx="320" cy="282" r="4" class="city"/>
-<text x="268" y="282">台中</text>
-<circle cx="313" cy="387" r="4" class="city"/>
-<text x="263" y="393">高雄</text>
-<circle cx="424" cy="254" r="4" class="city"/>
-<text x="439" y="256">花蓮</text>
+<circle cx="449" cy="102" r="4" class="city"/>
+<text x="464" y="99">台北</text>
+<circle cx="347" cy="214" r="4" class="city"/>
+<text x="297" y="215">台中</text>
+<circle cx="304" cy="406" r="4" class="city"/>
+<text x="254" y="410">高雄</text>
+<circle cx="454" cy="234" r="4" class="city"/>
+<text x="468" y="237">花蓮</text>
 <text x="371" y="322" fill="#e1d9a8" font-size="9" transform="rotate(-65 371 322)">中央山脈</text>
 </g>
 <path d="M418 208 493 172H548" fill="none" stroke="#8aacab" stroke-width=".7"/>
@@ -358,7 +362,7 @@ body{print-color-adjust:exact}
 <small>FPS</small>
 </div>
 <div class="small">
-<span id="frameMs">—</span> ms / RAF 間隔中位數</div>
+<span id="frameMs">—</span> ms / RAF 間隔中位數</div><button id="startAudit" class="text-button" style="margin-top:8px;color:var(--cyan)">執行 10 秒檢測 ↗</button><div id="auditStatus" class="small" role="status"></div>
 </div>
 <div class="insight">
 <h3>山脈，是風雨的分界。</h3>
@@ -430,7 +434,7 @@ body{print-color-adjust:exact}
 <footer class="foot">
 <span>科普參考：<a href="https://pweb.cwa.gov.tw/PopularScience/wt/wt_30.html" target="_blank" rel="noopener">中央氣象署 · 臺灣大風吹 ↗</a>
 </span>
-<span>風域 / A SMALL LAB FOR BIG WEATHER</span>
+<span>輪廓：<a href="https://github.com/datasets/geo-countries" target="_blank" rel="noopener">Natural Earth / geo-countries ↗</a></span>
 </footer>
 </main>
 <div id="toast" class="toast" role="status" hidden>
@@ -438,11 +442,17 @@ body{print-color-adjust:exact}
 <script>
 
 'use strict';
+const runtimeErrors=[],runtimeWarnings=[];
+window.addEventListener('error',e=>runtimeErrors.push(String(e.message||'Resource error')));
+window.addEventListener('unhandledrejection',e=>runtimeErrors.push(String(e.reason)));
+for(const [level,list] of [['error',runtimeErrors],['warn',runtimeWarnings]]){const original=console[level].bind(console);console[level]=(...args)=>{list.push(args.map(String).join(' '));original(...args);};}
+const longTasks=[];try{new PerformanceObserver(list=>{for(const e of list.getEntries())longTasks.push({startTime:e.startTime,duration:e.duration});}).observe({type:'longtask',buffered:true});}catch{}
+
 const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
 // Local SVG geometry: no external media requests.
 function svgNode(tag,attrs,parent){const n=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);parent.append(n);return n;}
-for(let i=0;i<29;i++){const y=130+i*11,x=445-i*4.2;svgNode('path',{d:'M'+(x-100)+' '+(y+34)+' Q'+(x-8)+' '+(y-35)+' '+(x+61)+' '+(y+27),class:'terrain-line'},$('contours'));}
-for(let i=0;i<28;i++){const y=145+i*10,x=439-i*3.9,peak=13+Math.sin(i*2.3)*8;svgNode('path',{d:'M'+(x-35)+' '+(y+24)+' L'+x+' '+(y-peak)+' L'+(x+15)+' '+(y+35)+'Z',fill:i%2?'#bdd3aa':'#1d4f45',opacity:i%2?'.2':'.4',stroke:'#a3c9a1','stroke-width':'.5'},$('terrainMesh'));}
+for(let i=0;i<36;i++){const y=83+i*11,x=450-i*3.4;svgNode('path',{d:'M'+(x-100)+' '+(y+34)+' Q'+(x-8)+' '+(y-35)+' '+(x+61)+' '+(y+27),class:'terrain-line'},$('contours'));}
+for(let i=0;i<36;i++){const y=100+i*10,x=444-i*3.4,peak=13+Math.sin(i*2.3)*8;svgNode('path',{d:'M'+(x-35)+' '+(y+24)+' L'+x+' '+(y-peak)+' L'+(x+15)+' '+(y+35)+'Z',fill:i%2?'#bdd3aa':'#1d4f45',opacity:i%2?'.2':'.4',stroke:'#a3c9a1','stroke-width':'.5'},$('terrainMesh'));}
 for(let arm=0;arm<7;arm++){let d='';for(let j=0;j<=60;j++){const r=22+j*1.9,a=arm*Math.PI*2/7-j*.046;d+=(j?'L':'M')+(Math.cos(a)*r).toFixed(2)+' '+(Math.sin(a)*r).toFixed(2)+' ';}svgNode('path',{d,class:'wind-path'},$('cyclone'));if(arm%2===0)svgNode('path',{d,class:'rainband'},$('rain'));}
 const scenarios={cross:{d:'M672 404 Q489 350 414 262 T207 176',points:[[672,404],[510,352],[414,262],[320,196],[207,176]],copy:'由東南方接近，穿越中央山脈；觀察迎風面隨環流改變。',wind:['東側山坡 · 迎風面','西側山坡 · 迎風面']},north:{d:'M650 455 Q560 300 506 204 T518 70',points:[[650,455],[568,320],[506,204],[500,132],[518,70]],copy:'沿台灣東側海面北上，觀察東部與北部山區的迎風效應。',wind:['東側山坡 · 迎風面','北側山坡 · 迎風面']},south:{d:'M680 448 Q488 478 364 444 T120 380',points:[[680,448],[516,462],[364,444],[240,408],[120,380]],copy:'從台灣南側向西移動；後期以西南側水氣增強作教學示意。',wind:['東南山坡 · 迎風面','西南山坡 · 迎風面']}};
 const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -456,15 +466,46 @@ function syncPlay(){$('play').textContent=playing?'Ⅱ 暫停':'▶ 播放';$('p
 $('play').onclick=()=>{playing=!playing;syncPlay();tone();};$('scenario').onchange=setScenario;
 $('scrubber').oninput=()=>{progress=Number($('scrubber').value)/1000;updateScene();if(performance.now()-scrubSoundAt>140){tone('snap');scrubSoundAt=performance.now();}};
 for(const [id,target] of [['windToggle','cyclone'],['rainToggle','rain'],['terrainToggle','terrain'],['trackToggle','track']])$(id).onchange=()=>{$(target).style.opacity=$(id).checked?'1':'0';tone();};
-for(const [id,is3d] of [['view3d',true],['view2d',false]])$(id).onclick=()=>{$('viewport').classList.toggle('perspective',is3d);$('view3d').setAttribute('aria-pressed',String(is3d));$('view2d').setAttribute('aria-pressed',String(!is3d));tone('snap');};
+for(const [id,mode] of [['view3d','perspective'],['viewIso','isometric'],['view2d','flat']])$(id).onclick=()=>{for(const m of ['perspective','isometric'])$('viewport').classList.toggle(m,m===mode);for(const v of ['view3d','viewIso','view2d'])$(v).setAttribute('aria-pressed',String(v===id));tone('snap');};
 $('sound').onclick=()=>{soundEnabled=!soundEnabled;$('sound').textContent=soundEnabled?'音效 開':'音效 關';$('sound').setAttribute('aria-pressed',String(soundEnabled));tone('chord');};
 $('bookmark').onclick=()=>{const saved=$('bookmark').getAttribute('aria-pressed')!=='true';$('bookmark').setAttribute('aria-pressed',String(saved));$('bookmark').classList.toggle('saved',saved);$('starPath').classList.toggle('draw-path',saved);$('starPath').setAttribute('fill',saved?'#efba79':'none');try{saved?localStorage.setItem('typhoon-bookmark',JSON.stringify({scenario:$('scenario').value,progress})):localStorage.removeItem('typhoon-bookmark');}catch{}notify(saved?'已收藏目前路徑與時間；下次開啟將恢復。':'已移除收藏');tone('chord');};
 $('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{notify('此瀏覽器未允許全螢幕，可使用 F11。');}};
 $('captureMode').onclick=()=>document.body.classList.toggle('capture');
 // RAF cadence measures scheduling intervals, not JS task execution time.
-function animate(now){const dt=last?now-last:0;last=now;if(!document.hidden&&dt>0&&dt<250){frames.push(dt);if(frames.length>180)frames.shift();if(playing){progress=(progress+dt*.000018*Number($('speed').value))%1;if(!reduced){rotation-=dt*.018;$('cyclone').setAttribute('transform','rotate('+rotation+')');$('rain').setAttribute('transform','rotate('+(rotation*.7)+')');}if(now-lastUI>60){updateScene();lastUI=now;}}if(now-lastMetrics>1000&&frames.length>15){const sorted=[...frames].sort((a,b)=>a-b),median=sorted[Math.floor(sorted.length/2)],p95=sorted[Math.floor(sorted.length*.95)];$('fps').textContent=Math.round(1000/median);$('frameMs').textContent=median.toFixed(1);const measurement={sampledAt:new Date().toISOString(),sampleCount:frames.length,rafMedianMs:median,rafP95Ms:p95,estimatedFps:1000/median,viewport:innerWidth+'×'+innerHeight,userAgent:navigator.userAgent,visible:!document.hidden};try{localStorage.setItem('typhoon-metrics',JSON.stringify(measurement));}catch{}window.typhoonMetrics=measurement;lastMetrics=now;}}requestAnimationFrame(animate);}
+function animate(now){const workStart=performance.now();const dt=last?now-last:0;last=now;if(!document.hidden&&dt>0&&dt<250){frames.push(dt);if(frames.length>180)frames.shift();if(playing){progress=(progress+dt*.000018*Number($('speed').value))%1;if(!reduced){rotation-=dt*.018;$('cyclone').setAttribute('transform','rotate('+rotation+')');$('rain').setAttribute('transform','rotate('+(rotation*.7)+')');}if(now-lastUI>60){updateScene();lastUI=now;}}if(now-lastMetrics>1000&&frames.length>15){const sorted=[...frames].sort((a,b)=>a-b),median=sorted[Math.floor(sorted.length/2)],p95=sorted[Math.floor(sorted.length*.95)];$('fps').textContent=Math.round(1000/median);$('frameMs').textContent=median.toFixed(1);const measurement={sampledAt:new Date().toISOString(),sampleCount:frames.length,rafMedianMs:median,rafP95Ms:p95,estimatedFps:1000/median,viewport:innerWidth+'×'+innerHeight,userAgent:navigator.userAgent,visible:!document.hidden};try{localStorage.setItem('typhoon-metrics',JSON.stringify(measurement));}catch{}window.typhoonMetrics=measurement;lastMetrics=now;}}workDurations.push(performance.now()-workStart);if(workDurations.length>900)workDurations.shift();requestAnimationFrame(animate);}
 document.addEventListener('visibilitychange',()=>{last=0;frames=[];});
 try{const saved=JSON.parse(localStorage.getItem('typhoon-bookmark'));if(saved&&scenarios[saved.scenario]&&Number.isFinite(saved.progress)){$('scenario').value=saved.scenario;progress=Math.max(0,Math.min(1,saved.progress));$('bookmark').setAttribute('aria-pressed','true');$('starPath').setAttribute('fill','#efba79');}}catch{}
+
+// A user-run, foreground browser audit. No synthetic FPS or hard-coded scores.
+const workDurations=[];
+window.runAudit=async function(){
+ if(window.auditRunning)return;window.auditRunning=true;$('startAudit').disabled=true;
+ const original={scenario:$('scenario').value,progress,playing,soundEnabled,view:$('viewport').classList.contains('isometric')?'viewIso':$('viewport').classList.contains('perspective')?'view3d':'view2d'};
+ const tests=[],times=[],startedAt=new Date().toISOString(),start=performance.now(),longStart=longTasks.length;let prior=0,hidden=false,audioResult='not tested';
+ const assert=(name,pass)=>tests.push({name,pass:Boolean(pass)});
+ function collect(t){if(prior)times.push(t-prior);prior=t;hidden||=document.hidden;if(window.auditRunning)requestAnimationFrame(collect);}
+ $('auditStatus').textContent='檢測中：請保持此分頁在前景約 10 秒。';
+ try{
+  for(const name of ['cross','north','south']){$('scenario').value=name;setScenario();assert('路徑 '+name,$('route').getAttribute('d')===scenarios[name].d);await new Promise(r=>setTimeout(r,30));}
+  for(const v of [0,500,1000]){$('scrubber').value=v;$('scrubber').dispatchEvent(new Event('input'));assert('時間軸 '+v,Math.abs(progress-v/1000)<.001&&!!$('stormPosition').getAttribute('transform'));await new Promise(r=>setTimeout(r,30));}
+  for(const id of ['view3d','viewIso','view2d']){$(id).click();assert('視角 '+id,$(id).getAttribute('aria-pressed')==='true');await new Promise(r=>setTimeout(r,30));}
+  for(const [id,target] of [['windToggle','cyclone'],['rainToggle','rain'],['terrainToggle','terrain'],['trackToggle','track']]){const checked=$(id).checked;$(id).checked=!checked;$(id).dispatchEvent(new Event('change'));assert('圖層 '+id,$(target).style.opacity===(!checked?'1':'0'));$(id).checked=checked;$(id).dispatchEvent(new Event('change'));await new Promise(r=>setTimeout(r,30));}
+  audioContext??=new(window.AudioContext||window.webkitAudioContext)();await audioContext.resume();soundEnabled=true;for(const kind of ['click','snap','chord'])await tone(kind);audioResult=audioContext.state;
+  $('scenario').value=original.scenario;setScenario();progress=.48;playing=true;syncPlay();$(original.view).click();
+ }catch(e){runtimeErrors.push('Audit: '+e.message);}
+ await new Promise(resolve=>setTimeout(resolve,200));
+ const sampleStart=performance.now();performance.mark('audit-measurement-start');workDurations.length=0;requestAnimationFrame(collect);
+ await new Promise(resolve=>setTimeout(resolve,10000));window.auditRunning=false;performance.mark('audit-measurement-end');
+ const percentile=(arr,p)=>{if(!arr.length)return null;const sorted=[...arr].sort((a,b)=>a-b);return sorted[Math.min(sorted.length-1,Math.floor((sorted.length-1)*p))];};
+ const nav=performance.getEntriesByType('navigation')[0],resources=performance.getEntriesByType('resource').filter(r=>!r.name.includes('/qa-'));
+ const result={schemaVersion:2,startedAt,endedAt:new Date().toISOString(),durationMs:performance.now()-start,sampleDurationMs:performance.now()-sampleStart,setupDurationMs:sampleStart-start,sampleStartMs:sampleStart,environment:{userAgent:navigator.userAgent,viewport:innerWidth+'×'+innerHeight,devicePixelRatio,foreground:!hidden,mode:navigator.webdriver?'automated browser':'browser session'},functionalTests:tests,runtimeErrors:[...runtimeErrors],consoleWarnings:[...runtimeWarnings],audio:{state:audioResult,noteDurationMs:120,externalAudioBytes:0,baseLatencySeconds:audioContext?.baseLatency??null,outputLatencySeconds:audioContext?.outputLatency??null,physicalLatencyMeasured:false},frames:{count:times.length,medianMs:percentile(times,.5),p95Ms:percentile(times,.95),maxMs:times.length?Math.max(...times):null,over20ms:times.filter(t=>t>20).length,estimatedFps:1000/percentile(times,.5)},animationWork:{count:workDurations.length,medianMs:percentile(workDurations,.5),p95Ms:percentile(workDurations,.95),scope:'Synchronous animation callback only; excludes deferred layout and paint'},longTasks:longTasks.slice(longStart).filter(t=>t.startTime>=sampleStart),setupLongTasks:longTasks.slice(longStart).filter(t=>t.startTime<sampleStart),network:{navigationTransferBytes:nav?.transferSize??null,encodedBodyBytes:nav?.encodedBodySize??null,decodedBodyBytes:nav?.decodedBodySize??null,resourceCount:resources.length,resourceTransferBytes:resources.reduce((s,r)=>s+r.transferSize,0),resources:resources.map(r=>({url:r.name,type:r.initiatorType,transferBytes:r.transferSize})),savingsBaselineAvailable:false}};
+ try{localStorage.setItem('typhoon-audit',JSON.stringify(result));}catch{}window.typhoonAudit=result;
+ $('scenario').value=original.scenario;setScenario();progress=original.progress;playing=original.playing;soundEnabled=original.soundEnabled;$('sound').textContent=soundEnabled?'音效 開':'音效 關';$('sound').setAttribute('aria-pressed',String(soundEnabled));syncPlay();updateScene();$('startAudit').disabled=false;
+ $('auditStatus').textContent='已完成 '+tests.filter(t=>t.pass).length+'/'+tests.length+' 項 · 錯誤 '+runtimeErrors.length+' · '+(hidden?'曾離開前景，請重測':'結果已存至檢測報告');
+ window.dispatchEvent(new CustomEvent('auditcomplete',{detail:result}));return result;
+};
+$('startAudit').onclick=()=>window.runAudit();
+
 setScenario();syncPlay();requestAnimationFrame(animate);
 
 </script>

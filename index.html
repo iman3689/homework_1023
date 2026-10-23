@@ -1,0 +1,472 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="純 SVG 颱風與台灣地形互動教學工作台">
+<title>風域 · TYPHOON LAB</title>
+<style>
+:root{color-scheme:dark;--bg:#090f19;--panel:#101d2b;--line:#263747;--text:#e1edf4;--muted:#8ca2b5;--cyan:#71e8cd;--amber:#efba79;--ease:cubic-bezier(.34,1.56,.64,1)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:14px/1.65 'Segoe UI','Microsoft JhengHei',sans-serif}
+button,select,input{font:inherit}
+button,select{background:#172839;color:var(--text);border:1px solid #365064;border-radius:7px;padding:8px 11px}
+button{cursor:pointer;transition:transform .22s var(--ease),background .2s}
+button:hover{transform:scale(1.03);background:#254339}
+button:active{transform:scale(.97)}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:4px}
+a{color:var(--cyan);text-decoration:none}
+a:hover{text-decoration:underline}
+header{padding:18px 28px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;gap:20px}
+.brand{display:flex;align-items:center;gap:13px}
+.logo{width:42px;height:42px;border:1px solid #4c7468;border-radius:50%;display:grid;place-items:center;font-size:25px;color:var(--cyan)}
+h1{font-size:23px;letter-spacing:.12em;margin:0}
+h1 small{font-size:12px;font-weight:400;letter-spacing:.08em}
+.brand p{font-size:9px;letter-spacing:.2em;color:var(--muted);margin:2px 0}
+nav{display:flex;gap:20px;align-items:center;font-size:12px}
+.badge{border:1px solid #35554b;color:var(--cyan);border-radius:20px;padding:4px 10px;font:9px Consolas,monospace}
+.shell{max-width:1800px;margin:auto;padding:23px 28px}
+.intro{display:flex;align-items:end;justify-content:space-between;margin-bottom:18px}
+.eyebrow{font:10px Consolas,monospace;color:var(--cyan);letter-spacing:.18em}
+h2{font-weight:500;font-size:26px;margin:5px 0 0}
+.intro p{color:var(--muted);font-size:12px;margin:0}
+.workspace{display:grid;grid-template-columns:215px minmax(350px,1fr) 245px;gap:16px}
+.panel{border:1px solid var(--line);border-radius:12px;background:linear-gradient(130deg,#132231,#0e1926)}
+.sidebar,.stats{padding:19px}
+.section-label{display:flex;justify-content:space-between;font-size:10px;letter-spacing:.13em;color:var(--muted);margin-bottom:15px}
+.section-label b{font-weight:400;color:#61798e}
+.field label{display:block;font-size:12px;margin-bottom:8px}
+.field select{width:100%;font-size:12px}
+.scenario-copy,.small{color:var(--muted);font-size:11px}
+.scenario-copy{min-height:55px}
+.divider{height:1px;background:var(--line);margin:20px 0}
+.toggle{display:flex;align-items:center;justify-content:space-between;margin:14px 0;font-size:12px;cursor:pointer}
+.toggle input{accent-color:var(--cyan);width:16px;height:16px}
+.dot{display:inline-block;width:6px;height:6px;background:var(--cyan);border-radius:50%;margin-right:8px}
+.hint{padding:11px;border-left:2px solid var(--cyan);background:#173038;color:#bad2cf;font-size:11px}
+.viewport{position:relative;overflow:hidden;background:radial-gradient(ellipse at center,#173e47 0%,#102737 40%,#0b1624 80%);min-height:500px}
+.viewport:before{content:'';position:absolute;inset:0;background-image:linear-gradient(#79b6cc09 1px,transparent 1px),linear-gradient(90deg,#79b6cc09 1px,transparent 1px);background-size:38px 38px;pointer-events:none}
+.canvas-head{position:absolute;top:17px;left:20px;z-index:2;font-size:12px}
+.canvas-head p{font:9px Consolas,monospace;color:var(--muted);margin:5px 0}
+.view-tools{position:absolute;right:14px;top:16px;display:flex;gap:5px;z-index:3}
+.view-tools button{font-size:10px;padding:5px 8px}
+.view-tools [aria-pressed=true]{background:#254a45;color:#b6f8e5;border-color:#588f80}
+#scene{position:relative;width:100%;height:500px;display:block}
+.world{transform-origin:400px 285px;transition:transform .7s ease-out}
+.perspective .world{transform:translateY(35px) rotate(-10deg) scaleY(.8)}
+.ocean-label{fill:#527b8a;font-size:11px;letter-spacing:5px}
+.map-label{fill:#d6ebe5;font-size:11px}
+.city{fill:#8df1d5;stroke:#12352f;stroke-width:3}
+.terrain-line{fill:none;stroke:#a1c8a1;stroke-width:.65;opacity:.45}
+.wind-path{fill:none;stroke:#99e7d6;stroke-width:1.6;stroke-linecap:round;opacity:.7}
+.rainband{fill:none;stroke:#7cbee8;stroke-width:19;opacity:.13}
+.storm-track{fill:none;stroke:var(--amber);stroke-width:1.7;stroke-dasharray:4 8}
+.draw-path{stroke-dasharray:1;stroke-dashoffset:1;animation:draw 1s ease-out forwards}
+@keyframes draw{to{stroke-dashoffset:0}
+}
+@keyframes bounce{50%{transform:scale(1.3)}
+100%{transform:scale(1)}
+}
+.saved svg{animation:bounce .5s var(--ease)}
+.canvas-bottom{position:absolute;bottom:17px;left:20px;right:20px;display:flex;justify-content:space-between;align-items:end;pointer-events:none}
+.legend{display:flex;gap:14px;color:#9eb9c8;font-size:9px}
+.legend i{width:12px;height:2px;display:inline-block;vertical-align:middle;margin-right:5px}
+.compass{color:#7e9fae;text-align:center;font:9px Consolas,monospace}
+.compass span{display:block;font-size:26px;color:#c1e9df}
+.metric{padding:12px 0 16px;border-bottom:1px solid var(--line)}
+.label{font-size:11px;color:var(--muted)}
+.value{font-size:35px;line-height:1.5;font-weight:300;letter-spacing:-.04em}
+.value small{font-size:11px;color:var(--muted);letter-spacing:0;margin-left:5px}
+.sub{font-size:10px;color:var(--cyan)}
+.amber .value{color:var(--amber)}
+.bar{height:3px;background:#293d48;margin-top:8px;overflow:hidden}
+.bar span{height:100%;background:var(--cyan);display:block;transform-origin:left}
+.insight h3{font-size:12px;font-weight:500;margin:16px 0 8px}
+.insight p{font-size:11px;color:var(--muted);margin:0}
+.transport{grid-column:1/-1;display:grid;grid-template-columns:180px 1fr 245px;gap:20px;align-items:center;padding:16px 20px}
+.play-group{display:flex;gap:12px;align-items:center}
+.primary{background:var(--cyan);color:#092b25;border-color:var(--cyan);font-weight:600}
+.primary:hover{background:#a5f3df}
+.time-value{font:12px Consolas,monospace;white-space:nowrap}
+.time-value small{display:block;font-size:8px;color:var(--muted);margin-top:5px}
+.timeline label{font-size:10px;color:var(--muted)}
+input[type=range]{width:100%;accent-color:var(--cyan);cursor:pointer}
+.ticks{display:flex;justify-content:space-between;font:9px Consolas,monospace;color:#7e99ac}
+.transport-end{display:flex;justify-content:end;gap:7px}
+.transport-end select{font-size:10px;max-width:90px}
+.bottomline{display:flex;justify-content:space-between;gap:15px;font-size:10px;color:#7c93a6;margin-top:13px}
+.text-button{border:0;background:none;padding:0;color:var(--muted);font-size:10px}
+.learning{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:24px}
+.learn-item{border-top:1px solid var(--line);padding:17px 0;display:flex;gap:14px}
+.number{color:var(--cyan);font:11px Consolas,monospace}
+h3{font-size:13px;font-weight:500;margin:0 0 6px}
+.learn-item p{font-size:11px;color:var(--muted);margin:0}
+.foot{display:flex;justify-content:space-between;gap:15px;font-size:10px;color:var(--muted);padding-top:10px}
+.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);padding:10px 20px;border:1px solid #68b69c;background:#23453a;border-radius:7px;z-index:20}
+.capture .learning,.capture .foot{display:none}
+@media(min-width:1600px){#scene{height:570px}
+.viewport{min-height:570px}
+.sidebar,.stats{padding:24px}
+.metric{padding:18px 0 23px}
+.scenario-copy{min-height:85px}
+}
+@media(max-width:1100px){.workspace{grid-template-columns:185px minmax(300px,1fr)}
+.stats{grid-column:1/-1;display:grid;grid-template-columns:repeat(4,1fr);gap:18px}
+.stats>.section-label{display:none}
+.metric{border:0;padding:0}
+.insight h3{margin-top:0}
+.transport{grid-template-columns:150px 1fr 220px}
+nav .badge{display:none}
+}
+@media(max-width:700px){header{padding:15px}
+h1{font-size:20px}
+h1 small{font-size:10px}
+nav{gap:10px;font-size:11px}
+nav a:last-child{display:none}
+.shell{padding:16px}
+.intro{display:block}
+.intro p{margin-top:7px}
+.workspace{display:flex;flex-direction:column}
+.sidebar{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:15px}
+.sidebar>.section-label,.sidebar>.divider,.sidebar>.hint{display:none}
+.layers{grid-column:2;grid-row:1}
+.toggle{margin:6px 0}
+.sidebar>.small{grid-column:1/-1;margin:0}
+.scenario-copy{min-height:0}
+.viewport{min-height:410px}
+#scene{height:410px}
+.view-tools{top:51px}
+.stats{grid-template-columns:repeat(3,1fr);padding:15px;gap:12px}
+.value{font-size:27px}
+.insight{grid-column:1/-1}
+.transport{display:flex;flex-wrap:wrap;gap:12px;padding:15px}
+.timeline{order:3;width:100%}
+.transport-end{margin-left:auto}
+.learning{display:block}
+.bottomline,.foot{flex-wrap:wrap}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}
+}
+@media print{header,.sidebar,.transport,.foot{display:none}
+.workspace{display:block}
+.viewport{break-inside:avoid}
+.stats{display:flex;gap:25px}
+body{print-color-adjust:exact}
+}
+
+
+@media(max-width:700px){header{flex-wrap:wrap;gap:10px}.brand{min-width:0}.workspace>*{min-width:0;width:100%}.sidebar{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr)}.field,.layers{min-width:0}.field select{min-width:0;max-width:100%;padding:7px 4px;font-size:10px}.toggle{font-size:10px}.layers .section-label{font-size:9px}.transport-end{flex-wrap:wrap}.stats{grid-template-columns:repeat(3,minmax(0,1fr))}.stats .small{font-size:9px}.bottomline span{overflow-wrap:anywhere}.foot{flex-direction:column}}
+</style>
+</head>
+<body>
+<header>
+<div class="brand">
+<div class="logo" aria-hidden="true">◉</div>
+<div>
+<h1>風域 <small>TYPHOON LAB</small>
+</h1>
+<p>TAIWAN · INTERACTIVE EARTH SCIENCE</p>
+</div>
+</div>
+<nav aria-label="主要導覽">
+<span class="badge">SVG / ZERO DEPENDENCIES</span>
+<a href="review.html">檢測報告 ↗</a>
+<a href="pointout.html">原始碼透視 ↗</a>
+</nav>
+</header>
+<main class="shell">
+<div class="intro">
+<div>
+<div class="eyebrow">EXPERIMENT 01 / ATMOSPHERIC DYNAMICS</div>
+<h2>當颱風，遇上台灣。</h2>
+</div>
+<p>移動時間軸，觀察環流與山脈如何改變風雨。</p>
+</div>
+<div class="workspace">
+<aside class="panel sidebar">
+<div class="section-label">情境控制 <b>01 / SETUP</b>
+</div>
+<div class="field">
+<label for="scenario">颱風路徑情境</label>
+<select id="scenario">
+<option value="cross">東部登陸 · 穿越台灣</option>
+<option value="north">東側北上 · 沿海掠過</option>
+<option value="south">南側通過 · 西南氣流</option>
+</select>
+<p class="scenario-copy" id="scenarioCopy">
+</p>
+</div>
+<div class="divider">
+</div>
+<div class="layers">
+<div class="section-label">觀測圖層 <b>LAYERS</b>
+</div>
+<label class="toggle">
+<span>
+<i class="dot">
+</i>風場流線</span>
+<input id="windToggle" type="checkbox" checked>
+</label>
+<label class="toggle">
+<span>
+<i class="dot" style="background:#7cbee8">
+</i>環流雨帶</span>
+<input id="rainToggle" type="checkbox" checked>
+</label>
+<label class="toggle">
+<span>
+<i class="dot" style="background:#d3c791">
+</i>立體地形</span>
+<input id="terrainToggle" type="checkbox" checked>
+</label>
+<label class="toggle">
+<span>
+<i class="dot" style="background:#efba79">
+</i>情境路徑</span>
+<input id="trackToggle" type="checkbox" checked>
+</label>
+</div>
+<div class="divider">
+</div>
+<div class="hint">探索提示<br>颱風最接近時，暫停並切換視角，找出山脈的迎風側。</div>
+<p class="small">教學示意模型，非即時氣象資料；地圖、路徑與影響指數皆為簡化表達。</p>
+</aside>
+<section class="panel viewport perspective" id="viewport" aria-label="台灣與颱風三維向量視覺化">
+<div class="canvas-head">台灣周邊海域<p>SCHEMATIC TERRAIN / NOT TO SCALE</p>
+</div>
+<div class="view-tools">
+<button id="view3d" aria-pressed="true">3D 透視</button>
+<button id="view2d" aria-pressed="false">俯視</button>
+<button id="fullscreen" aria-label="全螢幕展示">⛶</button>
+</div>
+<svg id="scene" viewBox="0 0 800 570" role="img" aria-labelledby="mapTitle mapDesc">
+<title id="mapTitle">台灣地形與颱風環流示意</title>
+<desc id="mapDesc">逆時針颱風沿虛線移動，台灣中央山脈以向量山脊呈現。</desc>
+<defs>
+<linearGradient id="land" x1="0" y1="1" x2="1" y2="0">
+<stop stop-color="#255348"/>
+<stop offset=".5" stop-color="#4b8168"/>
+<stop offset="1" stop-color="#95aa88"/>
+</linearGradient>
+<radialGradient id="stormGlow">
+<stop stop-color="#87d8df" stop-opacity=".3"/>
+<stop offset="1" stop-color="#70b3d0" stop-opacity="0"/>
+</radialGradient>
+<pattern id="seaGrid" width="60" height="60" patternUnits="userSpaceOnUse">
+<path d="M60 0H0V60" fill="none" stroke="#548b9b" stroke-opacity=".15" stroke-width=".6"/>
+</pattern>
+<path id="island" d="M451 107 463 115 468 129 460 143 455 160 447 179 441 203 435 224 425 250 419 276 405 303 397 330 380 359 366 386 351 410 338 428 331 451 322 453 315 437 302 419 300 399 291 379 292 360 285 340 290 316 296 296 301 279 309 263 317 244 327 227 338 209 350 190 362 171 379 154 395 141 411 132 425 120 438 120Z"/>
+<clipPath id="islandClip">
+<use href="#island"/>
+</clipPath>
+</defs>
+<g class="world">
+<ellipse cx="385" cy="360" rx="100" ry="150" fill="#000" opacity=".16" transform="rotate(24 385 360)"/>
+<rect x="60" y="60" width="680" height="470" fill="url(#seaGrid)"/>
+<text x="119" y="278" class="ocean-label" transform="rotate(-65 119 278)">TAIWAN STRAIT</text>
+<text x="520" y="470" class="ocean-label">PACIFIC OCEAN</text>
+<g opacity=".3" stroke="#5e9d9d" fill="none">
+<ellipse cx="380" cy="280" rx="134" ry="226" transform="rotate(24 380 280)"/>
+<ellipse cx="380" cy="280" rx="151" ry="245" transform="rotate(24 380 280)" stroke-dasharray="2 6"/>
+</g>
+<use href="#island" fill="#153a33" transform="translate(0 15)" stroke="#759f82" stroke-opacity=".4"/>
+<use href="#island" fill="url(#land)" stroke="#9aceaa" stroke-width="1.3"/>
+<g id="terrain" clip-path="url(#islandClip)">
+<g id="terrainMesh">
+</g>
+<path d="M437 143 418 179 409 199 395 222 393 250 378 279 365 302 354 331 344 365 328 407" stroke="#e0cf97" stroke-width="2" fill="none"/>
+<g id="contours">
+</g>
+</g>
+<g id="track">
+<path id="route" class="storm-track" d="M672 404 Q489 350 414 262 T207 176"/>
+<g id="trackPoints" fill="#efba79">
+</g>
+</g>
+<g id="stormPosition">
+<circle r="155" fill="url(#stormGlow)"/>
+<circle r="104" fill="none" stroke="#7cbee8" stroke-opacity=".2"/>
+<g id="rain">
+</g>
+<g id="cyclone">
+</g>
+<circle r="14" fill="#102635" stroke="#b8eee2" stroke-width="1.3"/>
+<circle r="3" fill="#d8f9ed"/>
+<g transform="translate(24 -28)">
+<rect width="104" height="38" rx="5" fill="#111e2b" stroke="#3c626d"/>
+<text x="10" y="15" fill="#e5f3ef" font-size="10">情境颱風 / SIM</text>
+<text x="10" y="29" fill="#85aeba" font-size="9">逆時針環流 ↺</text>
+</g>
+</g>
+<g class="map-label">
+<circle cx="438" cy="141" r="4" class="city"/>
+<text x="454" y="139">台北</text>
+<circle cx="320" cy="282" r="4" class="city"/>
+<text x="268" y="282">台中</text>
+<circle cx="313" cy="387" r="4" class="city"/>
+<text x="263" y="393">高雄</text>
+<circle cx="424" cy="254" r="4" class="city"/>
+<text x="439" y="256">花蓮</text>
+<text x="371" y="322" fill="#e1d9a8" font-size="9" transform="rotate(-65 371 322)">中央山脈</text>
+</g>
+<path d="M418 208 493 172H548" fill="none" stroke="#8aacab" stroke-width=".7"/>
+<text x="499" y="164" fill="#b1ccbf" font-size="9">山脈抬升 · 迎風增雨</text>
+<g fill="#6bbaa8" opacity=".7">
+<ellipse cx="224" cy="346" rx="5" ry="9"/>
+<ellipse cx="211" cy="361" rx="4" ry="5"/>
+</g>
+</g>
+</svg>
+<div class="canvas-bottom">
+<div class="legend">
+<span>
+<i style="background:#71e8cd">
+</i>風場</span>
+<span>
+<i style="background:#7cbee8">
+</i>雨帶</span>
+<span>
+<i style="background:#efba79">
+</i>路徑</span>
+</div>
+<div class="compass">N<span>↑</span>VECTOR 3D</div>
+</div>
+</section>
+<aside class="panel stats">
+<div class="section-label">情境觀測 <b>02 / OBSERVE</b>
+</div>
+<div class="metric">
+<div class="label">環流接近指數</div>
+<div class="value">
+<span id="proximity">—</span>
+<small>/ 100</small>
+</div>
+<div class="sub" id="phase">外圍環流接近中</div>
+<div class="bar">
+<span id="proximityBar">
+</span>
+</div>
+</div>
+<div class="metric amber">
+<div class="label">地形增雨示意</div>
+<div class="value" id="rainLevel">中等</div>
+<div class="sub" id="windward">東側山坡 · 迎風面</div>
+</div>
+<div class="metric">
+<div class="label">即時影格取樣</div>
+<div class="value">
+<span id="fps">—</span>
+<small>FPS</small>
+</div>
+<div class="small">
+<span id="frameMs">—</span> ms / RAF 間隔中位數</div>
+</div>
+<div class="insight">
+<h3>山脈，是風雨的分界。</h3>
+<p>潮濕氣流遇山坡上升，水氣凝結；迎風側常出現較強降雨。實際分布仍受路徑與環流結構影響。</p>
+</div>
+</aside>
+<section class="panel transport" aria-label="播放控制">
+<div class="play-group">
+<button id="play" class="primary">Ⅱ 暫停</button>
+<div id="timeLabel" class="time-value">T + 16.8 h<small>SCENARIO TIME</small>
+</div>
+</div>
+<div class="timeline">
+<label for="scrubber">情境進程（0–48 小時）</label>
+<input id="scrubber" type="range" min="0" max="1000" value="350" aria-label="情境時間軸">
+<div class="ticks">
+<span>00h 接近</span>
+<span>12h</span>
+<span>24h 最接近</span>
+<span>36h</span>
+<span>48h 遠離</span>
+</div>
+</div>
+<div class="transport-end">
+<select id="speed" aria-label="播放速度">
+<option value="1">1× 速度</option>
+<option value="2">2× 速度</option>
+<option value=".5">0.5× 速度</option>
+</select>
+<button id="sound" aria-pressed="false">音效 關</button>
+<button id="bookmark" aria-label="收藏目前情境" aria-pressed="false">
+<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+<path id="starPath" pathLength="1" d="m12 2 3 6 7 1-5 5 1 8-6-4-6 4 1-8-5-5 7-1Z"/>
+</svg>
+</button>
+</div>
+</section>
+</div>
+<div class="bottomline">
+<span>
+<i class="dot">
+</i>教學情境模擬 · 無外部圖片與音檔</span>
+<span>SVG TERRAIN / WEB AUDIO / RAF</span>
+<button id="captureMode" class="text-button">切換截圖模式</button>
+</div>
+<section class="learning" aria-label="原理導讀">
+<article class="learn-item">
+<span class="number">01</span>
+<div>
+<h3>旋轉的空氣</h3>
+<p>北半球颱風環流呈逆時針旋轉。路徑決定各地接收到的風向與水氣。</p>
+</div>
+</article>
+<article class="learn-item">
+<span class="number">02</span>
+<div>
+<h3>被抬升的水氣</h3>
+<p>中央山脈改變風雨分布；迎風側的地形抬升，往往使降雨增強。</p>
+</div>
+</article>
+<article class="learn-item">
+<span class="number">03</span>
+<div>
+<h3>改變中的影響</h3>
+<p>切換三條路徑，比較迎風側的轉移。圖中指數是情境參數，並非預報。</p>
+</div>
+</article>
+</section>
+<footer class="foot">
+<span>科普參考：<a href="https://pweb.cwa.gov.tw/PopularScience/wt/wt_30.html" target="_blank" rel="noopener">中央氣象署 · 臺灣大風吹 ↗</a>
+</span>
+<span>風域 / A SMALL LAB FOR BIG WEATHER</span>
+</footer>
+</main>
+<div id="toast" class="toast" role="status" hidden>
+</div>
+<script>
+
+'use strict';
+const $=id=>document.getElementById(id),NS='http://www.w3.org/2000/svg';
+// Local SVG geometry: no external media requests.
+function svgNode(tag,attrs,parent){const n=document.createElementNS(NS,tag);for(const [k,v] of Object.entries(attrs))n.setAttribute(k,v);parent.append(n);return n;}
+for(let i=0;i<29;i++){const y=130+i*11,x=445-i*4.2;svgNode('path',{d:'M'+(x-100)+' '+(y+34)+' Q'+(x-8)+' '+(y-35)+' '+(x+61)+' '+(y+27),class:'terrain-line'},$('contours'));}
+for(let i=0;i<28;i++){const y=145+i*10,x=439-i*3.9,peak=13+Math.sin(i*2.3)*8;svgNode('path',{d:'M'+(x-35)+' '+(y+24)+' L'+x+' '+(y-peak)+' L'+(x+15)+' '+(y+35)+'Z',fill:i%2?'#bdd3aa':'#1d4f45',opacity:i%2?'.2':'.4',stroke:'#a3c9a1','stroke-width':'.5'},$('terrainMesh'));}
+for(let arm=0;arm<7;arm++){let d='';for(let j=0;j<=60;j++){const r=22+j*1.9,a=arm*Math.PI*2/7-j*.046;d+=(j?'L':'M')+(Math.cos(a)*r).toFixed(2)+' '+(Math.sin(a)*r).toFixed(2)+' ';}svgNode('path',{d,class:'wind-path'},$('cyclone'));if(arm%2===0)svgNode('path',{d,class:'rainband'},$('rain'));}
+const scenarios={cross:{d:'M672 404 Q489 350 414 262 T207 176',points:[[672,404],[510,352],[414,262],[320,196],[207,176]],copy:'由東南方接近，穿越中央山脈；觀察迎風面隨環流改變。',wind:['東側山坡 · 迎風面','西側山坡 · 迎風面']},north:{d:'M650 455 Q560 300 506 204 T518 70',points:[[650,455],[568,320],[506,204],[500,132],[518,70]],copy:'沿台灣東側海面北上，觀察東部與北部山區的迎風效應。',wind:['東側山坡 · 迎風面','北側山坡 · 迎風面']},south:{d:'M680 448 Q488 478 364 444 T120 380',points:[[680,448],[516,462],[364,444],[240,408],[120,380]],copy:'從台灣南側向西移動；後期以西南側水氣增強作教學示意。',wind:['東南山坡 · 迎風面','西南山坡 · 迎風面']}};
+const reduced=matchMedia('(prefers-reduced-motion: reduce)').matches;
+let playing=!reduced,progress=.35,last=0,rotation=0,soundEnabled=false,audioContext,frames=[],lastMetrics=0,lastUI=0,toastTimer,scrubSoundAt=0,routeLength=0;
+function notify(message){$('toast').textContent=message;$('toast').hidden=false;clearTimeout(toastTimer);toastTimer=setTimeout(()=>$('toast').hidden=true,2600);}
+// Independent oscillator/envelope per note allows overlapping rapid clicks.
+async function tone(kind='click'){if(!soundEnabled)return;try{audioContext??=new (window.AudioContext||window.webkitAudioContext)();await audioContext.resume();const t=audioContext.currentTime;for(const [i,f] of (kind==='chord'?[523.25,659.25,783.99]:kind==='snap'?[880]:[1200]).entries()){const o=audioContext.createOscillator(),g=audioContext.createGain();o.type='sine';o.frequency.setValueAtTime(f,t);o.frequency.exponentialRampToValueAtTime(f*.65,t+.08);g.gain.setValueAtTime(.0001,t);g.gain.exponentialRampToValueAtTime(.055/(i+1),t+.006);g.gain.exponentialRampToValueAtTime(.0001,t+.1);o.connect(g).connect(audioContext.destination);o.start(t);o.stop(t+.12);o.onended=()=>{o.disconnect();g.disconnect();};}}catch{soundEnabled=false;$('sound').textContent='音效 不可用';$('sound').setAttribute('aria-pressed','false');notify('音效未能啟用，請確認瀏覽器音訊權限。');}}
+function updateScene(){const p=$('route').getPointAtLength(routeLength*progress);$('stormPosition').setAttribute('transform','translate('+p.x+' '+p.y+')');const proximity=Math.round(100*Math.exp(-Math.pow((progress-.55)/.31,2)));$('proximity').textContent=proximity;$('proximityBar').style.transform='scaleX('+(proximity/100)+')';$('rainLevel').textContent=proximity>78?'強烈':proximity>35?'中等':'微弱';$('phase').textContent=progress<.48?'外圍環流接近中':progress<.65?'環流最接近台灣':'環流逐漸遠離';$('windward').textContent=scenarios[$('scenario').value].wind[progress<.62?0:1];$('timeLabel').replaceChildren(document.createTextNode('T + '+(progress*48).toFixed(1)+' h'),Object.assign(document.createElement('small'),{textContent:'SCENARIO TIME'}));$('scrubber').value=Math.round(progress*1000);}
+function setScenario(){const s=scenarios[$('scenario').value];$('route').setAttribute('d',s.d);routeLength=$('route').getTotalLength();$('trackPoints').replaceChildren();for(const [x,y] of s.points)svgNode('circle',{cx:x,cy:y,r:3},$('trackPoints'));$('scenarioCopy').textContent=s.copy;frames=[];updateScene();tone('snap');}
+function syncPlay(){$('play').textContent=playing?'Ⅱ 暫停':'▶ 播放';$('play').setAttribute('aria-label',playing?'暫停動畫':'播放動畫');}
+$('play').onclick=()=>{playing=!playing;syncPlay();tone();};$('scenario').onchange=setScenario;
+$('scrubber').oninput=()=>{progress=Number($('scrubber').value)/1000;updateScene();if(performance.now()-scrubSoundAt>140){tone('snap');scrubSoundAt=performance.now();}};
+for(const [id,target] of [['windToggle','cyclone'],['rainToggle','rain'],['terrainToggle','terrain'],['trackToggle','track']])$(id).onchange=()=>{$(target).style.opacity=$(id).checked?'1':'0';tone();};
+for(const [id,is3d] of [['view3d',true],['view2d',false]])$(id).onclick=()=>{$('viewport').classList.toggle('perspective',is3d);$('view3d').setAttribute('aria-pressed',String(is3d));$('view2d').setAttribute('aria-pressed',String(!is3d));tone('snap');};
+$('sound').onclick=()=>{soundEnabled=!soundEnabled;$('sound').textContent=soundEnabled?'音效 開':'音效 關';$('sound').setAttribute('aria-pressed',String(soundEnabled));tone('chord');};
+$('bookmark').onclick=()=>{const saved=$('bookmark').getAttribute('aria-pressed')!=='true';$('bookmark').setAttribute('aria-pressed',String(saved));$('bookmark').classList.toggle('saved',saved);$('starPath').classList.toggle('draw-path',saved);$('starPath').setAttribute('fill',saved?'#efba79':'none');try{saved?localStorage.setItem('typhoon-bookmark',JSON.stringify({scenario:$('scenario').value,progress})):localStorage.removeItem('typhoon-bookmark');}catch{}notify(saved?'已收藏目前路徑與時間；下次開啟將恢復。':'已移除收藏');tone('chord');};
+$('fullscreen').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch{notify('此瀏覽器未允許全螢幕，可使用 F11。');}};
+$('captureMode').onclick=()=>document.body.classList.toggle('capture');
+// RAF cadence measures scheduling intervals, not JS task execution time.
+function animate(now){const dt=last?now-last:0;last=now;if(!document.hidden&&dt>0&&dt<250){frames.push(dt);if(frames.length>180)frames.shift();if(playing){progress=(progress+dt*.000018*Number($('speed').value))%1;if(!reduced){rotation-=dt*.018;$('cyclone').setAttribute('transform','rotate('+rotation+')');$('rain').setAttribute('transform','rotate('+(rotation*.7)+')');}if(now-lastUI>60){updateScene();lastUI=now;}}if(now-lastMetrics>1000&&frames.length>15){const sorted=[...frames].sort((a,b)=>a-b),median=sorted[Math.floor(sorted.length/2)],p95=sorted[Math.floor(sorted.length*.95)];$('fps').textContent=Math.round(1000/median);$('frameMs').textContent=median.toFixed(1);const measurement={sampledAt:new Date().toISOString(),sampleCount:frames.length,rafMedianMs:median,rafP95Ms:p95,estimatedFps:1000/median,viewport:innerWidth+'×'+innerHeight,userAgent:navigator.userAgent,visible:!document.hidden};try{localStorage.setItem('typhoon-metrics',JSON.stringify(measurement));}catch{}window.typhoonMetrics=measurement;lastMetrics=now;}}requestAnimationFrame(animate);}
+document.addEventListener('visibilitychange',()=>{last=0;frames=[];});
+try{const saved=JSON.parse(localStorage.getItem('typhoon-bookmark'));if(saved&&scenarios[saved.scenario]&&Number.isFinite(saved.progress)){$('scenario').value=saved.scenario;progress=Math.max(0,Math.min(1,saved.progress));$('bookmark').setAttribute('aria-pressed','true');$('starPath').setAttribute('fill','#efba79');}}catch{}
+setScenario();syncPlay();requestAnimationFrame(animate);
+
+</script>
+</body>
+</html>

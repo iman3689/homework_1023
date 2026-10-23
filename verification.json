@@ -1,0 +1,10 @@
+{
+  "testTime": "2026-10-23T07:03:20.225Z",
+  "viewport": "1582×1004",
+  "operationPasses": 13,
+  "operationTotal": 13,
+  "pageErrorCount": 0,
+  "estimatedFps": 59.9,
+  "frameMedianMs": 16.7,
+  "frameP95Ms": 16.7
+}
